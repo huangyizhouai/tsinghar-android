@@ -1,0 +1,200 @@
+import type { Express } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { z } from "zod";
+import { 
+  insertReasonSchema, 
+  insertForumPostSchema,
+  insertForumCommentSchema
+} from "@shared/schema";
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  // API routes
+  
+  // Get current user streak
+  app.get("/api/streak", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const streak = await storage.getStreak(userId);
+      
+      if (!streak) {
+        return res.status(404).json({ message: "Streak not found" });
+      }
+      
+      res.json(streak);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get streak" });
+    }
+  });
+  
+  // Reset streak
+  app.post("/api/streak/reset", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const streak = await storage.resetStreak(userId);
+      res.json(streak);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to reset streak" });
+    }
+  });
+  
+  // Get reasons
+  app.get("/api/reasons", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const reasons = await storage.getReasons(userId);
+      res.json(reasons);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get reasons" });
+    }
+  });
+  
+  // Add reason
+  app.post("/api/reasons", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const data = insertReasonSchema.parse({ ...req.body, userId });
+      const reason = await storage.addReason(data);
+      res.json(reason);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to add reason" });
+    }
+  });
+  
+  // Delete reason
+  app.delete("/api/reasons/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteReason(id);
+      
+      if (!success) {
+        return res.status(404).json({ message: "Reason not found" });
+      }
+      
+      res.json({ success });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete reason" });
+    }
+  });
+  
+  // Get forum posts
+  app.get("/api/posts", async (req, res) => {
+    try {
+      const posts = await storage.getAllPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get posts" });
+    }
+  });
+  
+  // Get single post
+  app.get("/api/posts/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const post = await storage.getPost(id);
+      
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get post" });
+    }
+  });
+  
+  // Create post
+  app.post("/api/posts", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const data = insertForumPostSchema.parse({ ...req.body, userId });
+      const post = await storage.createPost(data);
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create post" });
+    }
+  });
+  
+  // Upvote post
+  app.post("/api/posts/:id/upvote", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const post = await storage.upvotePost(id);
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to upvote post" });
+    }
+  });
+  
+  // Get post comments
+  app.get("/api/posts/:id/comments", async (req, res) => {
+    try {
+      const postId = parseInt(req.params.id);
+      const comments = await storage.getPostComments(postId);
+      res.json(comments);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get comments" });
+    }
+  });
+  
+  // Add comment to post
+  app.post("/api/posts/:id/comments", async (req, res) => {
+    try {
+      const postId = parseInt(req.params.id);
+      const userId = 1; // Default user
+      const data = insertForumCommentSchema.parse({ ...req.body, postId, userId });
+      const comment = await storage.addComment(data);
+      res.json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to add comment" });
+    }
+  });
+  
+  // Get milestones
+  app.get("/api/milestones", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const milestones = await storage.getMilestones(userId);
+      res.json(milestones);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get milestones" });
+    }
+  });
+  
+  // Get progress
+  app.get("/api/progress", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const progress = await storage.getProgress(userId);
+      res.json(progress);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get progress" });
+    }
+  });
+  
+  // Mark article as completed
+  app.post("/api/articles/:id/complete", async (req, res) => {
+    try {
+      const articleId = req.params.id;
+      const userId = 1; // Default user
+      const progress = await storage.markArticleCompleted(userId, articleId);
+      res.json(progress);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to mark article as completed" });
+    }
+  });
+  
+  // Get article progress
+  app.get("/api/articles/progress", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const progress = await storage.getArticleProgress(userId);
+      res.json(progress);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get article progress" });
+    }
+  });
+
+  const httpServer = createServer(app);
+  return httpServer;
+}
