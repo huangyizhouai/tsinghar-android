@@ -8,6 +8,8 @@ import {
   progress, type Progress, type InsertProgress,
   articleProgress, type ArticleProgress, type InsertArticleProgress
 } from "@shared/schema";
+import { db } from "./db";
+import { eq, and } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -49,415 +51,247 @@ export interface IStorage {
   markArticleCompleted(userId: number, articleId: string): Promise<ArticleProgress>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private streaks: Map<number, Streak>;
-  private reasons: Map<number, Reason>;
-  private forumPosts: Map<number, ForumPost>;
-  private forumComments: Map<number, ForumComment>;
-  private milestones: Map<number, Milestone>;
-  private progressData: Map<number, Progress>;
-  private articleProgressData: Map<number, ArticleProgress>;
-  
-  currentUserId: number;
-  currentStreakId: number;
-  currentReasonId: number;
-  currentPostId: number;
-  currentCommentId: number;
-  currentMilestoneId: number;
-  currentProgressId: number;
-  currentArticleProgressId: number;
-
-  constructor() {
-    this.users = new Map();
-    this.streaks = new Map();
-    this.reasons = new Map();
-    this.forumPosts = new Map();
-    this.forumComments = new Map();
-    this.milestones = new Map();
-    this.progressData = new Map();
-    this.articleProgressData = new Map();
-    
-    this.currentUserId = 1;
-    this.currentStreakId = 1;
-    this.currentReasonId = 1;
-    this.currentPostId = 1;
-    this.currentCommentId = 1;
-    this.currentMilestoneId = 1;
-    this.currentProgressId = 1;
-    this.currentArticleProgressId = 1;
-
-    // Create default user
-    this.createUser({ username: "default", password: "password" });
-    
-    // Initialize with some data
-    const userId = 1;
-    
-    // Create default streak
-    this.createStreak({
-      userId,
-      startDate: new Date(),
-      currentStreak: 2,
-      bestStreak: 14
-    });
-    
-    // Add some reasons
-    this.addReason({ userId, reason: "To improve my mental clarity" });
-    this.addReason({ userId, reason: "To be more productive" });
-    this.addReason({ userId, reason: "To have better relationships" });
-    
-    // Add milestones
-    this.createMilestone({ userId, days: 1, achieved: true });
-    this.createMilestone({ userId, days: 7, achieved: false });
-    this.createMilestone({ userId, days: 30, achieved: false });
-    this.createMilestone({ userId, days: 90, achieved: false });
-    
-    // Add progress benefits
-    this.createProgress({ userId, benefit: "Improved Confidence", percentage: 2 });
-    this.createProgress({ userId, benefit: "Mental Clarity", percentage: 1 });
-    this.createProgress({ userId, benefit: "Better Sleep", percentage: 3 });
-    this.createProgress({ userId, benefit: "Increased Productivity", percentage: 1 });
-    
-    // Add some forum posts
-    this.createPost({
-      userId,
-      title: "I reached 90 days - Here's what changed",
-      content: "After three months of staying clean, I wanted to share my experience and the benefits I've noticed physically and mentally..."
-    });
-    
-    this.createPost({
-      userId,
-      title: "Need serious help - feeling low",
-      content: "I'm really struggling today. Had a stressful week at work and the urges are stronger than ever. Any advice on getting through this?"
-    });
-    
-    this.createPost({
-      userId,
-      title: "Weekly accountability check-in",
-      content: "Hey everyone, it's Sunday - time for our weekly check-in. How did you do this week? Any challenges, victories or goals for next week?"
-    });
-    
-    this.createPost({
-      userId,
-      title: "Book recommendation: Your Brain on Porn",
-      content: "Just finished reading \"Your Brain on Porn\" by Gary Wilson. Highly recommend it - it explains the science behind addiction in accessible ways..."
-    });
-    
-    // Upvote posts to different counts
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    this.upvotePost(1);
-    
-    this.upvotePost(2);
-    this.upvotePost(2);
-    this.upvotePost(2);
-    
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    this.upvotePost(3);
-    
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-    this.upvotePost(4);
-  }
-
-  // User methods
+export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
     return user;
   }
 
-  // Streak methods
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
   async getStreak(userId: number): Promise<Streak | undefined> {
-    return Array.from(this.streaks.values()).find(
-      (streak) => streak.userId === userId,
-    );
+    const [streak] = await db.select().from(streaks).where(eq(streaks.userId, userId));
+    return streak;
   }
 
   async createStreak(insertStreak: InsertStreak): Promise<Streak> {
-    const id = this.currentStreakId++;
-    const streak: Streak = { 
-      ...insertStreak, 
-      id,
-      lastUpdated: new Date() 
-    };
-    this.streaks.set(id, streak);
+    const [streak] = await db.insert(streaks).values(insertStreak).returning();
     return streak;
   }
 
   async updateStreak(userId: number, days: number): Promise<Streak> {
-    const streak = await this.getStreak(userId);
+    const [streak] = await db.select().from(streaks).where(eq(streaks.userId, userId));
+    
     if (!streak) {
       throw new Error("Streak not found");
     }
     
-    const updatedStreak: Streak = {
-      ...streak,
-      currentStreak: days,
-      bestStreak: Math.max(streak.bestStreak, days),
-      lastUpdated: new Date()
-    };
+    const [updatedStreak] = await db
+      .update(streaks)
+      .set({ 
+        currentStreak: days, 
+        bestStreak: Math.max(streak.bestStreak, days),
+        lastUpdated: new Date()
+      })
+      .where(eq(streaks.userId, userId))
+      .returning();
     
-    this.streaks.set(streak.id, updatedStreak);
     return updatedStreak;
   }
 
   async resetStreak(userId: number): Promise<Streak> {
-    const streak = await this.getStreak(userId);
-    if (!streak) {
+    const [updatedStreak] = await db
+      .update(streaks)
+      .set({
+        currentStreak: 0,
+        startDate: new Date(),
+        lastUpdated: new Date()
+      })
+      .where(eq(streaks.userId, userId))
+      .returning();
+    
+    if (!updatedStreak) {
       throw new Error("Streak not found");
     }
     
-    const updatedStreak: Streak = {
-      ...streak,
-      currentStreak: 0,
-      startDate: new Date(),
-      lastUpdated: new Date()
-    };
-    
-    this.streaks.set(streak.id, updatedStreak);
     return updatedStreak;
   }
 
-  // Reasons methods
   async getReasons(userId: number): Promise<Reason[]> {
-    return Array.from(this.reasons.values()).filter(
-      (reason) => reason.userId === userId,
-    );
+    const reasonsList = await db.select().from(reasons).where(eq(reasons.userId, userId));
+    return reasonsList;
   }
 
   async addReason(insertReason: InsertReason): Promise<Reason> {
-    const id = this.currentReasonId++;
-    const reason: Reason = { 
-      ...insertReason, 
-      id,
-      createdAt: new Date() 
-    };
-    this.reasons.set(id, reason);
+    const [reason] = await db.insert(reasons).values(insertReason).returning();
     return reason;
   }
 
   async deleteReason(id: number): Promise<boolean> {
-    return this.reasons.delete(id);
+    const result = await db.delete(reasons).where(eq(reasons.id, id)).returning();
+    return result.length > 0;
   }
 
-  // Forum methods
   async getAllPosts(): Promise<ForumPost[]> {
-    return Array.from(this.forumPosts.values()).sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    return db.select().from(forumPosts).orderBy(forumPosts.createdAt);
   }
 
   async getPost(id: number): Promise<ForumPost | undefined> {
-    return this.forumPosts.get(id);
+    const [post] = await db.select().from(forumPosts).where(eq(forumPosts.id, id));
+    return post;
   }
 
   async createPost(insertPost: InsertForumPost): Promise<ForumPost> {
-    const id = this.currentPostId++;
-    const post: ForumPost = { 
-      ...insertPost, 
-      id,
-      upvotes: 0,
-      createdAt: new Date() 
-    };
-    this.forumPosts.set(id, post);
+    const [post] = await db.insert(forumPosts).values(insertPost).returning();
     return post;
   }
 
   async upvotePost(id: number): Promise<ForumPost> {
-    const post = await this.getPost(id);
+    const [post] = await db.select().from(forumPosts).where(eq(forumPosts.id, id));
+    
     if (!post) {
       throw new Error("Post not found");
     }
     
-    const updatedPost: ForumPost = {
-      ...post,
-      upvotes: post.upvotes + 1
-    };
+    const [updatedPost] = await db
+      .update(forumPosts)
+      .set({ upvotes: post.upvotes + 1 })
+      .where(eq(forumPosts.id, id))
+      .returning();
     
-    this.forumPosts.set(id, updatedPost);
     return updatedPost;
   }
 
   async getPostComments(postId: number): Promise<ForumComment[]> {
-    return Array.from(this.forumComments.values())
-      .filter((comment) => comment.postId === postId)
-      .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    return db
+      .select()
+      .from(forumComments)
+      .where(eq(forumComments.postId, postId))
+      .orderBy(forumComments.createdAt);
   }
 
   async addComment(insertComment: InsertForumComment): Promise<ForumComment> {
-    const id = this.currentCommentId++;
-    const comment: ForumComment = { 
-      ...insertComment, 
-      id,
-      createdAt: new Date() 
-    };
-    this.forumComments.set(id, comment);
+    const [comment] = await db
+      .insert(forumComments)
+      .values(insertComment)
+      .returning();
+    
     return comment;
   }
 
-  // Milestones methods
   async getMilestones(userId: number): Promise<Milestone[]> {
-    return Array.from(this.milestones.values())
-      .filter((milestone) => milestone.userId === userId)
-      .sort((a, b) => a.days - b.days);
+    return db
+      .select()
+      .from(milestones)
+      .where(eq(milestones.userId, userId))
+      .orderBy(milestones.days);
   }
 
   async createMilestone(insertMilestone: InsertMilestone): Promise<Milestone> {
-    const id = this.currentMilestoneId++;
-    const milestone: Milestone = { 
-      ...insertMilestone, 
-      id,
-      achievedDate: insertMilestone.achieved ? new Date() : undefined
-    };
-    this.milestones.set(id, milestone);
+    const [milestone] = await db
+      .insert(milestones)
+      .values({
+        ...insertMilestone,
+        achievedDate: insertMilestone.achieved ? new Date() : null
+      })
+      .returning();
+    
     return milestone;
   }
 
   async updateMilestone(id: number, achieved: boolean): Promise<Milestone> {
-    const milestone = this.milestones.get(id);
-    if (!milestone) {
+    const [updatedMilestone] = await db
+      .update(milestones)
+      .set({
+        achieved,
+        achievedDate: achieved ? new Date() : null
+      })
+      .where(eq(milestones.id, id))
+      .returning();
+    
+    if (!updatedMilestone) {
       throw new Error("Milestone not found");
     }
     
-    const updatedMilestone: Milestone = {
-      ...milestone,
-      achieved,
-      achievedDate: achieved ? new Date() : undefined
-    };
-    
-    this.milestones.set(id, updatedMilestone);
     return updatedMilestone;
   }
 
-  // Progress methods
   async getProgress(userId: number): Promise<Progress[]> {
-    return Array.from(this.progressData.values()).filter(
-      (progress) => progress.userId === userId,
-    );
+    return db
+      .select()
+      .from(progress)
+      .where(eq(progress.userId, userId));
   }
 
   async createProgress(insertProgress: InsertProgress): Promise<Progress> {
-    const id = this.currentProgressId++;
-    const progress: Progress = { 
-      ...insertProgress, 
-      id,
-      lastUpdated: new Date() 
-    };
-    this.progressData.set(id, progress);
-    return progress;
+    const [progressEntry] = await db
+      .insert(progress)
+      .values(insertProgress)
+      .returning();
+    
+    return progressEntry;
   }
 
   async updateProgress(id: number, percentage: number): Promise<Progress> {
-    const progress = this.progressData.get(id);
-    if (!progress) {
+    const [updatedProgress] = await db
+      .update(progress)
+      .set({
+        percentage,
+        lastUpdated: new Date()
+      })
+      .where(eq(progress.id, id))
+      .returning();
+    
+    if (!updatedProgress) {
       throw new Error("Progress not found");
     }
     
-    const updatedProgress: Progress = {
-      ...progress,
-      percentage,
-      lastUpdated: new Date()
-    };
-    
-    this.progressData.set(id, updatedProgress);
     return updatedProgress;
   }
 
-  // Article progress methods
   async getArticleProgress(userId: number): Promise<ArticleProgress[]> {
-    return Array.from(this.articleProgressData.values()).filter(
-      (progress) => progress.userId === userId,
-    );
+    return db
+      .select()
+      .from(articleProgress)
+      .where(eq(articleProgress.userId, userId));
   }
 
   async markArticleCompleted(userId: number, articleId: string): Promise<ArticleProgress> {
     // Check if progress already exists
-    const existingProgress = Array.from(this.articleProgressData.values()).find(
-      (progress) => progress.userId === userId && progress.articleId === articleId
-    );
+    const [existingProgress] = await db
+      .select()
+      .from(articleProgress)
+      .where(
+        and(
+          eq(articleProgress.userId, userId),
+          eq(articleProgress.articleId, articleId)
+        )
+      );
     
     if (existingProgress) {
-      const updatedProgress: ArticleProgress = {
-        ...existingProgress,
-        completed: true,
-        lastUpdated: new Date()
-      };
+      const [updatedProgress] = await db
+        .update(articleProgress)
+        .set({
+          completed: true,
+          lastUpdated: new Date()
+        })
+        .where(eq(articleProgress.id, existingProgress.id))
+        .returning();
       
-      this.articleProgressData.set(existingProgress.id, updatedProgress);
       return updatedProgress;
     }
     
     // Create new progress
-    const id = this.currentArticleProgressId++;
-    const progress: ArticleProgress = {
-      id,
-      userId,
-      articleId,
-      completed: true,
-      lastUpdated: new Date()
-    };
+    const [newProgress] = await db
+      .insert(articleProgress)
+      .values({
+        userId,
+        articleId,
+        completed: true,
+        lastUpdated: new Date()
+      })
+      .returning();
     
-    this.articleProgressData.set(id, progress);
-    return progress;
+    return newProgress;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
