@@ -16,6 +16,25 @@ export interface Category {
   articles: Article[];
 }
 
+export interface MeditationTrack {
+  id: string;
+  title: string;
+  subtitle: string;
+  duration: number; // in seconds
+  audioUrl: string;
+  color: string;
+  description?: string;
+}
+
+export interface LeaderboardUser {
+  id: number;
+  name: string;
+  initials: string;
+  streak: number;
+  rank: number;
+  isCurrentUser: boolean;
+}
+
 export const benefitsData = [
   {
     name: "Improved Confidence",
@@ -165,5 +184,61 @@ export const motivationalQuotes = [
   {
     quote: "Discipline is choosing between what you want now and what you want most.",
     author: "Abraham Lincoln"
+  }
+];
+
+export const meditationTracks: MeditationTrack[] = [
+  {
+    id: "meditation-sounds",
+    title: "Meditation",
+    subtitle: "Sounds by QUITTR",
+    duration: 300, // 5 minutes
+    audioUrl: "https://example.com/meditation-sound.mp3", // This will be replaced with actual audio file
+    color: "#7C4DFF", // Purple
+    description: "A guided meditation to help you relax and overcome urges."
+  },
+  {
+    id: "stop-fapping",
+    title: "Stop Fapping",
+    subtitle: "Sounds by QUITTR",
+    duration: 420, // 7 minutes
+    audioUrl: "https://example.com/stop-fapping-sound.mp3", // This will be replaced with actual audio file
+    color: "#F9A826", // Yellow/Orange
+    description: "A focused meditation designed specifically to overcome urges and build willpower."
+  }
+];
+
+export const leaderboardUsers: LeaderboardUser[] = [
+  {
+    id: 1,
+    name: "J.",
+    initials: "J",
+    streak: 739350,
+    rank: 1,
+    isCurrentUser: false
+  },
+  {
+    id: 2,
+    name: "No Nut Final Boss",
+    initials: "NN",
+    streak: 739349, 
+    rank: 2,
+    isCurrentUser: false
+  },
+  {
+    id: 3,
+    name: "NoFapKing123",
+    initials: "NK",
+    streak: 739348,
+    rank: 3,
+    isCurrentUser: false
+  },
+  {
+    id: 4,
+    name: "John Doe",
+    initials: "JD",
+    streak: 2,
+    rank: 356,
+    isCurrentUser: true
   }
 ];
