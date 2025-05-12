@@ -84,18 +84,14 @@ export default function Dashboard() {
   // Mindfulness resources
   const mindfulnessResources = [
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.465a5 5 0 007.072 0m-9.9 2.829a9 9 0 0012.728 0" />
-            </svg>,
+      icon: <Waves className="h-6 w-6 text-text-primary" />,
       bgColor: "bg-accent-dark",
       title: "Breathing",
       description: "Calm your mind",
       path: "/menu" // Link to breathing exercise in menu
     },
     {
-      icon: <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-            </svg>,
+      icon: <ThumbsUp className="h-6 w-6 text-text-primary" />,
       bgColor: "bg-primary-dark",
       title: "Success Stories",
       description: "Get inspired",

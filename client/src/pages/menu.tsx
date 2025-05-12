@@ -5,9 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import SectionHeader from "@/components/ui/section-header";
 import BreathingExercise from "@/components/breathing-exercise";
 import { motivationalQuotes } from "@/lib/data";
+import AppLogo from "@/components/app-logo";
 
 export default function Menu() {
-  const { data: streak } = useQuery({
+  const { data: streak } = useQuery<{ currentStreak: number }>({
     queryKey: ['/api/streak'],
   });
   
@@ -45,7 +46,12 @@ export default function Menu() {
 
   return (
     <div className="p-4 pt-6">
-      <SectionHeader title="Menu" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <AppLogo size="md" />
+          <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+        </div>
+      </div>
 
       {/* User Profile */}
       <Card className="bg-background-card rounded-xl mb-6">

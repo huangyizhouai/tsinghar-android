@@ -13,6 +13,7 @@ import MeditationPlayer from "@/components/library/meditation-player";
 import InfoModal from "@/components/library/info-modal";
 import { libraryCategories, meditationTracks } from "@/lib/data";
 import { apiRequest } from "@/lib/queryClient";
+import AppLogo from "@/components/app-logo";
 
 export default function Library() {
   // State
@@ -104,7 +105,11 @@ export default function Library() {
   // Render different views based on state
   const renderMainView = () => (
     <>
-      <SectionHeader title="Library">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <AppLogo size="md" />
+          <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+        </div>
         <div className="flex space-x-2">
           <button className="p-2 rounded-full bg-background-card">
             <Shield className="h-6 w-6 text-text-primary" />
@@ -113,7 +118,7 @@ export default function Library() {
             <Search className="h-6 w-6 text-text-primary" />
           </button>
         </div>
-      </SectionHeader>
+      </div>
       
       {/* Tagline */}
       <p className="text-text-secondary mb-6">Quit Porn Easily</p>
