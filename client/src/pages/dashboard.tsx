@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { Heart, RotateCcw, Moon, MoreHorizontal, Settings } from "lucide-react";
+import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer } from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
 import StreakTimer from "@/components/streak-timer";
 import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
 import CardGrid from "@/components/ui/card-grid";
 import { Separator } from "@/components/ui/separator";
+import AppLogo from "@/components/app-logo";
 
 export default function Dashboard() {
   const [showPanicModal, setShowPanicModal] = useState(false);
@@ -112,13 +113,17 @@ export default function Dashboard() {
   return (
     <>
       <div className="p-4 pt-6">
-        <SectionHeader title="Dashboard">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <AppLogo size="md" />
+            <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+          </div>
           <Link to="/menu">
             <button className="p-2 rounded-full bg-background-card">
               <Settings className="h-6 w-6 text-text-primary" />
             </button>
           </Link>
-        </SectionHeader>
+        </div>
 
         {/* Streak Timer */}
         <div className="flex flex-col items-center mb-8">

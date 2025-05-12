@@ -1,0 +1,77 @@
+📋 Prompt for the AI Agent
+
+PROJECT NAME: NoFap Recovery Tracker
+TARGET: iOS 16+ (Swift 5.9, SwiftUI, Xcode 16 project template “App”)
+GOAL: Re-implement every web page of https://no-fap-recovery-tracker-1-masakolisk.replit.app as native SwiftUI views and wire them to the existing REST endpoints, so I can upload the build to Apple Developer and pass App Store review.
+
+1 — Architecture
+	•	Use a clean MVVM structure: View, ViewModel, Service, Model.
+	•	Networking layer: URLSession with async/await; inject baseURL as https://no-fap-recovery-tracker-1-masakolisk.replit.app/api (replace if backend path differs).  ￼
+	•	Local persistence fallback: Core Data container NoFapStore for offline streak caching.  ￼
+
+2 — Global UI Shell
+	•	Root TabView with five tabs (SF-Symbol icons listed in parentheses):
+	1.	Home (house)
+	2.	Tracker (timer)
+	3.	Library (book)
+	4.	Community (person.3)
+	5.	Profile (person.crop.circle)
+Use Label inside each tabItem for accessibility.  ￼ ￼
+	•	Dark theme default; respect system appearance with .preferredColorScheme(.dark).
+
+3 — Screen-by-Screen Specs
+
+3.1 Home (Dashboard)
+	•	Display the current streak as a circular progress ring (activity-ring style). Animate from 0 → progress on appear.  ￼ ￼
+	•	Show motivational quote (GET /quotes/today).
+	•	“Panic Button” that navigates to breathing exercise modal (BreathingView).
+
+3.2 Tracker
+	•	Calendar view that shades relapse days red; streak days green.
+	•	Add relapse with + toolbar button → POST /relapses.
+	•	Fetch streak summary (GET /streak/summary) every launch and store in Core Data.
+
+3.3 Library
+	•	List of articles (title, tag chips, read-time) returned by GET /library.
+	•	Detail view uses ScrollView + Markdown rendering (Text(.init(markdown))).
+
+3.4 Community
+	•	LazyVStack of threads from GET /community/threads.
+	•	Thread chat view uses @FocusState to keep keyboard friendly; send message via POST /community/threads/:id/reply.
+	•	Optional: Integrate Sign in with Apple for account creation if user not logged in.  ￼
+
+3.5 Profile
+	•	Avatar, nickname, current streak, longest streak.
+	•	Settings buttons:
+	•	Enable push notifications (triggers UNUserNotificationCenter auth).  ￼
+	•	Privacy & Terms (link out to https://…/privacy).
+	•	Sign out.
+
+4 — Implementation Notes
+	•	All strings in Localizable.strings (English + zh-Hans).
+	•	Use @AppStorage("authToken") for token handling.
+	•	Provide unit tests for StreakService, UI tests for onboarding flow.
+	•	Generate App Icons (1024 × 1024) with gradient orange-to-indigo background and the timer SF-symbol overlay.
+
+5 — App Store Prep Checklist
+	•	Fill the App Privacy Details questionnaire in App Store Connect; mark “Analytics” → “Not linked to user”.  ￼
+	•	Supply at least one Dark Mode screenshot per 6.7-inch and 6.1-inch iPhone sizes.  ￼
+	•	Use the new “Simplified ATT text” that conforms to Apple’s latest privacy fine guidance.  ￼
+	•	Validate with xcodebuild -exportArchive -exportOptionsPlist AdHoc.plist before uploading with Xcode Organizer or Transporter.
+
+6 — Deliverables
+	1.	Xcode workspace NoFapRecoveryTracker.xcworkspace.
+	2.	Schemes: NoFapRecoveryTracker-Release, NoFapRecoveryTracker-Debug.
+	3.	README.md explaining build/run steps and environment variables.
+	4.	TestFlight build uploaded and a screenshot proving submission.
+
+When finished, reply “DONE – iOS build ready”.
+
+⸻
+
+How this prompt maps the web app to native SwiftUI
+
+The TabView skeleton and SF-Symbols ensure a familiar bottom-nav just like your current Tailwind navbar.  ￼
+Replacing the JavaScript progress circle with a SwiftUI Circle + Trim animation recreates your dashboard ring natively.  ￼
+Core Data gives you offline streak tracking (Apple favors this in review).  ￼
+URLSession keeps the same REST contract, so you don’t have to touch the Node/Express backend.  ￼
