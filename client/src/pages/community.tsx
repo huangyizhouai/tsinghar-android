@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import AppLogo from "@/components/app-logo";
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("forum");
@@ -19,7 +20,7 @@ export default function Community() {
   
   const { toast } = useToast();
   
-  const { data: posts, isLoading } = useQuery({
+  const { data: posts, isLoading } = useQuery<any[]>({
     queryKey: ['/api/posts'],
   });
   
@@ -91,11 +92,15 @@ export default function Community() {
 
   return (
     <div className="p-4 pt-6">
-      <SectionHeader title="Community">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <AppLogo size="md" />
+          <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+        </div>
         <button className="p-2 rounded-full bg-background-card">
           <Filter className="h-6 w-6 text-text-primary" />
         </button>
-      </SectionHeader>
+      </div>
 
       {/* Category Selector */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
@@ -103,34 +108,34 @@ export default function Community() {
           <TabsTrigger value="forum" className="flex-1">Forum</TabsTrigger>
           <TabsTrigger value="teams" className="flex-1">Teams</TabsTrigger>
         </TabsList>
-      </Tabs>
 
-      {/* Forum Posts */}
-      <TabsContent value="forum" className="m-0 p-0 space-y-4 mb-20">
-        {isLoading ? (
-          <div className="text-center py-8">Loading posts...</div>
-        ) : posts && posts.length > 0 ? (
-          posts.map((post: any) => (
-            <PostCard 
-              key={post.id}
-              post={post}
-              onUpvote={() => handleUpvote(post.id)}
-            />
-          ))
-        ) : (
-          <div className="text-center py-8">No posts yet. Be the first to share!</div>
-        )}
-      </TabsContent>
-      
-      <TabsContent value="teams" className="m-0 p-0">
-        <div className="flex justify-center items-center py-12">
-          <div className="text-center">
-            <h3 className="text-xl font-medium text-text-primary mb-2">Coming Soon</h3>
-            <p className="text-text-secondary">Team support features are currently in development.</p>
-            <p className="text-text-secondary mt-1">Join accountability groups in the near future!</p>
+        {/* Forum Posts */}
+        <TabsContent value="forum" className="m-0 p-0 space-y-4 mb-20">
+          {isLoading ? (
+            <div className="text-center py-8">Loading posts...</div>
+          ) : posts && posts.length > 0 ? (
+            posts.map((post: any) => (
+              <PostCard 
+                key={post.id}
+                post={post}
+                onUpvote={() => handleUpvote(post.id)}
+              />
+            ))
+          ) : (
+            <div className="text-center py-8">No posts yet. Be the first to share!</div>
+          )}
+        </TabsContent>
+        
+        <TabsContent value="teams" className="m-0 p-0">
+          <div className="flex justify-center items-center py-12">
+            <div className="text-center">
+              <h3 className="text-xl font-medium text-text-primary mb-2">Coming Soon</h3>
+              <p className="text-text-secondary">Team support features are currently in development.</p>
+              <p className="text-text-secondary mt-1">Join accountability groups in the near future!</p>
+            </div>
           </div>
-        </div>
-      </TabsContent>
+        </TabsContent>
+      </Tabs>
 
       {/* New Post Button */}
       <div className="fixed bottom-20 right-4">
