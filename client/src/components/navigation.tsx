@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 import { Home, BarChart2, BookOpen, Users, Menu } from "lucide-react";
-import { translate } from "@/lib/i18n";
+import { useLanguage } from "@/hooks/use-language";
 import LanguageSelector from "./language-selector";
 
 type NavigationProps = {
@@ -9,30 +9,32 @@ type NavigationProps = {
 };
 
 export default function Navigation({ currentPath }: NavigationProps) {
+  const { t } = useLanguage();
+  
   const tabs = [
     {
       path: "/",
-      label: translate('dashboard'),
+      label: t('dashboard'),
       icon: <Home className="h-6 w-6" />,
     },
     {
       path: "/progress",
-      label: translate('progress'),
+      label: t('progress'),
       icon: <BarChart2 className="h-6 w-6" />,
     },
     {
       path: "/library",
-      label: translate('library'),
+      label: t('library'),
       icon: <BookOpen className="h-6 w-6" />,
     },
     {
       path: "/community",
-      label: translate('community'),
+      label: t('community'),
       icon: <Users className="h-6 w-6" />,
     },
     {
       path: "/menu",
-      label: translate('menu'),
+      label: t('menu'),
       icon: <Menu className="h-6 w-6" />,
     },
   ];

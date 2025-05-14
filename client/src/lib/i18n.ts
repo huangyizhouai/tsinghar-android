@@ -169,40 +169,4 @@ export function translate(key: string, params?: Record<string, string | number>)
   return text;
 }
 
-// React hook for translation
-import { useState, useEffect } from 'react';
-
-export function useLanguage() {
-  const [language, setLanguageState] = useState<Language>(getCurrentLanguage());
-  
-  // Update state when language changes
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setLanguageState(getCurrentLanguage());
-    };
-    
-    window.addEventListener('languagechange', handleLanguageChange);
-    return () => {
-      window.removeEventListener('languagechange', handleLanguageChange);
-    };
-  }, []);
-  
-  // Wrapper for translate
-  const t = (key: string, params?: Record<string, string | number>) => {
-    return translate(key, params);
-  };
-  
-  return {
-    language,
-    t,
-    setLanguage: (lang: Language) => {
-      setLanguage(lang);
-      setLanguageState(lang);
-      window.dispatchEvent(new Event('languagechange'));
-    },
-    toggleLanguage: () => {
-      toggleLanguage();
-      setLanguageState(getCurrentLanguage());
-    }
-  };
-}
+// Export the main i18n API
