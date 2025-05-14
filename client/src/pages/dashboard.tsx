@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { queryClient } from "@/lib/queryClient";
 import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer, MessageCircle, BookOpen, Star, Waves, ThumbsUp } from "lucide-react";
-import SectionHeader from "@/components/ui/section-header";
-import StreakTimer from "@/components/streak-timer";
 import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
-import CardGrid from "@/components/ui/card-grid";
-import { Separator } from "@/components/ui/separator";
 import AppLogo from "@/components/app-logo";
+import ProgressRing from "@/components/progress-ring";
+import TodoCard from "@/components/todo-card";
+import ToolCard from "@/components/tool-card";
 
 export default function Dashboard() {
   const [showPanicModal, setShowPanicModal] = useState(false);
@@ -49,55 +48,8 @@ export default function Dashboard() {
     }
   ];
 
-  // Recovery tools
-  const recoveryTools = [
-    {
-      icon: <Heart className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-primary-dark",
-      title: "Reasons",
-      description: "Why you started",
-      path: "/menu" // Could be a dedicated page in the future
-    },
-    {
-      icon: <MessageCircle className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-info-dark",
-      title: "Chat",
-      description: "Get support",
-      path: "/community"
-    },
-    {
-      icon: <BookOpen className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-success-dark",
-      title: "Learn",
-      description: "Knowledge base",
-      path: "/library"
-    },
-    {
-      icon: <Star className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-warning-dark",
-      title: "Milestones",
-      description: "Track progress",
-      path: "/progress"
-    }
-  ];
-
-  // Mindfulness resources
-  const mindfulnessResources = [
-    {
-      icon: <Waves className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-accent-dark",
-      title: "Breathing",
-      description: "Calm your mind",
-      path: "/menu" // Link to breathing exercise in menu
-    },
-    {
-      icon: <ThumbsUp className="h-6 w-6 text-text-primary" />,
-      bgColor: "bg-primary-dark",
-      title: "Success Stories",
-      description: "Get inspired",
-      path: "/community"
-    }
-  ];
+  // Navigation
+  const [location, navigate] = useLocation();
 
   return (
     <>
@@ -116,11 +68,17 @@ export default function Dashboard() {
 
         {/* Streak Timer */}
         <div className="flex flex-col items-center mb-8">
-          <StreakTimer days={streak?.currentStreak || 0} />
-          <p className="text-text-secondary text-center max-w-md">
+          <ProgressRing 
+            days={streak?.currentStreak || 0} 
+            onClick={() => window.location.href = '/progress'} 
+          />
+          <p className="text-text-secondary text-center max-w-md mt-4">
             You're making great progress! Stay strong and remember why you started.
           </p>
         </div>
+        
+        {/* Todo Card */}
+        <TodoCard />
 
         {/* Quick Actions */}
         <div className="grid grid-cols-4 gap-4 mb-8">
@@ -144,11 +102,55 @@ export default function Dashboard() {
 
         {/* Recovery Tools */}
         <h2 className="font-medium text-lg mb-4 text-text-primary">Recovery Tools</h2>
-        <CardGrid items={recoveryTools} className="mb-8" />
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <ToolCard 
+            icon={<BookOpen className="h-6 w-6 text-text-primary" />}
+            title="Learn"
+            description="Knowledge base"
+            bgColor="bg-success-dark"
+            path="/library"
+          />
+          <ToolCard 
+            icon={<MessageCircle className="h-6 w-6 text-text-primary" />}
+            title="Chat"
+            description="Get support"
+            bgColor="bg-info-dark"
+            path="/community"
+          />
+          <ToolCard 
+            icon={<Star className="h-6 w-6 text-text-primary" />}
+            title="Milestones"
+            description="Track progress"
+            bgColor="bg-warning-dark"
+            path="/progress"
+          />
+          <ToolCard 
+            icon={<Heart className="h-6 w-6 text-text-primary" />}
+            title="Reasons"
+            description="Why you started"
+            bgColor="bg-primary-dark"
+            path="/menu"
+          />
+        </div>
 
         {/* Mindfulness Resources */}
         <h2 className="font-medium text-lg mb-4 text-text-primary">Mindfulness Resources</h2>
-        <CardGrid items={mindfulnessResources} className="mb-8" />
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <ToolCard 
+            icon={<Waves className="h-6 w-6 text-text-primary" />}
+            title="Breathing"
+            description="Calm your mind"
+            bgColor="bg-accent-dark"
+            path="/menu"
+          />
+          <ToolCard 
+            icon={<ThumbsUp className="h-6 w-6 text-text-primary" />}
+            title="Success Stories"
+            description="Get inspired"
+            bgColor="bg-primary-dark"
+            path="/community"
+          />
+        </div>
 
         {/* Panic Button */}
         <div className="mt-4 mb-8">
