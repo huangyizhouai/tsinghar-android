@@ -11,19 +11,19 @@ import RecoveryProgressRing from "@/components/recovery-progress-ring";
 
 export default function ProgressPage() {
   const { t } = useLanguage();
-  const { data: streak, isLoading: streakLoading } = useQuery({
+  const { data: streak, isLoading: streakLoading } = useQuery<{currentStreak: number}>({
     queryKey: ['/api/streak'],
   });
   
-  const { data: progressData, isLoading: progressLoading } = useQuery({
+  const { data: progressData, isLoading: progressLoading } = useQuery<any[]>({
     queryKey: ['/api/progress'],
   });
   
-  const { data: milestones, isLoading: milestonesLoading } = useQuery({
+  const { data: milestones, isLoading: milestonesLoading } = useQuery<any[]>({
     queryKey: ['/api/milestones'],
   });
   
-  const days = streak?.currentStreak || 0;
+  const days = streak && 'currentStreak' in streak ? streak.currentStreak : 0;
   const recoveryPercentage = calculateRecoveryPercentage(days);
   
   const motivationalText = () => {

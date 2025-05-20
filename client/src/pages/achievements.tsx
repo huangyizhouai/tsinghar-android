@@ -72,12 +72,12 @@ export default function AchievementsPage() {
   const [collected, setCollected] = useState(0);
   
   // Fetch streak data
-  const { data: streak } = useQuery({
+  const { data: streak } = useQuery<{currentStreak: number}>({
     queryKey: ['/api/streak'],
     staleTime: 1000 * 60 * 5 // 5 minutes
   });
   
-  const currentDays = streak && typeof streak === 'object' && 'currentStreak' in streak 
+  const currentDays = streak && 'currentStreak' in streak 
     ? streak.currentStreak 
     : 0;
   
