@@ -13,6 +13,7 @@ import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
   const [showPanicModal, setShowPanicModal] = useState(false);
+  const { t } = useLanguage();
   
   const { data: streak, isLoading } = useQuery<{ currentStreak: number }>({
     queryKey: ['/api/streak'],
@@ -60,11 +61,18 @@ export default function Dashboard() {
             <AppLogo size="md" />
             <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
           </div>
-          <Link to="/menu">
-            <button className="p-2 rounded-full bg-background-card">
-              <Settings className="h-6 w-6 text-text-primary" />
-            </button>
-          </Link>
+          <div className="flex space-x-2">
+            <Link to="/achievements">
+              <button className="p-2 rounded-full bg-background-card">
+                <Award className="h-6 w-6 text-text-primary" />
+              </button>
+            </Link>
+            <Link to="/menu">
+              <button className="p-2 rounded-full bg-background-card">
+                <Settings className="h-6 w-6 text-text-primary" />
+              </button>
+            </Link>
+          </div>
         </div>
 
         {/* Streak Timer */}
