@@ -5,6 +5,7 @@ import { queryClient } from "@/lib/queryClient";
 import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer, MessageCircle, BookOpen, Star, Waves, ThumbsUp, Award } from "lucide-react";
 import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
+import CheckInFlow from "@/components/check-in-flow";
 import AppLogo from "@/components/app-logo";
 import ProgressRing from "@/components/progress-ring";
 import LiveStreakTimer from "@/components/live-streak-timer";
@@ -79,9 +80,17 @@ export default function Dashboard() {
         </div>
 
         {/* Week Progress Bar */}
-        <div className="bg-background-card rounded-lg p-3 mb-6">
+        <div className="bg-background-card rounded-lg p-3 mb-2">
           <WeekBar />
         </div>
+        
+        {/* Daily Check-in Button */}
+        <button 
+          onClick={() => setShowCheckInFlow(true)}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg mb-6 flex items-center justify-center font-medium"
+        >
+          <span className="mr-2">✓</span> {t('dailyCheckIn')}
+        </button>
 
         {/* Streak Timer */}
         <div className="flex flex-col items-center mb-8">
@@ -183,6 +192,9 @@ export default function Dashboard() {
 
       {/* Panic Modal */}
       {showPanicModal && <PanicModal onClose={() => setShowPanicModal(false)} />}
+
+      {/* Check-in Flow Modal */}
+      {showCheckInFlow && <CheckInFlow onClose={() => setShowCheckInFlow(false)} />}
     </>
   );
 }

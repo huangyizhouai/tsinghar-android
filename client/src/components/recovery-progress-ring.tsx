@@ -1,6 +1,6 @@
 import React from 'react';
-import { calculateRecoveryPercentage } from '@/lib/utils';
 import { useLanguage } from '@/hooks/use-language';
+import { calculateRecoveryPercentage } from '@/lib/utils';
 
 interface RecoveryProgressRingProps {
   days: number;
@@ -9,60 +9,72 @@ interface RecoveryProgressRingProps {
 
 export default function RecoveryProgressRing({ days, className = '' }: RecoveryProgressRingProps) {
   const { t } = useLanguage();
-  const progress = calculateRecoveryPercentage(days);
-  const strokeWidth = 8;
-  const radius = 70;
+  const recovery = calculateRecoveryPercentage(days);
+  
+  // SVG parameters
+  const size = 200;
+  const strokeWidth = 10;
+  const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const dash = (progress * circumference) / 100;
+  
+  // Calculate stroke-dashoffset based on recovery percentage
+  const offset = circumference - (recovery / 100) * circumference;
+  
+  // Calculate projected date (1 year from start)
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days); // Get the approximate start date
+  
+  const projectedDate = new Date(startDate);
+  projectedDate.setDate(projectedDate.getDate() + 365); // 1 year from start
+  
+  // Format date as Month DD, YYYY
+  const formattedDate = projectedDate.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
   
   return (
-    <div className={`${className} relative flex items-center justify-center`}>
-      <svg 
-        width="160" 
-        height="160" 
-        viewBox="0 0 160 160" 
-        className="transform -rotate-90"
-      >
+    <div className={`flex flex-col items-center ${className}`}>
+      <div className="relative flex items-center justify-center">
         {/* Background circle */}
-        <circle
-          cx="80"
-          cy="80"
-          r={radius}
-          fill="transparent"
-          stroke="rgba(255, 255, 255, 0.1)"
-          strokeWidth={strokeWidth}
-        />
+        <svg width={size} height={size} className="transform -rotate-90">
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="transparent"
+            stroke="#1e293b"
+            strokeWidth={strokeWidth}
+          />
+          {/* Progress circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="transparent"
+            stroke="#7d4dff"
+            strokeWidth={strokeWidth}
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            strokeLinecap="round"
+          />
+        </svg>
         
-        {/* Progress circle */}
-        <circle
-          cx="80"
-          cy="80"
-          r={radius}
-          fill="transparent"
-          stroke="url(#progressGradient)"
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference - dash}
-          strokeLinecap="round"
-          className="drop-shadow-[0_0_10px_rgba(125,77,255,0.5)]"
-        />
-        
-        {/* Gradient definition */}
-        <defs>
-          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#7d4dff" />
-            <stop offset="100%" stopColor="#b68aff" />
-          </linearGradient>
-        </defs>
-      </svg>
+        {/* Text in the center */}
+        <div className="absolute flex flex-col items-center justify-center">
+          <div className="text-sm uppercase tracking-wider text-gray-400">{t('recovery')}</div>
+          <div className="text-3xl font-bold text-white">{recovery}%</div>
+          <div className="text-xs text-gray-400 mt-1">
+            <span className="font-semibold">{days}</span> {t('days')} {t('streak').toLowerCase()}
+          </div>
+        </div>
+      </div>
       
-      {/* Center text */}
-      <div className="absolute flex flex-col items-center justify-center text-center">
-        <span className="text-3xl font-bold text-white">{progress}%</span>
-        <span className="text-sm text-gray-300 uppercase">{t('recovery')}</span>
-        <span className="text-gray-400 text-xs mt-1">
-          {days} {t('days')} {t('streak')}
-        </span>
+      {/* Projected quit date */}
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-400 mb-1">{t('projectedQuitDate')}</p>
+        <p className="font-semibold text-white">{formattedDate}</p>
       </div>
     </div>
   );

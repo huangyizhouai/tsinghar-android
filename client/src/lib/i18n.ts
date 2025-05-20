@@ -36,6 +36,7 @@ export const translations: Record<Language, Record<string, string>> = {
     seconds: 'Seconds',
     recovery: 'Recovery',
     streak: 'Streak',
+    projectedQuitDate: 'Projected Quit Date',
     
     // Recovery Tools section
     recoveryTools: 'Recovery Tools',
@@ -62,6 +63,31 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Panic button
     panicButton: 'Panic Button',
+    
+    // Check-in flow
+    dailyCheckIn: 'Daily Check-in',
+    didYouRelapse: 'Did you relapse?',
+    noStillStrong: 'No, still going strong',
+    yesRelapsed: 'Yes, I relapsed',
+    howAreYouFeeling: 'And how are you feeling?',
+    happy: 'Happy',
+    neutral: 'Neutral',
+    sad: 'Sad',
+    keepGoingMessage: 'Great job keeping your streak!',
+    resetMessage: 'Every setback is a setup for a comeback',
+    tomorrowNewDay: 'Tomorrow is a new day to start fresh',
+    strengthGrows: 'Your strength grows with each challenge you overcome',
+    communityMoodToday: 'Community Mood Today',
+    continue: 'Continue',
+    
+    // Week bar
+    mon: 'Mon',
+    tue: 'Tue',
+    wed: 'Wed',
+    thu: 'Thu',
+    fri: 'Fri',
+    sat: 'Sat',
+    sun: 'Sun',
   },
   
   zh: {
@@ -96,6 +122,7 @@ export const translations: Record<Language, Record<string, string>> = {
     seconds: '秒',
     recovery: '恢复',
     streak: '连续',
+    projectedQuitDate: '预计戒除日期',
     
     // Recovery Tools section
     recoveryTools: '恢复工具',
@@ -122,6 +149,31 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Panic button
     panicButton: '紧急按钮',
+    
+    // Check-in flow
+    dailyCheckIn: '每日签到',
+    didYouRelapse: '你破戒了吗？',
+    noStillStrong: '没有，继续坚持',
+    yesRelapsed: '是的，我破戒了',
+    howAreYouFeeling: '你感觉如何？',
+    happy: '开心',
+    neutral: '一般',
+    sad: '难过',
+    keepGoingMessage: '继续保持你的连续天数！',
+    resetMessage: '每次挫折都是东山再起的机会',
+    tomorrowNewDay: '明天是重新开始的新一天',
+    strengthGrows: '你的力量随着每次克服挑战而增长',
+    communityMoodToday: '今日社区心情',
+    continue: '继续',
+    
+    // Week bar
+    mon: '周一',
+    tue: '周二',
+    wed: '周三',
+    thu: '周四',
+    fri: '周五',
+    sat: '周六',
+    sun: '周日',
   }
 };
 
