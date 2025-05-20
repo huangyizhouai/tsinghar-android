@@ -8,15 +8,17 @@ import PanicModal from "@/components/panic-modal";
 import AppLogo from "@/components/app-logo";
 import ProgressRing from "@/components/progress-ring";
 import LiveStreakTimer from "@/components/live-streak-timer";
+import WeekBar from "@/components/week-bar";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
   const [showPanicModal, setShowPanicModal] = useState(false);
+  const [showCheckInFlow, setShowCheckInFlow] = useState(false);
   const { t } = useLanguage();
   
-  const { data: streak, isLoading } = useQuery<{ currentStreak: number }>({
+  const { data: streak, isLoading } = useQuery<{ currentStreak: number, startDate: string }>({
     queryKey: ['/api/streak'],
   });
 
@@ -57,7 +59,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="p-4 pt-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <AppLogo size="md" />
             <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
@@ -74,6 +76,11 @@ export default function Dashboard() {
               </button>
             </Link>
           </div>
+        </div>
+
+        {/* Week Progress Bar */}
+        <div className="bg-background-card rounded-lg p-3 mb-6">
+          <WeekBar />
         </div>
 
         {/* Streak Timer */}
