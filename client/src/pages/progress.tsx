@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { Share } from "lucide-react";
+import { Share, Award } from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { calculateRecoveryPercentage, getDaysLeft } from "@/lib/utils";
 import { benefitsData, milestonesData } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
+import { Link } from "wouter";
 
 export default function ProgressPage() {
+  const { t } = useLanguage();
   const { data: streak, isLoading: streakLoading } = useQuery({
     queryKey: ['/api/streak'],
   });
@@ -36,10 +39,17 @@ export default function ProgressPage() {
 
   return (
     <div className="p-4 pt-6">
-      <SectionHeader title="Progress">
-        <button className="p-2 rounded-full bg-background-card">
-          <Share className="h-6 w-6 text-text-primary" />
-        </button>
+      <SectionHeader title={t('progress')}>
+        <div className="flex space-x-2">
+          <Link to="/achievements">
+            <button className="p-2 rounded-full bg-background-card">
+              <Award className="h-6 w-6 text-text-primary" />
+            </button>
+          </Link>
+          <button className="p-2 rounded-full bg-background-card">
+            <Share className="h-6 w-6 text-text-primary" />
+          </button>
+        </div>
       </SectionHeader>
 
       {/* Recovery Percentage */}

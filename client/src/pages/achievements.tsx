@@ -69,7 +69,9 @@ export default function AchievementsPage() {
     staleTime: 1000 * 60 * 5 // 5 minutes
   });
   
-  const currentDays = streak?.currentStreak || 0;
+  const currentDays = streak && typeof streak === 'object' && 'currentStreak' in streak 
+    ? streak.currentStreak 
+    : 0;
   
   // Calculate number of collected achievements
   useEffect(() => {

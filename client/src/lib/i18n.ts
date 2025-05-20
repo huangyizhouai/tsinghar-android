@@ -7,6 +7,8 @@ export const translations: Record<Language, Record<string, string>> = {
   en: {
     // App title
     appName: 'NoFap Recovery Tracker',
+    achievements: 'Achievements',
+    collected: 'collected',
     
     // Navigation
     dashboard: 'Dashboard',
@@ -63,6 +65,8 @@ export const translations: Record<Language, Record<string, string>> = {
   zh: {
     // App title
     appName: '戒色恢复跟踪器',
+    achievements: '成就',
+    collected: '已收集',
     
     // Navigation
     dashboard: '仪表板',

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { queryClient } from "@/lib/queryClient";
-import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer, MessageCircle, BookOpen, Star, Waves, ThumbsUp } from "lucide-react";
+import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer, MessageCircle, BookOpen, Star, Waves, ThumbsUp, Award } from "lucide-react";
 import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
 import AppLogo from "@/components/app-logo";
 import ProgressRing from "@/components/progress-ring";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
   const [showPanicModal, setShowPanicModal] = useState(false);
