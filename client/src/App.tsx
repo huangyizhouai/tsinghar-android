@@ -10,6 +10,7 @@ import Progress from "@/pages/progress";
 import Library from "@/pages/library";
 import Community from "@/pages/community";
 import Menu from "@/pages/menu";
+import AchievementsPage from "@/pages/achievements";
 import Navigation from "@/components/navigation";
 
 function Router() {
@@ -24,6 +25,7 @@ function Router() {
           <Route path="/library" component={Library} />
           <Route path="/community" component={Community} />
           <Route path="/menu" component={Menu} />
+          <Route path="/achievements" component={AchievementsPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
