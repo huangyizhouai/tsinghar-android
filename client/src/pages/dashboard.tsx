@@ -7,6 +7,7 @@ import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
 import AppLogo from "@/components/app-logo";
 import ProgressRing from "@/components/progress-ring";
+import LiveStreakTimer from "@/components/live-streak-timer";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import { useLanguage } from "@/hooks/use-language";
@@ -77,12 +78,18 @@ export default function Dashboard() {
 
         {/* Streak Timer */}
         <div className="flex flex-col items-center mb-8">
+          {streak?.startDate && (
+            <LiveStreakTimer 
+              startDate={streak.startDate} 
+              className="mb-4" 
+            />
+          )}
           <ProgressRing 
             days={streak?.currentStreak || 0} 
             onClick={() => window.location.href = '/progress'} 
           />
           <p className="text-text-secondary text-center max-w-md mt-4">
-            You're making great progress! Stay strong and remember why you started.
+            {t('progressMessage')}
           </p>
         </div>
         
