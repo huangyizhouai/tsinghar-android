@@ -5,56 +5,64 @@ import { ChevronLeft } from 'lucide-react';
 import { Link } from 'wouter';
 import AchievementBadge from '@/components/achievement-badge';
 
-// Define achievements with their requirements and colors
+// Define achievements with their requirements and colors exactly as in the spec
 const achievementsList = [
   {
     name: 'Seed',
-    description: '1 day',
+    description: '1/1 days',
     days: 1,
-    color: 'bg-pink-400'
+    color: 'bg-pink-400',
+    glowColor: '#f472b6'
   },
   {
     name: 'Sprout',
-    description: '3 days',
+    description: '3/3 days',
     days: 3,
-    color: 'bg-blue-300'
+    color: 'bg-blue-300',
+    glowColor: '#7dd3fc'
   },
   {
     name: 'Pioneer',
-    description: '5 days',
+    description: '5/5 days',
     days: 5,
-    color: 'bg-cyan-400'
+    color: 'bg-cyan-400',
+    glowColor: '#22d3ee'
   },
   {
     name: 'Momentum',
-    description: '7 days',
+    description: '7/7 days',
     days: 7,
-    color: 'bg-purple-400'
+    color: 'bg-purple-400',
+    glowColor: '#c084fc'
   },
   {
     name: 'Fortress',
-    description: '10 days',
+    description: '10/10 days',
     days: 10,
-    color: 'bg-purple-500'
+    color: 'bg-purple-500',
+    glowColor: '#a855f7'
   },
   {
     name: 'Guardian',
-    description: '14 days',
+    description: '14/14 days',
     days: 14,
-    color: 'bg-blue-400'
+    color: 'bg-blue-400',
+    glowColor: '#60a5fa'
   },
   {
     name: 'Trailblazer',
-    description: '30 days',
+    description: '30/30 days',
     days: 30,
     color: 'bg-indigo-400',
+    glowColor: '#818cf8',
     isLocked: true
   },
   {
     name: 'Ascendant',
-    description: '45 days',
+    description: '45/45 days',
     days: 45,
     color: 'bg-indigo-500',
+    glowColor: '#6366f1',
     isLocked: true
   }
 ];
@@ -82,7 +90,7 @@ export default function AchievementsPage() {
   }, [currentDays]);
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-950 to-indigo-950 p-4 pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-[#0b0e3f] to-[#020225] p-4 pb-20">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <Link to="/progress">
@@ -96,9 +104,9 @@ export default function AchievementsPage() {
       
       {/* Progress Bar */}
       <div className="mb-6">
-        <div className="relative w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+        <div className="relative w-full h-2 bg-gray-700/30 rounded-full overflow-hidden">
           <div 
-            className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
+            className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#7d4dff] to-[#b68aff] rounded-full"
             style={{ width: `${(collected / achievementsList.length) * 100}%` }}
           ></div>
         </div>
@@ -108,7 +116,7 @@ export default function AchievementsPage() {
       </div>
       
       {/* Achievements Grid */}
-      <div className="grid grid-cols-2 gap-6 mt-4">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-8 mt-6">
         {achievementsList.map((achievement) => (
           <AchievementBadge
             key={achievement.name}
@@ -117,6 +125,7 @@ export default function AchievementsPage() {
             days={achievement.days}
             currentDays={currentDays}
             color={achievement.color}
+            glowColor={achievement.glowColor}
             isLocked={achievement.isLocked}
           />
         ))}

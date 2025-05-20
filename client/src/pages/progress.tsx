@@ -7,6 +7,7 @@ import { calculateRecoveryPercentage, getDaysLeft } from "@/lib/utils";
 import { benefitsData, milestonesData } from "@/lib/data";
 import { useLanguage } from "@/hooks/use-language";
 import { Link } from "wouter";
+import RecoveryProgressRing from "@/components/recovery-progress-ring";
 
 export default function ProgressPage() {
   const { t } = useLanguage();
@@ -55,14 +56,14 @@ export default function ProgressPage() {
       {/* Recovery Percentage */}
       <Card className="bg-background-card rounded-xl mb-6">
         <CardContent className="p-6">
-          <div className="text-center mb-4">
-            <h2 className="font-bold text-4xl text-primary">{recoveryPercentage}%</h2>
-            <p className="text-text-secondary">Recovery</p>
+          <div className="flex flex-col items-center">
+            <div className="mb-4">
+              <RecoveryProgressRing days={days} />
+            </div>
+            <p className="text-sm text-text-secondary text-center mt-4">
+              {motivationalText()}
+            </p>
           </div>
-          <Progress value={recoveryPercentage} className="h-2.5 mb-4" />
-          <p className="text-sm text-text-secondary text-center">
-            {motivationalText()}
-          </p>
         </CardContent>
       </Card>
 

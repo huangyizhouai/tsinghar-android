@@ -9,6 +9,7 @@ export interface AchievementBadgeProps {
   days: number;
   currentDays: number;
   color: string;
+  glowColor?: string;
   isLocked?: boolean;
   onClick?: () => void;
 }
@@ -19,6 +20,7 @@ export default function AchievementBadge({
   days,
   currentDays,
   color,
+  glowColor = "#7d4dff",
   isLocked = false,
   onClick
 }: AchievementBadgeProps) {
@@ -28,32 +30,53 @@ export default function AchievementBadge({
   
   return (
     <div 
-      className="flex flex-col items-center space-y-1 cursor-pointer"
+      className="flex flex-col items-center space-y-1.5 cursor-pointer"
       onClick={onClick}
     >
       <div className="relative">
+        {/* Main circle with glow effect */}
         <div
           className={cn(
-            "w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300",
-            isUnlocked ? color : "bg-gray-700/50 backdrop-blur-sm"
+            "w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300",
+            isUnlocked ? color : "bg-gray-800/50 backdrop-blur-sm"
           )}
           style={{ 
-            boxShadow: isUnlocked ? `0 0 15px ${color.replace('bg-', '')}` : 'none',
+            boxShadow: isUnlocked ? `0 0 20px ${glowColor}` : 'none',
           }}
         >
-          {isLocked ? (
-            <Lock className="w-6 h-6 text-gray-400" />
+          {isLocked || !isUnlocked ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Lock className="w-7 h-7 text-gray-400" />
+            </div>
           ) : (
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-white/20 to-gray-700/30 backdrop-blur-lg flex items-center justify-center">
-              <div className="text-white text-xs font-medium">
-                {isUnlocked ? "✓" : Math.floor(progress * 100) + "%"}
-              </div>
+            // Inner reflective surface for unlocked badges
+            <div 
+              className="w-16 h-16 rounded-full bg-gradient-to-br from-white/30 via-transparent to-gray-800/40 backdrop-blur-lg flex items-center justify-center overflow-hidden"
+              style={{
+                transform: 'perspective(100px) rotateX(5deg)',
+                boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
+              }}
+            >
+              {/* Central light reflection */}
+              <div className="absolute w-14 h-14 bg-gradient-to-br from-white/15 to-transparent rounded-full"
+                style={{
+                  filter: 'blur(2px)',
+                  transform: 'translateY(-2px)'
+                }}
+              />
+              
+              {/* Diagonal light streak */}
+              <div className="absolute w-full h-10 bg-white/10" 
+                style={{
+                  transform: 'rotate(-45deg) translate(-5px, -5px)'
+                }}
+              />
             </div>
           )}
         </div>
       </div>
       
-      <h3 className="text-white text-sm font-medium">{name}</h3>
+      <h3 className="text-white text-sm font-semibold">{name}</h3>
       <p className="text-gray-400 text-xs">{description}</p>
     </div>
   );

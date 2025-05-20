@@ -34,6 +34,8 @@ export const translations: Record<Language, Record<string, string>> = {
     hours: 'Hours',
     minutes: 'Minutes',
     seconds: 'Seconds',
+    recovery: 'Recovery',
+    streak: 'Streak',
     
     // Recovery Tools section
     recoveryTools: 'Recovery Tools',
@@ -92,6 +94,8 @@ export const translations: Record<Language, Record<string, string>> = {
     hours: '小时',
     minutes: '分钟',
     seconds: '秒',
+    recovery: '恢复',
+    streak: '连续',
     
     // Recovery Tools section
     recoveryTools: '恢复工具',
