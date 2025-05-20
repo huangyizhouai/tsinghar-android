@@ -17,8 +17,8 @@ export function formatTimeRemaining(date: Date): string {
 }
 
 export function calculateRecoveryPercentage(days: number): number {
-  // Based on a 90-day recovery goal
-  return Math.min(Math.round((days / 90) * 100), 100);
+  // Based on a 45-day recovery goal as specified
+  return Math.min(Math.round((days / 45) * 100), 100);
 }
 
 export function getDaysLeft(currentDays: number, targetDays: number): number {
