@@ -17,7 +17,10 @@ export default function PanicModal({ onClose }: PanicModalProps) {
   const [flashState, setFlashState] = useState(true);
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const holdTimeout = 3000; // 3 seconds to exit emergency mode
-  const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+  
+  // Select a random motivational quote
+  const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+  const randomQuoteObj = motivationalQuotes[randomIndex];
   
   // Flash effect for emergency mode
   useEffect(() => {
@@ -87,7 +90,7 @@ export default function PanicModal({ onClose }: PanicModalProps) {
         <p 
           className={`text-xl font-semibold mb-8 text-center max-w-md ${flashState ? 'text-white' : 'text-red-500'}`}
         >
-          {randomQuote}
+          "{randomQuoteObj.quote}" <span className="block mt-2 text-sm font-normal opacity-80">— {randomQuoteObj.author}</span>
         </p>
         
         <div 

@@ -160,6 +160,15 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Panic button
     panicButton: '紧急按钮',
+    emergency: '紧急情况',
+    holdToExit: '长按退出',
+    breatheDeep: '深呼吸。这种感觉会过去的。',
+    stayStrong: '保持坚强！',
+    urgeTemporary: '这种冲动是暂时的，很快就会过去。深呼吸，记住你为什么开始这段旅程。',
+    startBreathing: '开始呼吸练习',
+    viewReasons: '查看您戒除的原因',
+    watchMotivational: '观看激励视频',
+    feelingBetter: '我现在感觉好多了',
     
     // Check-in flow
     dailyCheckIn: '每日签到',
