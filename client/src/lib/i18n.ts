@@ -105,7 +105,7 @@ export const translations: Record<Language, Record<string, string>> = {
   
   zh: {
     // App title
-    appName: '戒色恢复跟踪器',
+    appName: '清者',
     achievements: '成就',
     collected: '已收集',
     
@@ -204,7 +204,7 @@ export const translations: Record<Language, Record<string, string>> = {
 };
 
 // State to track current language
-let currentLanguage: Language = 'en';
+let currentLanguage: Language = 'zh';
 
 // Try to load from localStorage on init
 try {

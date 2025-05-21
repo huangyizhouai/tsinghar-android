@@ -95,7 +95,7 @@ export default function Community() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+          <h1 className="text-xl font-semibold text-text-primary">清者</h1>
         </div>
         <button className="p-2 rounded-full bg-background-card">
           <Filter className="h-6 w-6 text-text-primary" />
