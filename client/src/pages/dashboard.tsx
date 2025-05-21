@@ -96,7 +96,7 @@ export default function Dashboard() {
 
         {/* QUITTR 2.0 preview banner */}
         <div className="preview-banner mb-6">
-          Early preview of QUITTR 2.0. Keep your eyes peeled 👀
+          清者重启人生，自此踏雪至山巅
         </div>
         
         {/* Streak Timer with Swirl Emblem */}
