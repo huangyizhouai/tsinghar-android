@@ -19,7 +19,7 @@ export default function Menu() {
   const menuItems = [
     {
       icon: <User className="h-6 w-6 text-text-secondary" />,
-      title: "My Profile",
+      title: "个人资料",
       path: "/"
     },
     {
@@ -49,7 +49,7 @@ export default function Menu() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">NoFap Recovery</h1>
+          <h1 className="text-xl font-semibold text-text-primary">清者</h1>
         </div>
       </div>
 
