@@ -123,6 +123,7 @@ export const translations: Record<Language, Record<string, string>> = {
     never: '从未',
     resetStreak: '重置计数',
     progressMessage: '你正在取得很大进步！保持坚强，记住你为什么开始。',
+    openAnalytics: '打开分析',
     
     // Common labels
     yes: '是',
@@ -152,6 +153,12 @@ export const translations: Record<Language, Record<string, string>> = {
     reasons: '理由',
     whyStarted: '为什么开始',
     
+    // Library
+    libraryHeader: '轻松戒色',
+    articles: '文章',
+    meditate: '冥想',
+    podcast: '播客',
+    
     // Mindfulness section
     mindfulnessResources: '正念资源',
     breathing: '呼吸',
@@ -162,7 +169,13 @@ export const translations: Record<Language, Record<string, string>> = {
     // Todo section
     todo: '待办事项',
     joinCommunity: '加入社区',
-    followTikTok: '关注抖音',
+    followTikTok: '关注抖音号',
+    
+    // Menu
+    myJournal: '我的日志',
+    leaderboard: '排行榜',
+    help: '帮助与支持',
+    settings: '设置',
     
     // Panic button
     panicButton: '紧急按钮',
@@ -175,6 +188,14 @@ export const translations: Record<Language, Record<string, string>> = {
     viewReasons: '查看您戒除的原因',
     watchMotivational: '观看激励视频',
     feelingBetter: '我现在感觉好多了',
+    
+    // Breathing
+    breathingTitle: '呼吸练习',
+    startGuidedSession: '开始引导',
+    
+    // Community
+    communityJoinBtn: '加入社区',
+    emptyStateCommunity: '暂无帖子，抢先分享你的故事吧！🌱',
     
     // Check-in flow
     dailyCheckIn: '每日签到',
@@ -191,6 +212,14 @@ export const translations: Record<Language, Record<string, string>> = {
     strengthGrows: '你的力量随着每次克服挑战而增长',
     communityMoodToday: '今日社区心情',
     continue: '继续',
+    
+    // Fun copy and motivational quotes
+    achievementUnlockedToast: '🎉 恭喜！你已解锁「{{name}}」徽章！',
+    dailyMotivation: [
+      '跌倒七次，站起来八次。— 日本谚语',
+      '别把今天的你，交给昨天的习惯。',
+      '每一次忍住，都是未来的礼物。'
+    ],
     
     // Week bar
     mon: '周一',

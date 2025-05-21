@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useLanguage } from '@/hooks/use-language';
 import { ChevronLeft } from 'lucide-react';
 import { Link } from 'wouter';
+import { useToast } from '@/hooks/use-toast';
 import AchievementBadge from '@/components/achievement-badge';
 
 // Define achievements with their requirements and colors exactly as in the spec
@@ -93,6 +94,7 @@ const achievementsList = [
 
 export default function AchievementsPage() {
   const { t } = useLanguage();
+  const { toast } = useToast();
   const [collected, setCollected] = useState(0);
   
   // Fetch streak data
@@ -154,9 +156,12 @@ export default function AchievementsPage() {
             assetUnlocked={achievement.assetUnlocked}
             onClick={() => {
               if (currentDays >= achievement.days && !achievement.isLocked) {
-                // Show achievement unlocked toast
-                // This would typically be implemented with a toast notification
-                console.log(`Achievement unlocked: ${achievement.name}`);
+                // Show achievement unlocked toast with Chinese text
+                toast({
+                  title: "🎉 恭喜！",
+                  description: `你已解锁「${achievement.name}」徽章！`,
+                  variant: "default",
+                });
               }
             }}
           />
