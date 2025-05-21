@@ -348,7 +348,7 @@ export default function CustomMeditationPlayer({ track, onBack, onShowInfo }: Cu
     try {
       // Create audio context if it doesn't exist
       if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext)();
+        audioContextRef.current = new AudioContext();
         
         // Generate meditation audio
         createBreathingMeditation(

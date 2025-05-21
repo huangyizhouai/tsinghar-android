@@ -180,7 +180,7 @@ const MeditationAudioGenerator: React.FC<AudioGeneratorProps> = ({
     
     try {
       // Create audio context
-      audioContextRef.current = new (window.AudioContext)();
+      audioContextRef.current = new AudioContext();
       
       if (type === 'ambient') {
         createAmbientSound();
