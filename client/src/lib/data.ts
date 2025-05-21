@@ -189,22 +189,40 @@ export const motivationalQuotes = [
 
 export const meditationTracks: MeditationTrack[] = [
   {
-    id: "meditation-sounds",
-    title: "Meditation",
-    subtitle: "Sounds by QUITTR",
-    duration: 300, // 5 minutes
-    audioUrl: "https://example.com/meditation-sound.mp3", // This will be replaced with actual audio file
-    color: "#7C4DFF", // Purple
-    description: "A guided meditation to help you relax and overcome urges."
+    id: "urge-control",
+    title: "抵制冲动",
+    subtitle: "强化自律 · 7分钟",
+    duration: 420, // 7 minutes
+    audioUrl: "custom:urge-control",
+    color: "#F9A826", // Yellow/Orange
+    description: "特别设计的4-7-8呼吸法冥想练习，帮助克服冲动和增强意志力。当你感到冲动或者想要放弃时，这个音频将帮助你平静下来，重新掌控自己。"
   },
   {
-    id: "stop-fapping",
-    title: "Stop Fapping",
-    subtitle: "Sounds by QUITTR",
-    duration: 420, // 7 minutes
-    audioUrl: "https://example.com/stop-fapping-sound.mp3", // This will be replaced with actual audio file
-    color: "#F9A826", // Yellow/Orange
-    description: "A focused meditation designed specifically to overcome urges and build willpower."
+    id: "calmness",
+    title: "平静心灵",
+    subtitle: "呼吸练习 · 5分钟",
+    duration: 300, // 5 minutes
+    audioUrl: "custom:calmness",
+    color: "#7C4DFF", // Purple
+    description: "这个平静的呼吸引导练习使用箱式呼吸法（4-4-4-4），帮助你快速找回平静和专注。适合焦虑或压力大的时候使用。"
+  },
+  {
+    id: "gratitude",
+    title: "感恩冥想",
+    subtitle: "增强动力 · 6分钟",
+    duration: 360, // 6 minutes
+    audioUrl: "custom:gratitude",
+    color: "#10B981", // Emerald
+    description: "这个冥想练习帮助你培养感恩的心态，提醒自己戒色旅程的目标和重要性。在感到迷茫或缺乏动力时特别有效。"
+  },
+  {
+    id: "deep-sleep",
+    title: "深度睡眠",
+    subtitle: "放松身心 · 10分钟",
+    duration: 600, // 10 minutes
+    audioUrl: "custom:deep-sleep",
+    color: "#8B5CF6", // Purple
+    description: "这个冥想练习使用4-8呼吸节奏帮助你放松并准备睡眠。睡眠质量对抵抗冲动至关重要，这个音频帮助你获得更好的夜间休息。"
   }
 ];
 

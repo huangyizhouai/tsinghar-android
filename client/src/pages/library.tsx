@@ -10,6 +10,7 @@ import Leaderboard from "@/components/library/leaderboard";
 import CategoryButtons from "@/components/library/category-buttons";
 import MeditationTrackList from "@/components/library/meditation-track-list";
 import MeditationPlayer from "@/components/library/meditation-player";
+import CustomMeditationPlayer from "@/components/library/custom-meditation-player";
 import InfoModal from "@/components/library/info-modal";
 import { libraryCategories, meditationTracks } from "@/lib/data";
 import { apiRequest } from "@/lib/queryClient";
@@ -254,14 +255,25 @@ export default function Library() {
       
       {/* Meditation Player (overlay) */}
       {currentTrack && (
-        <MeditationPlayer 
-          track={currentTrack}
-          onBack={handleBackFromPlayer}
-          onShowInfo={() => showInfoModal(
-            currentTrack.title,
-            currentTrack.description || "Guided meditation to help you stay focused and calm."
-          )}
-        />
+        currentTrack.audioUrl.startsWith('custom:') ? (
+          <CustomMeditationPlayer
+            track={currentTrack}
+            onBack={handleBackFromPlayer}
+            onShowInfo={() => showInfoModal(
+              currentTrack.title,
+              currentTrack.description || "自定义引导冥想，帮助你保持专注和平静。"
+            )}
+          />
+        ) : (
+          <MeditationPlayer 
+            track={currentTrack}
+            onBack={handleBackFromPlayer}
+            onShowInfo={() => showInfoModal(
+              currentTrack.title,
+              currentTrack.description || "引导冥想，帮助你保持专注和平静。"
+            )}
+          />
+        )
       )}
       
       {/* Info Modal */}
