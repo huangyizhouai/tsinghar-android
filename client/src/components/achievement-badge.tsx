@@ -4,13 +4,16 @@ import { Lock } from 'lucide-react';
 import { useLanguage } from '@/hooks/use-language';
 
 export interface AchievementBadgeProps {
+  id?: string;
   name: string;
+  enName?: string;
   description: string;
   days: number;
   currentDays: number;
   color: string;
   glowColor?: string;
   isLocked?: boolean;
+  assetUnlocked?: string;
   onClick?: () => void;
 }
 
@@ -22,6 +25,7 @@ export default function AchievementBadge({
   color,
   glowColor = "#7d4dff",
   isLocked = false,
+  assetUnlocked,
   onClick
 }: AchievementBadgeProps) {
   const { t } = useLanguage();
@@ -46,7 +50,17 @@ export default function AchievementBadge({
         >
           {isLocked || !isUnlocked ? (
             <div className="absolute inset-0 flex items-center justify-center">
-              <Lock className="w-7 h-7 text-gray-400" />
+              <img 
+                src="/assets/achievements/lock.svg" 
+                alt="Locked" 
+                className="w-7 h-7 opacity-70"
+                onError={(e) => {
+                  // Fallback to Lucide icon if SVG not found
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <Lock className="w-7 h-7 text-gray-400 hidden" />
             </div>
           ) : (
             // Inner reflective surface for unlocked badges
@@ -57,20 +71,30 @@ export default function AchievementBadge({
                 boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
               }}
             >
-              {/* Central light reflection */}
-              <div className="absolute w-14 h-14 bg-gradient-to-br from-white/15 to-transparent rounded-full"
-                style={{
-                  filter: 'blur(2px)',
-                  transform: 'translateY(-2px)'
-                }}
-              />
-              
-              {/* Diagonal light streak */}
-              <div className="absolute w-full h-10 bg-white/10" 
-                style={{
-                  transform: 'rotate(-45deg) translate(-5px, -5px)'
-                }}
-              />
+              {assetUnlocked ? (
+                <img 
+                  src={assetUnlocked} 
+                  alt={name} 
+                  className="w-12 h-12 object-contain"
+                />
+              ) : (
+                <>
+                  {/* Central light reflection */}
+                  <div className="absolute w-14 h-14 bg-gradient-to-br from-white/15 to-transparent rounded-full"
+                    style={{
+                      filter: 'blur(2px)',
+                      transform: 'translateY(-2px)'
+                    }}
+                  />
+                  
+                  {/* Diagonal light streak */}
+                  <div className="absolute w-full h-10 bg-white/10" 
+                    style={{
+                      transform: 'rotate(-45deg) translate(-5px, -5px)'
+                    }}
+                  />
+                </>
+              )}
             </div>
           )}
         </div>
