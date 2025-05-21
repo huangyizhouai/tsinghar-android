@@ -137,6 +137,9 @@ export const translations: Record<Language, Record<string, string>> = {
     streak: '连续',
     projectedQuitDate: '预计戒除日期',
     brainRewiring: '大脑重塑',
+    hr: '小时',
+    m: '分',
+    s: '秒',
     
     // Recovery Tools section
     recoveryTools: '恢复工具',
