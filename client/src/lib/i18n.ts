@@ -37,6 +37,7 @@ export const translations: Record<Language, Record<string, string>> = {
     recovery: 'Recovery',
     streak: 'Streak',
     projectedQuitDate: 'Projected Quit Date',
+    brainRewiring: 'Brain Rewiring',
     
     // Recovery Tools section
     recoveryTools: 'Recovery Tools',
@@ -63,6 +64,15 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Panic button
     panicButton: 'Panic Button',
+    emergency: 'EMERGENCY',
+    holdToExit: 'Hold to exit',
+    breatheDeep: 'Take a deep breath. This feeling will pass.',
+    stayStrong: 'Stay Strong!',
+    urgeTemporary: 'This urge is temporary and will pass. Take a deep breath and remember why you started this journey.',
+    startBreathing: 'Start Breathing Exercise',
+    viewReasons: 'View Your Reasons to Quit',
+    watchMotivational: 'Watch Motivational Video',
+    feelingBetter: 'I\'m Feeling Better Now',
     
     // Check-in flow
     dailyCheckIn: 'Daily Check-in',
@@ -123,6 +133,7 @@ export const translations: Record<Language, Record<string, string>> = {
     recovery: '恢复',
     streak: '连续',
     projectedQuitDate: '预计戒除日期',
+    brainRewiring: '大脑重塑',
     
     // Recovery Tools section
     recoveryTools: '恢复工具',

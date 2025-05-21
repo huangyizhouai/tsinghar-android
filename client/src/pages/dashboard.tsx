@@ -10,6 +10,7 @@ import AppLogo from "@/components/app-logo";
 import ProgressRing from "@/components/progress-ring";
 import LiveStreakTimer from "@/components/live-streak-timer";
 import WeekBar from "@/components/week-bar";
+import BrainRewiringBar from "@/components/brain-rewiring-bar";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import { useLanguage } from "@/hooks/use-language";
@@ -104,6 +105,12 @@ export default function Dashboard() {
             days={streak?.currentStreak || 0} 
             onClick={() => window.location.href = '/progress'} 
           />
+          
+          {/* Brain Rewiring Progress Bar */}
+          <div className="w-full max-w-sm mt-6 mb-2">
+            <BrainRewiringBar days={streak?.currentStreak || 0} />
+          </div>
+          
           <p className="text-text-secondary text-center max-w-md mt-4">
             {t('progressMessage')}
           </p>
