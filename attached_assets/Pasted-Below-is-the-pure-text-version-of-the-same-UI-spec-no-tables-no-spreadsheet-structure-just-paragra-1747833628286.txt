@@ -1,0 +1,82 @@
+Below is the pure‑text version of the same UI spec—no tables, no spreadsheet structure, just paragraphs and bullet lists.
+
+⸻
+
+1.  Home screen (screenshots “Home‑<1 day” and “Home‑9 days”)
+	•	Background is a deep‑purple gradient scattered with tiny, low‑opacity white stars.
+	•	Top‑left shows the white “QUITTR” word‑mark; top‑right holds a ribbon icon (future insights) and a power icon (log‑out).
+	•	Immediately below sits the weekly status row: seven small circles, Monday through Sunday.
+	•	Filled purple circle with a ✓ means the user stayed clean that day.
+	•	Filled purple circle with a ✕ means relapse.
+	•	Hollow grey outline means the day is still in the future or has no data yet.
+	•	A one‑line preview banner reads:
+Early preview of QUITTR 2.0. Keep your eyes pealed 👀.
+	•	At mid‑screen is a swirl emblem that changes colour as the streak grows; it’s roughly 160 dp wide and cross‑fades whenever it flips hue.
+	•	The live streak counter uses two font scales.
+	•	If the streak is less than one full day, show something like “1 hr 18 m” in big, bold type (~44 sp), and the seconds ticker (“33 s”) beneath it in a pill‑shaped capsule.
+	•	If the streak is one day or more, show “9 days” (etc.) in the large type, and put the remaining hours/minutes/seconds in the smaller capsule line.
+	•	Timer.periodic updates once a second and is always cancelled in dispose().
+	•	Four round quick‑action buttons appear in a single row: Pledge (✋), Meditate (🧘), Reset (↻), and More (⋯).  Each is a 72 dp circle with a 48 dp white glyph; the text labels sit directly below each icon.
+	•	“Brain Rewiring” progress is a full‑width rounded rectangle.  The label sits on the left, the percentage on the right.  Fill colour is cyan‑teal; value equals the streak days divided by 90, capped at 100 percent.
+	•	The text link “Open Analytics” (plain white) is left‑aligned a few lines above the Panic Button.
+	•	The Panic Button itself: 56 dp tall, red 2 dp outline, 12 dp corner radius, label “⚠️ Panic Button” centred in white.  When tapped, the app overlays a full‑screen black view that:
+	•	flashes red and white motivational messages every 300 ms,
+	•	vibrates continuously with a short‑burst pattern,
+	•	exits only after the user holds a long‑press anywhere for about three seconds.
+
+Edge case: directly after a reset, the counter begins at “0 hr 0 m” and the seconds capsule counts up from zero.
+
+⸻
+
+2.  Daily Check‑In, Step 3 (screenshot “CheckIn‑Step3”)
+	•	The upper chrome (QUITTR logo, weekly row, swirl emblem) remains in place for coherence.
+	•	A bold, centred headline reads:
+QUITTR believes in you, never give up. 👑
+	•	Next are three large white lines—emoji, number with commas, and the word “others”—for the happy, neutral, and sad tallies respectively.  Example values are 19,496; 5,102; and 402.
+	•	A smaller caption under that says:
+This is hard but believe in yourself. You're not alone.
+	•	The Reflect button is primary, 56 dp high, royal‑blue, with a counter‑clockwise arrow glyph to the left of the word “Reflect”.
+	•	“Finish” is a plain text link centred a short distance below the Reflect button.
+
+⸻
+
+3.  Achievements screen (screenshot “Achievements‑6of20”)
+	•	Standard AppBar with back arrow and the title “Achievements”.
+	•	Directly under the title sits a thin progress strip, gradient cyan into lavender, whose filled length equals the fraction of unlocked badges (in the example, six out of twenty).  Beneath the strip is the text “6/20 collected”.
+	•	Badges are arranged in a two‑column grid with even vertical spacing.
+	•	For unlocked badges, show their coloured swirl disc (64 dp diameter), the title, and “x/x days” where both numbers match the day requirement.
+	•	For locked badges, show a 40 dp grey padlock, the title, “current/x days”, and a thin faded progress bar indicating percentage completion.
+	•	The first six milestones, exactly as the screenshot depicts, are:
+Seed (1 day), Sprout (3 days), Pioneer (5 days), Momentum (7 days), Fortress (10 days), Guardian (14 days).
+
+⸻
+
+4.  Life‑Tree view (screenshots “Tree‑0 day” and “Tree‑9 days”)
+	•	Pastel daylight landscape fills the background; a simple SVG will do.
+	•	Top‑right overlay shows current streak, e.g., “9 days”.
+	•	The tree assets change as follows:
+Soil mound at 0 days, tiny sprout at 1 day, sapling at 3 days, young plant at 7 days, flowering plant at 9 days (exact screenshot), and so on up to a full forest at 365 days.
+	•	Swap the image with AnimatedSwitcher so it cross‑fades over 300 ms and gently scales.
+	•	A translucent grey toast along the bottom centre says:
+Line 1 (bold) “Your life tree grows with your sobriety streak.”
+Line 2 (regular) “Come back and watch your tree grow as your streak increases!”
+
+⸻
+
+5.  Bottom navigation (visible on Home and Achievements)
+	•	Five icons, left to right: square grid, bar chart, badge/medal, chat bubble, and hamburger menu.
+	•	Icon size is 24 dp.  Selected icon is solid white; others are white at 54 percent opacity.
+	•	Overall bar height is 76 dp, padded for iOS safe‑area.
+
+⸻
+
+6.  Behaviour and data rules
+	•	Streak days are computed from midnight to midnight (now.midnight – lastRelapse.midnight).
+	•	Brain‑rewiring percentage is streak days divided by 90, maximum 100 percent.
+	•	Once the user’s longest streak meets or exceeds a badge’s requirement, that badge remains permanently unlocked—even if the current streak later drops to zero.
+	•	The weekly row always represents the current calendar week in the user’s locale (Monday first).
+	•	All large community numbers use thousands‑separator formatting (19,496 not 19496).
+
+⸻
+
+This plain‑text outline contains every UI detail visible in the six reference photos, described in terms a Flutter developer can implement directly—no tables, spreadsheets, or Excel formatting involved.

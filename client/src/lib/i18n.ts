@@ -38,6 +38,9 @@ export const translations: Record<Language, Record<string, string>> = {
     streak: 'Streak',
     projectedQuitDate: 'Projected Quit Date',
     brainRewiring: 'Brain Rewiring',
+    hr: 'hr',
+    m: 'm',
+    s: 's',
     
     // Recovery Tools section
     recoveryTools: 'Recovery Tools',

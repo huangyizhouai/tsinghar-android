@@ -11,6 +11,7 @@ import ProgressRing from "@/components/progress-ring";
 import LiveStreakTimer from "@/components/live-streak-timer";
 import WeekBar from "@/components/week-bar";
 import BrainRewiringBar from "@/components/brain-rewiring-bar";
+import StreakSwirlEmblem from "@/components/streak-swirl-emblem";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import { useLanguage } from "@/hooks/use-language";
@@ -93,48 +94,72 @@ export default function Dashboard() {
           <span className="mr-2">✓</span> {t('dailyCheckIn')}
         </button>
 
-        {/* Streak Timer */}
-        <div className="flex flex-col items-center mb-8">
+        {/* QUITTR 2.0 preview banner */}
+        <div className="preview-banner mb-6">
+          Early preview of QUITTR 2.0. Keep your eyes peeled 👀
+        </div>
+        
+        {/* Streak Timer with Swirl Emblem */}
+        <div className="flex flex-col items-center mb-8 relative">
+          {/* Star background effect for the entire streak area */}
+          <div className="absolute inset-0 w-full h-full -z-10">
+            {[...Array(30)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-white rounded-full opacity-30"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animation: `twinkle ${2 + Math.random() * 4}s infinite`
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Swirl emblem from the spec */}
+          <StreakSwirlEmblem
+            days={streak?.currentStreak || 0}
+            className="mb-4"
+          />
+          
+          {/* Live timer display */}
           {streak?.startDate && (
             <LiveStreakTimer 
               startDate={streak.startDate} 
-              className="mb-4" 
+              className="mb-6" 
             />
           )}
-          <ProgressRing 
-            days={streak?.currentStreak || 0} 
-            onClick={() => window.location.href = '/progress'} 
-          />
           
           {/* Brain Rewiring Progress Bar */}
-          <div className="w-full max-w-sm mt-6 mb-2">
+          <div className="w-full max-w-sm mb-2">
             <BrainRewiringBar days={streak?.currentStreak || 0} />
           </div>
           
-          <p className="text-text-secondary text-center max-w-md mt-4">
-            {t('progressMessage')}
-          </p>
+          {/* Analytics link */}
+          <Link to="/progress" className="text-white hover:text-primary mt-4 text-left self-start">
+            Open Analytics
+          </Link>
         </div>
         
         {/* Todo Card */}
         <TodoCard />
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        {/* Quick Actions - Using the 72dp circles with 48dp white glyphs as specified */}
+        <div className="flex justify-between mb-8">
           {quickActions.map((action, index) => (
             <div key={index} className="flex flex-col items-center">
               {action.path ? (
                 <Link to={action.path}>
-                  <div className="bg-background-card p-3 rounded-full mb-2">
+                  <div className="quick-action-button mb-2">
                     {action.icon}
                   </div>
                 </Link>
               ) : (
-                <button onClick={action.action} className="bg-background-card p-3 rounded-full mb-2">
+                <button onClick={action.action} className="quick-action-button mb-2">
                   {action.icon}
                 </button>
               )}
-              <span className="text-xs text-text-secondary">{action.name}</span>
+              <span className="text-xs text-white">{action.name}</span>
             </div>
           ))}
         </div>
