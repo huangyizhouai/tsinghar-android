@@ -166,24 +166,36 @@ export const libraryCategories: Category[] = [
 
 export const motivationalQuotes = [
   {
-    quote: "The man who moves a mountain begins by carrying away small stones.",
-    author: "Confucius"
+    quote: "不积跬步，无以至千里。",
+    author: "荀子"
   },
   {
-    quote: "Fall seven times, stand up eight.",
-    author: "Japanese Proverb"
+    quote: "跌倒七次，站起来八次。",
+    author: "日本谚语"
   },
   {
-    quote: "You don't have to be great to start, but you have to start to be great.",
-    author: "Zig Ziglar"
+    quote: "开始不必伟大，但要伟大必须开始。",
+    author: "齐格·齐格拉"
   },
   {
-    quote: "The only person you should try to be better than is the person you were yesterday.",
-    author: "Anonymous"
+    quote: "你应该超越的唯一对手，是昨天的自己。",
+    author: "佚名"
   },
   {
-    quote: "Discipline is choosing between what you want now and what you want most.",
-    author: "Abraham Lincoln"
+    quote: "自律是选择你现在想要的，还是你最想要的。",
+    author: "亚伯拉罕·林肯"
+  },
+  {
+    quote: "日日行，不怕千万里；常常做，不怕千万事。",
+    author: "毛泽东"
+  },
+  {
+    quote: "水滴石穿，不是因为它的力量，而是因为它的坚持。",
+    author: "中国谚语"
+  },
+  {
+    quote: "千里之行，始于足下。",
+    author: "老子"
   }
 ];
 

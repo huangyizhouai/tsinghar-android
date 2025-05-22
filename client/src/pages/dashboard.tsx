@@ -14,6 +14,7 @@ import BrainRewiringBar from "@/components/brain-rewiring-bar";
 import StreakSwirlEmblem from "@/components/streak-swirl-emblem";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
+import MotivationalQuote from "@/components/motivational-quote";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
@@ -94,9 +95,9 @@ export default function Dashboard() {
           <span className="mr-2">✓</span> {t('dailyCheckIn')}
         </button>
 
-        {/* QUITTR 2.0 preview banner */}
-        <div className="preview-banner mb-6">
-          清者重启人生，自此踏雪至山巅
+        {/* Motivational Quote */}
+        <div className="mb-6">
+          <MotivationalQuote />
         </div>
         
         {/* Streak Timer with Swirl Emblem */}
