@@ -15,7 +15,6 @@ import StreakSwirlEmblem from "@/components/streak-swirl-emblem";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import MotivationalQuote from "@/components/motivational-quote";
-import LanguageSelector from "@/components/language-selector";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
@@ -31,12 +30,12 @@ export default function Dashboard() {
   const quickActions = [
     {
       icon: <Timer className="h-6 w-6 text-primary" />,
-      name: t('brainRewiring'),
+      name: "Brain Rewiring",
       path: "/progress"
     },
     {
       icon: <RotateCcw className="h-6 w-6 text-warning" />,
-      name: t('resetStreak'),
+      name: "Reset",
       action: () => {
         fetch('/api/streak/reset', { method: 'POST' })
           .then(res => res.json())
@@ -48,12 +47,12 @@ export default function Dashboard() {
     },
     {
       icon: <Moon className="h-6 w-6 text-info" />,
-      name: t('meditate'),
+      name: "Meditate",
       path: "/menu" // Link to breathing exercise in menu
     },
     {
       icon: <MoreHorizontal className="h-6 w-6 text-text-secondary" />,
-      name: t('menu'),
+      name: "More",
       path: "/menu"
     }
   ];
@@ -67,10 +66,9 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <AppLogo size="md" />
-            <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
+            <h1 className="text-xl font-semibold text-text-primary">清者</h1>
           </div>
-          <div className="flex items-center space-x-2">
-            <LanguageSelector />
+          <div className="flex space-x-2">
             <Link to="/achievements">
               <button className="p-2 rounded-full bg-background-card">
                 <Award className="h-6 w-6 text-text-primary" />
