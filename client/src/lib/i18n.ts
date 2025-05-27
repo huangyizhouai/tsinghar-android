@@ -219,11 +219,6 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Fun copy and motivational quotes
     achievementUnlockedToast: '🎉 恭喜！你已解锁「{{name}}」徽章！',
-    dailyMotivation: [
-      '跌倒七次，站起来八次。— 日本谚语',
-      '别把今天的你，交给昨天的习惯。',
-      '每一次忍住，都是未来的礼物。'
-    ],
     
     // Week bar
     mon: '周一',
@@ -235,7 +230,6 @@ export const translations: Record<Language, Record<string, string>> = {
     sun: '周日',
     
     // Quick actions
-    meditate: '冥想',
     more: '更多',
   }
 };
