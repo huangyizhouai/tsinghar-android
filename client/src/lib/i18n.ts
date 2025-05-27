@@ -101,6 +101,10 @@ export const translations: Record<Language, Record<string, string>> = {
     fri: 'Fri',
     sat: 'Sat',
     sun: 'Sun',
+    
+    // Quick actions
+    meditate: 'Meditate',
+    more: 'More',
   },
   
   zh: {
@@ -229,6 +233,10 @@ export const translations: Record<Language, Record<string, string>> = {
     fri: '周五',
     sat: '周六',
     sun: '周日',
+    
+    // Quick actions
+    meditate: '冥想',
+    more: '更多',
   }
 };
 
