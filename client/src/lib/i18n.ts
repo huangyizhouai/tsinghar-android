@@ -175,6 +175,7 @@ export const translations: Record<Language, Record<string, string>> = {
     leaderboard: '排行榜',
     help: '帮助与支持',
     settings: '设置',
+    dailyMotivation: '每日激励',
     
     // Panic button
     panicButton: '紧急按钮',

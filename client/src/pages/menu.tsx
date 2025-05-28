@@ -6,8 +6,10 @@ import SectionHeader from "@/components/ui/section-header";
 import BreathingExercise from "@/components/breathing-exercise";
 import { motivationalQuotes } from "@/lib/data";
 import AppLogo from "@/components/app-logo";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Menu() {
+  const { t } = useLanguage();
   const { data: streak } = useQuery<{ currentStreak: number }>({
     queryKey: ['/api/streak'],
   });
@@ -24,22 +26,22 @@ export default function Menu() {
     },
     {
       icon: <BookText className="h-6 w-6 text-text-secondary" />,
-      title: "My Journal",
+      title: t('myJournal'),
       path: "/"
     },
     {
       icon: <BarChart2 className="h-6 w-6 text-text-secondary" />,
-      title: "Leaderboard",
+      title: t('leaderboard'),
       path: "/progress"
     },
     {
       icon: <HelpCircle className="h-6 w-6 text-text-secondary" />,
-      title: "Help & Support",
+      title: t('help'),
       path: "/"
     },
     {
       icon: <Settings className="h-6 w-6 text-text-secondary" />,
-      title: "Settings",
+      title: t('settings'),
       path: "/"
     }
   ];
@@ -49,7 +51,7 @@ export default function Menu() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">清者</h1>
+          <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
         </div>
       </div>
 
@@ -88,7 +90,7 @@ export default function Menu() {
           className="w-full h-40 object-cover" 
         />
         <CardContent className="p-4">
-          <h3 className="font-medium text-text-primary mb-2">Daily Motivation</h3>
+          <h3 className="font-medium text-text-primary mb-2">{t('dailyMotivation')}</h3>
           <p className="text-sm text-text-secondary italic">
             "{randomQuote.quote}"
           </p>
