@@ -14,6 +14,7 @@ import AchievementsPage from "@/pages/achievements";
 import ReasonsPage from "@/pages/reasons";
 import ProfilePage from "@/pages/profile";
 import SettingsPage from "@/pages/settings";
+import JournalPage from "@/pages/journal";
 import Navigation from "@/components/navigation";
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
           <Route path="/reasons" component={ReasonsPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/settings" component={SettingsPage} />
+          <Route path="/journal" component={JournalPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

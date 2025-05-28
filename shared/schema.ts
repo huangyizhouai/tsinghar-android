@@ -26,7 +26,8 @@ export const streaks = pgTable("streaks", {
 export const reasons = pgTable("reasons", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
-  reason: text("reason").notNull(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

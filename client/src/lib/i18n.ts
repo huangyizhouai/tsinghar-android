@@ -145,6 +145,21 @@ export const translations: Record<Language, Record<string, string>> = {
     version: 'Version',
     buildDate: 'Build Date',
     
+    // Journal page
+    reasonsCount: 'reasons',
+    viewAllReasons: 'View all reasons',
+    more: 'more',
+    noReasonsInJournal: 'No reasons recorded yet. Add your first reason to stay motivated.',
+    myCommunityPosts: 'My Community Posts',
+    postsCount: 'posts',
+    upvotes: 'upvotes',
+    viewAllPosts: 'View all posts',
+    noPostsInJournal: 'No community posts yet. Share your story with others.',
+    writeFirstPost: 'Write First Post',
+    journalStats: 'Journal Statistics',
+    totalReasons: 'Total Reasons',
+    totalPosts: 'Total Posts',
+    
     // Panic button
     panicButton: 'Panic Button',
     emergency: 'EMERGENCY',

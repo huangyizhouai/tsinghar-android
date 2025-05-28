@@ -27,7 +27,7 @@ export default function Menu() {
     {
       icon: <BookText className="h-6 w-6 text-text-secondary" />,
       title: t('myJournal'),
-      path: "/"
+      path: "/journal"
     },
     {
       icon: <BarChart2 className="h-6 w-6 text-text-secondary" />,
