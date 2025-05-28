@@ -105,7 +105,7 @@ export const translations: Record<Language, Record<string, string>> = {
   
   zh: {
     // App title
-    appName: '清者',
+    appName: '清心',
     achievements: '成就',
     collected: '已收集',
     
@@ -127,7 +127,6 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Common labels
     yes: '是',
-    cancel: '取消',
     
     // Progress metrics
     days: '天',
@@ -156,7 +155,6 @@ export const translations: Record<Language, Record<string, string>> = {
     // Library
     libraryHeader: '轻松戒色',
     articles: '文章',
-    meditate: '冥想',
     podcast: '播客',
     
     // Mindfulness section
@@ -165,6 +163,7 @@ export const translations: Record<Language, Record<string, string>> = {
     calmMind: '平静心灵',
     successStories: '成功故事',
     getInspired: '获取灵感',
+    meditate: '冥想',
     
     // Todo section
     todo: '待办事项',
@@ -213,13 +212,76 @@ export const translations: Record<Language, Record<string, string>> = {
     communityMoodToday: '今日社区心情',
     continue: '继续',
     
+    // Buttons and actions
+    save: '保存',
+    cancelBtn: '取消',
+    ok: '确定',
+    edit: '编辑',
+    delete: '删除',
+    reset: '重置',
+    apply: '应用',
+    undo: '撤销',
+    add: '添加',
+    confirm: '确认',
+    close: '关闭',
+    start: '开始',
+    stop: '停止',
+    pause: '暂停',
+    resume: '继续',
+    submit: '提交',
+    send: '发送',
+    share: '分享',
+    copy: '复制',
+    download: '下载',
+    upload: '上传',
+    refresh: '刷新',
+    retry: '重试',
+    skip: '跳过',
+    next: '下一步',
+    previous: '上一步',
+    finish: '完成',
+    
+    // Navigation buttons
+    'nav.dashboard': '仪表盘',
+    'nav.statistics': '统计',
+    'nav.settings': '设置',
+    'nav.logout': '退出',
+    
+    // Language toggle
+    'lang.en': 'English',
+    'lang.zh': '中文',
+    
+    // Dashboard buttons
+    'dash.add': '添加',
+    'dash.edit': '编辑',
+    'dash.delete': '删除',
+    'dash.resetStreak': '重置纪录',
+    
+    // Modal buttons
+    'modal.save': '保存',
+    'modal.cancel': '取消',
+    
+    // Statistics buttons
+    'stats.apply': '应用',
+    'stats.reset': '重置',
+    
+    // Settings buttons
+    'settings.save': '保存',
+    'settings.cancel': '取消',
+    
+    // Common dialog buttons
+    'common.ok': '确定',
+    'common.cancel': '取消',
+    
+    // Toast buttons
+    'toast.undo': '撤销',
+    
+    // State text
+    'state.loading': '加载中…',
+    'state.disabled': '已禁用',
+    
     // Fun copy and motivational quotes
     achievementUnlockedToast: '🎉 恭喜！你已解锁「{{name}}」徽章！',
-    dailyMotivation: [
-      '跌倒七次，站起来八次。— 日本谚语',
-      '别把今天的你，交给昨天的习惯。',
-      '每一次忍住，都是未来的礼物。'
-    ],
     
     // Week bar
     mon: '周一',

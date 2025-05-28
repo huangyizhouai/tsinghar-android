@@ -30,12 +30,12 @@ export default function Dashboard() {
   const quickActions = [
     {
       icon: <Timer className="h-6 w-6 text-primary" />,
-      name: "Brain Rewiring",
+      name: t('brainRewiring'),
       path: "/progress"
     },
     {
       icon: <RotateCcw className="h-6 w-6 text-warning" />,
-      name: "Reset",
+      name: t('reset'),
       action: () => {
         fetch('/api/streak/reset', { method: 'POST' })
           .then(res => res.json())
@@ -47,12 +47,12 @@ export default function Dashboard() {
     },
     {
       icon: <Moon className="h-6 w-6 text-info" />,
-      name: "Meditate",
+      name: t('meditate'),
       path: "/menu" // Link to breathing exercise in menu
     },
     {
       icon: <MoreHorizontal className="h-6 w-6 text-text-secondary" />,
-      name: "More",
+      name: t('menu'),
       path: "/menu"
     }
   ];
@@ -66,7 +66,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <AppLogo size="md" />
-            <h1 className="text-xl font-semibold text-text-primary">清者</h1>
+            <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
           </div>
           <div className="flex space-x-2">
             <Link to="/achievements">
@@ -166,52 +166,52 @@ export default function Dashboard() {
         </div>
 
         {/* Recovery Tools */}
-        <h2 className="font-medium text-lg mb-4 text-text-primary">Recovery Tools</h2>
+        <h2 className="font-medium text-lg mb-4 text-text-primary">{t('recoveryTools')}</h2>
         <div className="grid grid-cols-2 gap-4 mb-8">
           <ToolCard 
             icon={<BookOpen className="h-6 w-6 text-text-primary" />}
-            title="Learn"
-            description="Knowledge base"
+            title={t('learn')}
+            description={t('knowledgeBase')}
             bgColor="bg-success-dark"
             path="/library"
           />
           <ToolCard 
             icon={<MessageCircle className="h-6 w-6 text-text-primary" />}
-            title="Chat"
-            description="Get support"
+            title={t('chat')}
+            description={t('getSupport')}
             bgColor="bg-info-dark"
             path="/community"
           />
           <ToolCard 
             icon={<Star className="h-6 w-6 text-text-primary" />}
-            title="Milestones"
-            description="Track progress"
+            title={t('milestones')}
+            description={t('trackProgress')}
             bgColor="bg-warning-dark"
             path="/progress"
           />
           <ToolCard 
             icon={<Heart className="h-6 w-6 text-text-primary" />}
-            title="Reasons"
-            description="Why you started"
+            title={t('reasons')}
+            description={t('whyStarted')}
             bgColor="bg-primary-dark"
             path="/menu"
           />
         </div>
 
         {/* Mindfulness Resources */}
-        <h2 className="font-medium text-lg mb-4 text-text-primary">Mindfulness Resources</h2>
+        <h2 className="font-medium text-lg mb-4 text-text-primary">{t('mindfulnessResources')}</h2>
         <div className="grid grid-cols-2 gap-4 mb-8">
           <ToolCard 
             icon={<Waves className="h-6 w-6 text-text-primary" />}
-            title="Breathing"
-            description="Calm your mind"
+            title={t('breathing')}
+            description={t('calmMind')}
             bgColor="bg-accent-dark"
             path="/menu"
           />
           <ToolCard 
             icon={<ThumbsUp className="h-6 w-6 text-text-primary" />}
-            title="Success Stories"
-            description="Get inspired"
+            title={t('successStories')}
+            description={t('getInspired')}
             bgColor="bg-primary-dark"
             path="/community"
           />
