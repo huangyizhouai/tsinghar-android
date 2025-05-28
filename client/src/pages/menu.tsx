@@ -32,7 +32,7 @@ export default function Menu() {
     {
       icon: <BarChart2 className="h-6 w-6 text-text-secondary" />,
       title: t('leaderboard'),
-      path: "/progress"
+      path: "/library"
     },
     {
       icon: <HelpCircle className="h-6 w-6 text-text-secondary" />,
