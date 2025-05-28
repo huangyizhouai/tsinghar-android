@@ -13,6 +13,7 @@ import Menu from "@/pages/menu";
 import AchievementsPage from "@/pages/achievements";
 import ReasonsPage from "@/pages/reasons";
 import ProfilePage from "@/pages/profile";
+import SettingsPage from "@/pages/settings";
 import Navigation from "@/components/navigation";
 
 function Router() {
@@ -30,6 +31,7 @@ function Router() {
           <Route path="/achievements" component={AchievementsPage} />
           <Route path="/reasons" component={ReasonsPage} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/settings" component={SettingsPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

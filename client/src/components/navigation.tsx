@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 import { Home, BarChart2, BookOpen, Users, Menu } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
-import LanguageSelector from "./language-selector";
 
 type NavigationProps = {
   currentPath: string;
@@ -41,10 +40,6 @@ export default function Navigation({ currentPath }: NavigationProps) {
 
   return (
     <>
-      <div className="fixed top-0 right-0 p-2 z-40">
-        <LanguageSelector />
-      </div>
-      
       <nav className="fixed bottom-0 left-0 right-0 bg-background-secondary border-t border-background-card flex justify-around py-2 z-40">
         {tabs.map(({ path, label, icon }) => {
           const isActive = (currentPath === "/" && path === "/") || 

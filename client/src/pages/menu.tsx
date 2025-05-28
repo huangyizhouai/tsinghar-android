@@ -42,7 +42,7 @@ export default function Menu() {
     {
       icon: <Settings className="h-6 w-6 text-text-secondary" />,
       title: t('settings'),
-      path: "/"
+      path: "/settings"
     }
   ];
 
