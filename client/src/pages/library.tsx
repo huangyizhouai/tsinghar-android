@@ -18,6 +18,8 @@ import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Library() {
+  const { t } = useLanguage();
+  
   // State
   const [currentView, setCurrentView] = useState("main"); // main, articles, meditate, learn, podcast
   const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
@@ -110,7 +112,7 @@ export default function Library() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">清者</h1>
+          <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
         </div>
         <div className="flex space-x-2">
           <button className="p-2 rounded-full bg-background-card">
@@ -123,7 +125,7 @@ export default function Library() {
       </div>
       
       {/* Tagline */}
-      <p className="text-text-secondary mb-6">Quit Porn Easily</p>
+      <p className="text-text-secondary mb-6">{t('quitPornEasily')}</p>
       
       {/* Category Buttons */}
       <CategoryButtons onSelectCategory={handleCategorySelect} />
@@ -140,12 +142,12 @@ export default function Library() {
           <button onClick={handleBackToMain} className="mr-3">
             <ArrowLeft className="h-6 w-6 text-text-primary" />
           </button>
-          <h1 className="font-bold text-2xl text-text-primary">Articles</h1>
+          <h1 className="font-bold text-2xl text-text-primary">{t('articlesTitle')}</h1>
         </div>
         <button 
           onClick={() => showInfoModal(
-            "Articles", 
-            "Read through these educational articles to learn about addiction, health effects, and recovery strategies."
+            t('articlesTitle'), 
+            t('articlesDescription')
           )}
         >
           <Info className="h-6 w-6 text-text-primary" />
@@ -158,7 +160,7 @@ export default function Library() {
           <div className="flex justify-between items-center mb-3">
             <h2 className="font-medium text-text-primary">{category.name}</h2>
             <span className="text-xs text-text-secondary">
-              {getCategoryCompletionPercentage(category.id)}% Complete
+              {getCategoryCompletionPercentage(category.id)}% {t('complete')}
             </span>
           </div>
           
@@ -206,12 +208,12 @@ export default function Library() {
           <button onClick={handleBackToMain} className="mr-3">
             <ArrowLeft className="h-6 w-6 text-text-primary" />
           </button>
-          <h1 className="font-bold text-2xl text-text-primary">Meditate</h1>
+          <h1 className="font-bold text-2xl text-text-primary">{t('meditateTitle')}</h1>
         </div>
         <button 
           onClick={() => showInfoModal(
-            "Meditate", 
-            "Use these guided meditations to overcome urges and calm your mind. Regular practice strengthens your willpower and focus."
+            t('meditateTitle'), 
+            t('meditateDescription')
           )}
         >
           <Info className="h-6 w-6 text-text-primary" />
@@ -236,8 +238,8 @@ export default function Library() {
       
       <div className="flex justify-center items-center py-12">
         <div className="text-center">
-          <h3 className="text-xl font-medium text-text-primary mb-2">Coming Soon</h3>
-          <p className="text-text-secondary">This feature is currently being developed.</p>
+          <h3 className="text-xl font-medium text-text-primary mb-2">{t('comingSoon')}</h3>
+          <p className="text-text-secondary">{t('featureInDevelopment')}</p>
         </div>
       </div>
     </>
