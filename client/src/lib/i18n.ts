@@ -281,6 +281,32 @@ export const translations: Record<Language, Record<string, string>> = {
     'state.loading': '加载中…',
     'state.disabled': '已禁用',
     
+    // Progress page
+    recoveryBenefits: '康复益处',
+    milestonesTitle: '里程碑',
+    achieved: '已达成',
+    daysLeft: '天后达成',
+    daysSingle: '天',
+    
+    // Motivational messages
+    beginningJourney: '今天标志着强大旅程的开始。记住，小步骤会带来巨大变化。',
+    buildingMomentum: '最初几天很有挑战性，但你正在积累动力。每一天都在加强你的决心。',
+    toughestPart: '你已经度过了最艰难的部分！你的大脑已经开始愈合。',
+    incredibleProgress: '令人难以置信的进步！你对这段旅程的承诺正在创造持久的积极变化。',
+    
+    // Library page
+    articlesTitle: '文章',
+    meditateTitle: '冥想',
+    learnTitle: '学习',
+    podcastTitle: '播客',
+    leaderboardTitle: '排行榜',
+    comingSoon: '即将推出',
+    featureInDevelopment: '此功能正在开发中。',
+    complete: '已完成',
+    quitPornEasily: '轻松戒色',
+    articlesDescription: '阅读这些教育文章，了解成瘾、健康影响和康复策略。',
+    meditateDescription: '使用这些引导冥想来克服冲动并平静你的心灵。定期练习能增强你的意志力和专注力。',
+    
     // Fun copy and motivational quotes
     achievementUnlockedToast: '🎉 恭喜！你已解锁「{{name}}」徽章！',
     

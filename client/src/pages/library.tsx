@@ -15,6 +15,7 @@ import InfoModal from "@/components/library/info-modal";
 import { libraryCategories, meditationTracks } from "@/lib/data";
 import { apiRequest } from "@/lib/queryClient";
 import AppLogo from "@/components/app-logo";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Library() {
   // State

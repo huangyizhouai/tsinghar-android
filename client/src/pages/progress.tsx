@@ -28,13 +28,13 @@ export default function ProgressPage() {
   
   const motivationalText = () => {
     if (days === 0) {
-      return "Today marks the beginning of a powerful journey. Remember, small steps lead to great changes.";
+      return t('beginningJourney');
     } else if (days < 7) {
-      return "The first few days are challenging, but you're building momentum. Each day strengthens your resolve.";
+      return t('buildingMomentum');
     } else if (days < 30) {
-      return "You've made it through the toughest part! Your brain is already beginning to heal.";
+      return t('toughestPart');
     } else {
-      return "Incredible progress! Your commitment to this journey is creating lasting positive changes.";
+      return t('incredibleProgress');
     }
   };
 
@@ -68,7 +68,7 @@ export default function ProgressPage() {
       </Card>
 
       {/* Recovery Benefits */}
-      <h2 className="font-medium text-lg mb-4 text-text-primary">Recovery Benefits</h2>
+      <h2 className="font-medium text-lg mb-4 text-text-primary">{t('recoveryBenefits')}</h2>
       
       <div className="space-y-4 mb-8">
         {(progressData || []).map((benefit: any, index: number) => {
@@ -99,7 +99,7 @@ export default function ProgressPage() {
       </div>
 
       {/* Milestones */}
-      <h2 className="font-medium text-lg mb-4 text-text-primary">Milestones</h2>
+      <h2 className="font-medium text-lg mb-4 text-text-primary">{t('milestonesTitle')}</h2>
       <Card className="bg-background-card rounded-xl p-4 mb-8">
         {(milestones || []).map((milestone: any, index: number) => {
           const achieved = milestone.achieved;
@@ -115,7 +115,7 @@ export default function ProgressPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-medium text-text-primary">{milestone.days} {milestone.days === 1 ? 'Day' : 'Days'}</h3>
+                  <h3 className="font-medium text-text-primary">{milestone.days} {milestone.days === 1 ? t('daysSingle') : t('days')}</h3>
                   <p className="text-xs text-text-secondary">{data.description}</p>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function ProgressPage() {
                   ? 'bg-primary bg-opacity-20 text-primary' 
                   : 'bg-background-primary text-text-secondary'
               }`}>
-                {achieved ? 'Achieved' : `${daysLeft} days left`}
+                {achieved ? t('achieved') : `${daysLeft} ${t('daysLeft')}`}
               </span>
             </div>
           );
