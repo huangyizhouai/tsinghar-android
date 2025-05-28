@@ -66,6 +66,25 @@ export const translations: Record<Language, Record<string, string>> = {
     followOnTiktok: 'Follow on TikTok',
     tiktokUrl: 'https://tiktok.com/@nofapapp',
     
+    // Reasons page
+    myReasons: 'My Reasons',
+    addNewReason: 'Add New Reason',
+    reasonTitle: 'Reason title',
+    reasonDescription: 'Describe why this reason is important to you...',
+    reasonsSubtitle: 'Remember why you started this journey. Your reasons are your strength.',
+    loadingReasons: 'Loading reasons...',
+    noReasonsYet: 'No reasons yet',
+    addFirstReason: 'Add your first reason to stay motivated',
+    addReason: 'Add Reason',
+    adding: 'Adding...',
+    reasonAdded: 'Reason Added',
+    reasonAddedDesc: 'Your reason has been successfully added!',
+    reasonDeleted: 'Reason Deleted',
+    reasonDeletedDesc: 'The reason has been removed.',
+    failedAddReason: 'Failed to add reason. Please try again.',
+    failedDeleteReason: 'Failed to delete reason. Please try again.',
+    titleDescriptionRequired: 'Title and description are required.',
+    
     // Panic button
     panicButton: 'Panic Button',
     emergency: 'EMERGENCY',
@@ -171,6 +190,25 @@ export const translations: Record<Language, Record<string, string>> = {
     joinCommunity: '加入社群',
     followOnTiktok: '抖音分享',
     tiktokUrl: 'https://www.douyin.com',
+    
+    // Reasons page
+    myReasons: '我的理由',
+    addNewReason: '添加新理由',
+    reasonTitle: '理由标题',
+    reasonDescription: '描述这个理由对你的重要性...',
+    reasonsSubtitle: '记住你开始这段旅程的原因。你的理由就是你的力量。',
+    loadingReasons: '加载理由中...',
+    noReasonsYet: '还没有理由',
+    addFirstReason: '添加你的第一个理由来保持动力',
+    addReason: '添加理由',
+    adding: '添加中...',
+    reasonAdded: '理由已添加',
+    reasonAddedDesc: '你的理由已成功添加！',
+    reasonDeleted: '理由已删除',
+    reasonDeletedDesc: '该理由已被移除。',
+    failedAddReason: '添加理由失败，请重试。',
+    failedDeleteReason: '删除理由失败，请重试。',
+    titleDescriptionRequired: '标题和描述为必填项。',
     
     // Menu
     myJournal: '我的日志',
