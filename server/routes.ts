@@ -194,6 +194,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to get article progress" });
     }
   });
+  
+  // Get user profile
+  app.get("/api/profile", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get profile" });
+    }
+  });
+  
+  // Update user profile
+  app.put("/api/profile", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const { age, gender, location, recoveryGoal } = req.body;
+      
+      const updatedUser = await storage.updateUser(userId, {
+        age,
+        gender,
+        location,
+        recoveryGoal
+      });
+      
+      res.json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

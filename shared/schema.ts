@@ -6,6 +6,12 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  age: integer("age"),
+  gender: text("gender"),
+  location: text("location"),
+  recoveryGoal: text("recovery_goal"),
+  joinDate: timestamp("join_date").notNull().defaultNow(),
+  streakRecord: integer("streak_record").default(0),
 });
 
 export const streaks = pgTable("streaks", {
