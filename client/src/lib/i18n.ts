@@ -345,6 +345,21 @@ export const translations: Record<Language, Record<string, string>> = {
     version: '版本',
     buildDate: '构建日期',
     
+    // Journal page
+    reasonsCount: '个理由',
+    viewAllReasons: '查看所有理由',
+    more: '更多',
+    noReasonsInJournal: '还未记录任何理由。添加您的第一个理由来保持动力。',
+    myCommunityPosts: '我的社区帖子',
+    postsCount: '个帖子',
+    upvotes: '点赞',
+    viewAllPosts: '查看所有帖子',
+    noPostsInJournal: '还未发布任何社区帖子。与他人分享您的故事。',
+    writeFirstPost: '写第一篇帖子',
+    journalStats: '日志统计',
+    totalReasons: '总理由数',
+    totalPosts: '总帖子数',
+    
     // Menu
     myJournal: '我的日志',
     leaderboard: '排行榜',

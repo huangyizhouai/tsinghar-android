@@ -87,6 +87,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Get user's own posts
+  app.get("/api/posts/my", async (req, res) => {
+    try {
+      const userId = 1; // Default user
+      const posts = await storage.getUserPosts(userId);
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get user posts" });
+    }
+  });
+  
   // Get single post
   app.get("/api/posts/:id", async (req, res) => {
     try {

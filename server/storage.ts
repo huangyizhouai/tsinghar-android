@@ -36,6 +36,7 @@ export interface IStorage {
   upvotePost(id: number): Promise<ForumPost>;
   getPostComments(postId: number): Promise<ForumComment[]>;
   addComment(comment: InsertForumComment): Promise<ForumComment>;
+  getUserPosts(userId: number): Promise<ForumPost[]>;
 
   // Milestones methods
   getMilestones(userId: number): Promise<Milestone[]>;
@@ -185,6 +186,11 @@ export class DatabaseStorage implements IStorage {
       .returning();
     
     return comment;
+  }
+
+  async getUserPosts(userId: number): Promise<ForumPost[]> {
+    const posts = await db.select().from(forumPosts).where(eq(forumPosts.userId, userId)).orderBy(forumPosts.createdAt);
+    return posts;
   }
 
   async getMilestones(userId: number): Promise<Milestone[]> {
