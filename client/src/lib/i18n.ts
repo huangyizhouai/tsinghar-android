@@ -307,6 +307,26 @@ export const translations: Record<Language, Record<string, string>> = {
     articlesDescription: '阅读这些教育文章，了解成瘾、健康影响和康复策略。',
     meditateDescription: '使用这些引导冥想来克服冲动并平静你的心灵。定期练习能增强你的意志力和专注力。',
     
+    // Community page
+    forum: '论坛',
+    teams: '团队',
+    loadingPosts: '加载帖子中...',
+    noPostsYet: '暂无帖子，抢先分享你的故事吧！',
+    createNewPost: '发表新帖',
+    shareExperiences: '分享你的经历，提出问题，或为社区提供支持。',
+    postTitle: '帖子标题',
+    shareThoughts: '分享你的想法...',
+    posting: '发布中...',
+    post: '发布',
+    postCreated: '帖子已发布',
+    postCreatedDesc: '你的帖子已成功发布！',
+    error: '错误',
+    failedCreatePost: '发布失败，请重试。',
+    titleContentRequired: '标题和内容为必填项',
+    failedUpvotePost: '点赞失败',
+    teamsComingSoon: '团队支持功能正在开发中。',
+    joinAccountabilityGroups: '在不久的将来加入互助小组！',
+    
     // Fun copy and motivational quotes
     achievementUnlockedToast: '🎉 恭喜！你已解锁「{{name}}」徽章！',
     

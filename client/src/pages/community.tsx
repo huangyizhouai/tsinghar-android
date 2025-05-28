@@ -11,8 +11,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import AppLogo from "@/components/app-logo";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function Community() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("forum");
   const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
@@ -41,14 +43,14 @@ export default function Community() {
       await queryClient.invalidateQueries({ queryKey: ['/api/posts'] });
       
       toast({
-        title: "Post created",
-        description: "Your post has been published successfully!"
+        title: t('postCreated'),
+        description: t('postCreatedDesc')
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to create post. Please try again.",
+        title: t('error'),
+        description: t('failedCreatePost'),
         variant: "destructive"
       });
     }
@@ -59,8 +61,8 @@ export default function Community() {
     
     if (!newPostTitle.trim() || !newPostContent.trim()) {
       toast({
-        title: "Error",
-        description: "Title and content are required",
+        title: t('error'),
+        description: t('titleContentRequired'),
         variant: "destructive"
       });
       return;
@@ -79,8 +81,8 @@ export default function Community() {
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Failed to upvote post",
+        title: t('error'),
+        description: t('failedUpvotePost'),
         variant: "destructive"
       });
     }
@@ -95,7 +97,7 @@ export default function Community() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">清者</h1>
+          <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
         </div>
         <button className="p-2 rounded-full bg-background-card">
           <Filter className="h-6 w-6 text-text-primary" />
@@ -105,14 +107,14 @@ export default function Community() {
       {/* Category Selector */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
         <TabsList className="w-full">
-          <TabsTrigger value="forum" className="flex-1">Forum</TabsTrigger>
-          <TabsTrigger value="teams" className="flex-1">Teams</TabsTrigger>
+          <TabsTrigger value="forum" className="flex-1">{t('forum')}</TabsTrigger>
+          <TabsTrigger value="teams" className="flex-1">{t('teams')}</TabsTrigger>
         </TabsList>
 
         {/* Forum Posts */}
         <TabsContent value="forum" className="m-0 p-0 space-y-4 mb-20">
           {isLoading ? (
-            <div className="text-center py-8">Loading posts...</div>
+            <div className="text-center py-8">{t('loadingPosts')}</div>
           ) : posts && posts.length > 0 ? (
             posts.map((post: any) => (
               <PostCard 
@@ -122,7 +124,7 @@ export default function Community() {
               />
             ))
           ) : (
-            <div className="text-center py-8">No posts yet. Be the first to share!</div>
+            <div className="text-center py-8">{t('noPostsYet')}</div>
           )}
         </TabsContent>
         
