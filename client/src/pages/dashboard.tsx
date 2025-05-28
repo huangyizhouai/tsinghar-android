@@ -31,7 +31,7 @@ export default function Dashboard() {
     {
       icon: <Timer className="h-6 w-6 text-primary" />,
       name: t('brainRewiring'),
-      path: "/progress"
+      path: "/library#articles"
     },
     {
       icon: <RotateCcw className="h-6 w-6 text-warning" />,
@@ -194,7 +194,7 @@ export default function Dashboard() {
             title={t('reasons')}
             description={t('whyStarted')}
             bgColor="bg-primary-dark"
-            path="/menu"
+            path="/reasons"
           />
         </div>
 

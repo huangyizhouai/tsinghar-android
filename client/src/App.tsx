@@ -11,6 +11,7 @@ import Library from "@/pages/library";
 import Community from "@/pages/community";
 import Menu from "@/pages/menu";
 import AchievementsPage from "@/pages/achievements";
+import ReasonsPage from "@/pages/reasons";
 import Navigation from "@/components/navigation";
 
 function Router() {
@@ -26,6 +27,7 @@ function Router() {
           <Route path="/community" component={Community} />
           <Route path="/menu" component={Menu} />
           <Route path="/achievements" component={AchievementsPage} />
+          <Route path="/reasons" component={ReasonsPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
