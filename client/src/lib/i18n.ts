@@ -61,9 +61,10 @@ export const translations: Record<Language, Record<string, string>> = {
     getInspired: 'Get inspired',
     
     // Todo section
-    todo: 'To-do',
+    toDo: 'To-do',
     joinCommunity: 'Join Community',
-    followTikTok: 'Follow on TikTok',
+    followOnTiktok: 'Follow on TikTok',
+    tiktokUrl: 'https://tiktok.com/@nofapapp',
     
     // Panic button
     panicButton: 'Panic Button',
@@ -166,9 +167,10 @@ export const translations: Record<Language, Record<string, string>> = {
     meditate: '冥想',
     
     // Todo section
-    todo: '待办事项',
-    joinCommunity: '加入社区',
-    followTikTok: '关注抖音号',
+    toDo: '待办事项',
+    joinCommunity: '加入社群',
+    followOnTiktok: '抖音分享',
+    tiktokUrl: 'https://www.douyin.com',
     
     // Menu
     myJournal: '我的日志',
