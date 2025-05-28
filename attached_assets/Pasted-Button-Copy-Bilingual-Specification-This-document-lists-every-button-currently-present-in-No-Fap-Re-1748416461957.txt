@@ -1,0 +1,308 @@
+Button Copy Bilingual Specification
+
+This document lists every button currently present in No‑Fap Recovery Tracker that needs to be made bilingual. Items are grouped by page with their i18n key plus Chinese/English copy. Follow the same naming convention for any future buttons.
+
+1. Shared Area (Top Navigation & Language Toggle)
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Top Nav
+
+Dashboard
+
+仪表盘
+
+nav.dashboard
+
+
+
+Statistics
+
+统计
+
+nav.statistics
+
+
+
+Settings
+
+设置
+
+nav.settings
+
+
+
+Log out
+
+退出
+
+nav.logout
+
+Language Toggle
+
+English
+
+English
+
+lang.en
+
+
+
+中文
+
+中文
+
+lang.zh
+
+2. Log‑in / Sign‑up Flow
+
+2.1 LoginPage
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Primary button
+
+Log in
+
+登录
+
+auth.login
+
+Secondary button
+
+Register →
+
+注册 →
+
+auth.gotoRegister
+
+2.2 RegisterPage
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Primary button
+
+Sign Up
+
+注册
+
+auth.signup
+
+Secondary button
+
+← Back to Login
+
+← 返回登录
+
+auth.backToLogin
+
+3. Dashboard
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+FAB aria‑label
+
+Add
+
+添加
+
+dash.add
+
+Record card
+
+Edit
+
+编辑
+
+dash.edit
+
+
+
+Delete
+
+删除
+
+dash.delete
+
+
+
+Reset Streak
+
+重置纪录
+
+dash.resetStreak
+
+4. Add / Edit Record Modal (AddRecordModal)
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Primary button
+
+Save
+
+保存
+
+modal.save
+
+Secondary button
+
+Cancel
+
+取消
+
+modal.cancel
+
+5. Statistics Page
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Date‑range confirm button
+
+Apply
+
+应用
+
+stats.apply
+
+Reset button
+
+Reset
+
+重置
+
+stats.reset
+
+6. Settings Page
+
+Component Location
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Primary button
+
+Save
+
+保存
+
+settings.save
+
+Secondary button
+
+Cancel
+
+取消
+
+settings.cancel
+
+7. Generic Dialogs & Toast Notifications
+
+Scenario
+
+Current English Label
+
+Chinese Label
+
+i18n Key
+
+Confirm dialog primary
+
+OK
+
+确定
+
+common.ok
+
+Confirm dialog secondary
+
+Cancel
+
+取消
+
+common.cancel
+
+Toast action button
+
+Undo
+
+撤销
+
+toast.undo
+
+8. Status Text (Not buttons but inside/near buttons)
+
+Scenario
+
+Current English Text
+
+Chinese Text
+
+i18n Key
+
+Loading state
+
+Loading…
+
+加载中…
+
+state.loading
+
+Disabled state
+
+Disabled
+
+已禁用
+
+state.disabled
+
+Implementation Notes
+
+Centralised copy — Add all keys to locales/zh.json and locales/en.json; hard‑coding strings in components is forbidden.
+
+Hot switching — Changing language via i18n.changeLanguage(lang) must trigger global re‑render; no full reload.
+
+Placeholder guard — If a translation is missing, fall back to a placeholder in the current UI language (e.g. "——"); never mix languages.
+
+Extensible naming — Use unified prefixes (e.g. btn., nav.) for easy bulk search and future languages.
+
+⚠️ Only button‑related copy is in scope for this task; headings, paragraphs, etc. will be internationalised in a separate iteration.
+
