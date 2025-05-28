@@ -21,8 +21,8 @@ export default function Menu() {
   const menuItems = [
     {
       icon: <User className="h-6 w-6 text-text-secondary" />,
-      title: "个人资料",
-      path: "/"
+      title: t('personalInformation'),
+      path: "/profile"
     },
     {
       icon: <BookText className="h-6 w-6 text-text-secondary" />,
