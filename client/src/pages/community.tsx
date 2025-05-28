@@ -131,9 +131,9 @@ export default function Community() {
         <TabsContent value="teams" className="m-0 p-0">
           <div className="flex justify-center items-center py-12">
             <div className="text-center">
-              <h3 className="text-xl font-medium text-text-primary mb-2">Coming Soon</h3>
-              <p className="text-text-secondary">Team support features are currently in development.</p>
-              <p className="text-text-secondary mt-1">Join accountability groups in the near future!</p>
+              <h3 className="text-xl font-medium text-text-primary mb-2">{t('comingSoon')}</h3>
+              <p className="text-text-secondary">{t('teamsComingSoon')}</p>
+              <p className="text-text-secondary mt-1">{t('joinAccountabilityGroups')}</p>
             </div>
           </div>
         </TabsContent>
@@ -149,16 +149,16 @@ export default function Community() {
           </DialogTrigger>
           <DialogContent className="bg-background-card border-background-card text-text-primary">
             <DialogHeader>
-              <DialogTitle>Create New Post</DialogTitle>
+              <DialogTitle>{t('createNewPost')}</DialogTitle>
               <DialogDescription className="text-text-secondary">
-                Share your experiences, ask questions, or offer support to the community.
+                {t('shareExperiences')}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleCreatePost}>
               <div className="space-y-4 py-2">
                 <div className="space-y-2">
                   <Input
-                    placeholder="Post title"
+                    placeholder={t('postTitle')}
                     value={newPostTitle}
                     onChange={(e) => setNewPostTitle(e.target.value)}
                     className="bg-background-primary border-background-primary"
@@ -166,7 +166,7 @@ export default function Community() {
                 </div>
                 <div className="space-y-2">
                   <Textarea
-                    placeholder="Share your thoughts..."
+                    placeholder={t('shareThoughts')}
                     rows={5}
                     value={newPostContent}
                     onChange={(e) => setNewPostContent(e.target.value)}
@@ -180,7 +180,7 @@ export default function Community() {
                   disabled={createPostMutation.isPending}
                   className="bg-primary hover:bg-primary-light text-white"
                 >
-                  {createPostMutation.isPending ? "Posting..." : "Post"}
+                  {createPostMutation.isPending ? t('posting') : t('post')}
                 </Button>
               </DialogFooter>
             </form>
