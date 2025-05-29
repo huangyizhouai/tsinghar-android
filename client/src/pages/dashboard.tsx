@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
-import { queryClient, apiRequest } from "@/lib/queryClient";
+import { queryClient } from "@/lib/queryClient";
 import { Heart, RotateCcw, Moon, MoreHorizontal, Settings, Timer, MessageCircle, BookOpen, Star, Waves, ThumbsUp, Award } from "lucide-react";
 import PanicButton from "@/components/panic-button";
 import PanicModal from "@/components/panic-modal";
@@ -24,13 +24,6 @@ export default function Dashboard() {
   
   const { data: streak, isLoading } = useQuery<{ currentStreak: number, startDate: string }>({
     queryKey: ['/api/streak'],
-  });
-
-  const resetStreakMutation = useMutation({
-    mutationFn: () => fetch('/api/streak/reset', { method: 'POST' }).then(res => res.json()),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/streak'] });
-    },
   });
 
   // Quick action buttons
@@ -107,7 +100,7 @@ export default function Dashboard() {
           <MotivationalQuote />
         </div>
         
-        {/* Enhanced Streak Counter Widget */}
+        {/* Streak Timer with Swirl Emblem */}
         <div className="flex flex-col items-center mb-8 relative">
           {/* Star background effect for the entire streak area */}
           <div className="absolute inset-0 w-full h-full -z-10">
@@ -122,51 +115,6 @@ export default function Dashboard() {
                 }}
               />
             ))}
-          </div>
-          
-          {/* Main Streak Counter with Dynamic Scaling and Milestone Glow */}
-          <div className={`relative bg-gradient-to-br from-purple-600 to-indigo-700 rounded-2xl p-6 mb-4 text-center shadow-lg ${
-            (streak?.currentStreak || 0) >= 7 && (streak?.currentStreak || 0) % 7 === 0 ? 'animate-pulse shadow-2xl shadow-purple-500/50' : ''
-          } ${
-            (streak?.currentStreak || 0) >= 30 ? 'ring-4 ring-yellow-400/50' : ''
-          }`}>
-            <p className="text-white text-sm mb-2">{t('currentStreak')}</p>
-            <p className={`text-white font-bold ${
-              (streak?.currentStreak || 0) >= 90 ? 'text-7xl' :
-              (streak?.currentStreak || 0) >= 60 ? 'text-6xl' :
-              (streak?.currentStreak || 0) >= 30 ? 'text-5xl' :
-              (streak?.currentStreak || 0) >= 14 ? 'text-4xl' :
-              'text-3xl'
-            }`}>
-              {streak?.currentStreak || 0}
-            </p>
-            <p className="text-white text-sm">{t('days')}</p>
-            
-            {/* Milestone Badge */}
-            {(streak?.currentStreak || 0) >= 90 && (
-              <div className="absolute -top-2 -right-2 text-2xl">🏆</div>
-            )}
-            {(streak?.currentStreak || 0) >= 30 && (streak?.currentStreak || 0) < 90 && (
-              <div className="absolute -top-2 -right-2 text-2xl">🔥</div>
-            )}
-            {(streak?.currentStreak || 0) >= 7 && (streak?.currentStreak || 0) < 30 && (
-              <div className="absolute -top-2 -right-2 text-2xl">✨</div>
-            )}
-          </div>
-          
-          {/* Progress Ring Visualization */}
-          <div className="w-full max-w-xs mb-4">
-            <div className="relative">
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div 
-                  className="bg-gradient-to-r from-purple-500 to-indigo-600 h-3 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(((streak?.currentStreak || 0) / 90) * 100, 100)}%` }}
-                ></div>
-              </div>
-              <p className="text-xs text-white mt-1 text-center">
-                {streak?.currentStreak || 0} of 90 days
-              </p>
-            </div>
           </div>
           
           {/* Swirl emblem from the spec */}
@@ -184,32 +132,16 @@ export default function Dashboard() {
           )}
           
           {/* Brain Rewiring Progress Bar */}
-          <div className="w-full max-w-sm mb-4">
+          <div className="w-full max-w-sm mb-2">
             <BrainRewiringBar days={streak?.currentStreak || 0} />
           </div>
           
-          {/* Action Buttons Row */}
-          <div className="flex gap-3 w-full max-w-sm">
-            {/* Analytics Button */}
-            <Link to="/analytics" className="flex-1">
-              <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg flex items-center justify-center font-medium">
-                <span className="mr-2">📊</span> {t('analytics')}
-              </button>
-            </Link>
-            
-            {/* Reset Streak Button */}
-            <button 
-              onClick={() => {
-                if (window.confirm(t('confirmResetStreak'))) {
-                  resetStreakMutation.mutate();
-                }
-              }}
-              disabled={resetStreakMutation.isPending}
-              className="bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white py-2 px-4 rounded-lg flex items-center justify-center font-medium"
-            >
-              <span className="mr-1">🔄</span> {resetStreakMutation.isPending ? '...' : t('reset')}
+          {/* Analytics Button */}
+          <Link to="/analytics" className="w-full mt-4">
+            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg flex items-center justify-center font-medium">
+              <span className="mr-2">📊</span> {t('analytics')}
             </button>
-          </div>
+          </Link>
         </div>
         
         {/* Todo Card */}

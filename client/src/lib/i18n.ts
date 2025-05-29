@@ -175,11 +175,6 @@ export const translations: Record<Language, Record<string, string>> = {
     day16to30: 'Days 16-30: Adjustment',
     day31to45: 'Days 31-45: New Patterns',
     
-    // Streak management
-    reset: 'Reset',
-    confirmResetStreak: 'Are you sure you want to reset your streak? This action cannot be undone.',
-    days: 'days',
-    
     // Panic button
     panicButton: 'Panic Button',
     emergency: 'EMERGENCY',
@@ -394,11 +389,6 @@ export const translations: Record<Language, Record<string, string>> = {
     day8to15: '第8-15天：稳定期',
     day16to30: '第16-30天：适应期',
     day31to45: '第31-45天：新模式',
-    
-    // Streak management
-    reset: '重置',
-    confirmResetStreak: '您确定要重置您的连续天数吗？此操作无法撤销。',
-    days: '天',
     
     // Menu
     myJournal: '我的日志',
