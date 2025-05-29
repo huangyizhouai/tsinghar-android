@@ -139,7 +139,7 @@ export default function Analytics() {
           </Card>
         </div>
 
-        {/* Progress Chart */}
+        {/* Progress Overview */}
         <Card className="bg-white/10 backdrop-blur-sm border-white/20 mb-6">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
@@ -148,29 +148,21 @@ export default function Analytics() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={progressData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis dataKey="date" stroke="rgba(255,255,255,0.7)" />
-                  <YAxis stroke="rgba(255,255,255,0.7)" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'rgba(0,0,0,0.8)', 
-                      border: '1px solid rgba(255,255,255,0.2)',
-                      borderRadius: '8px',
-                      color: 'white'
-                    }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="progress" 
-                    stroke="#3b82f6" 
-                    strokeWidth={3}
-                    dot={{ fill: '#3b82f6', strokeWidth: 2, r: 4 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+            <div className="space-y-4">
+              {progressData.map((data, index) => (
+                <div key={index} className="flex justify-between items-center">
+                  <span className="text-white text-sm">{data.date}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 h-2 bg-gray-700 rounded-full">
+                      <div 
+                        className="h-2 bg-blue-500 rounded-full transition-all duration-500"
+                        style={{ width: `${data.progress}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-gray-300">{Math.round(data.progress)}%</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
