@@ -137,8 +137,8 @@ export default function Dashboard() {
           </div>
           
           {/* Analytics link */}
-          <Link to="/progress" className="text-white hover:text-primary mt-4 text-left self-start">
-            Open Analytics
+          <Link to="/analytics" className="text-white hover:text-primary mt-4 text-left self-start">
+            {t('analytics')}
           </Link>
         </div>
         

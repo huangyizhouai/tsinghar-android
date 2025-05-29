@@ -15,6 +15,7 @@ import ReasonsPage from "@/pages/reasons";
 import ProfilePage from "@/pages/profile";
 import SettingsPage from "@/pages/settings";
 import JournalPage from "@/pages/journal";
+import AnalyticsPage from "@/pages/analytics";
 import Navigation from "@/components/navigation";
 
 function Router() {
@@ -34,6 +35,7 @@ function Router() {
           <Route path="/profile" component={ProfilePage} />
           <Route path="/settings" component={SettingsPage} />
           <Route path="/journal" component={JournalPage} />
+          <Route path="/analytics" component={AnalyticsPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

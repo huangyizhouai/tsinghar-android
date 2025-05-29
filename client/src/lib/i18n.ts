@@ -162,6 +162,19 @@ export const translations: Record<Language, Record<string, string>> = {
     totalReasons: 'Total Reasons',
     totalPosts: 'Total Posts',
     
+    // Analytics page
+    analytics: 'Analytics',
+    currentStreak: 'Current Streak',
+    bestStreak: 'Best Streak',
+    achievementRate: 'Achievement Rate',
+    weeklyProgress: 'Weekly Progress',
+    brainRewiringStages: 'Brain Rewiring Stages',
+    recoveryBenefits: 'Recovery Benefits',
+    day1to7: 'Days 1-7: Initial Detox',
+    day8to15: 'Days 8-15: Stabilization',
+    day16to30: 'Days 16-30: Adjustment',
+    day31to45: 'Days 31-45: New Patterns',
+    
     // Panic button
     panicButton: 'Panic Button',
     emergency: 'EMERGENCY',
@@ -363,6 +376,19 @@ export const translations: Record<Language, Record<string, string>> = {
     journalStats: '日志统计',
     totalReasons: '总理由数',
     totalPosts: '总帖子数',
+    
+    // Analytics page  
+    analytics: '数据分析',
+    currentStreak: '当前连续天数',
+    bestStreak: '最佳连续记录',
+    achievementRate: '成就达成率',
+    weeklyProgress: '每周进度',
+    brainRewiringStages: '大脑重塑阶段',
+    recoveryBenefits: '恢复效益',
+    day1to7: '第1-7天：初期排毒',
+    day8to15: '第8-15天：稳定期',
+    day16to30: '第16-30天：适应期',
+    day31to45: '第31-45天：新模式',
     
     // Menu
     myJournal: '我的日志',
