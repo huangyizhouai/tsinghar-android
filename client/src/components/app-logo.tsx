@@ -17,9 +17,13 @@ export default function AppLogo({ size = "md", className }: AppLogoProps) {
   return (
     <div className={cn("relative", sizeMap[size], className)}>
       <img 
-        src="/icon_black.PNG"
+        src="/icon_white.JPG"
         alt="清心"
         className={cn("w-full h-full object-contain", sizeMap[size])}
+        style={{ 
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
+          mixBlendMode: 'normal'
+        }}
       />
     </div>
   );
