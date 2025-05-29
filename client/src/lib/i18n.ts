@@ -6,7 +6,7 @@ export type Language = 'en' | 'zh';
 export const translations: Record<Language, Record<string, string>> = {
   en: {
     // App title
-    appName: 'NoFap Recovery Tracker',
+    appName: 'QingXiner',
     achievements: 'Achievements',
     collected: 'collected',
     

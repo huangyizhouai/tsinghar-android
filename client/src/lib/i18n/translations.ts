@@ -3,7 +3,7 @@ export type Language = 'en' | 'zh';
 export const translations = {
   en: {
     // General
-    appName: 'NoFap Recovery Tracker',
+    appName: 'QingXiner',
     dashboard: 'Dashboard',
     library: 'Library',
     community: 'Community',
