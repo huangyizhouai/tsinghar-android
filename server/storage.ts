@@ -80,7 +80,24 @@ export class DatabaseStorage implements IStorage {
 
   async getStreak(userId: number): Promise<Streak | undefined> {
     const [streak] = await db.select().from(streaks).where(eq(streaks.userId, userId));
-    return streak;
+    
+    if (!streak) {
+      return streak;
+    }
+    
+    // Calculate current streak based on start date
+    const now = new Date();
+    const startDate = new Date(streak.startDate);
+    const timeDifference = now.getTime() - startDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    
+    // Update the current streak with calculated value
+    const updatedStreak = {
+      ...streak,
+      currentStreak: Math.max(0, daysDifference)
+    };
+    
+    return updatedStreak;
   }
 
   async createStreak(insertStreak: InsertStreak): Promise<Streak> {
