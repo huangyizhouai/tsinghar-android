@@ -136,9 +136,11 @@ export default function Dashboard() {
             <BrainRewiringBar days={streak?.currentStreak || 0} />
           </div>
           
-          {/* Analytics link */}
-          <Link to="/analytics" className="text-white hover:text-primary mt-4 text-left self-start">
-            {t('analytics')}
+          {/* Analytics Button */}
+          <Link to="/analytics" className="w-full mt-4">
+            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg flex items-center justify-center font-medium">
+              <span className="mr-2">📊</span> {t('analytics')}
+            </button>
           </Link>
         </div>
         
