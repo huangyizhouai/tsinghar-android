@@ -84,7 +84,7 @@ export const translations = {
     hold: 'Hold',
     
     // Library
-    quitPornEasily: 'Quit Porn Easily',
+    quitPornEasily: 'The Art of Quit Porn',
     articles: 'Articles',
     meditate: 'Meditate',
     podcast: 'Podcast',

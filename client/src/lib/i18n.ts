@@ -265,7 +265,7 @@ export const translations: Record<Language, Record<string, string>> = {
     whyStarted: '为什么开始',
     
     // Library
-    libraryHeader: '轻松戒色',
+    libraryHeader: '清心的艺术',
     articles: '文章',
     podcast: '播客',
     
@@ -523,7 +523,7 @@ export const translations: Record<Language, Record<string, string>> = {
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
     complete: '已完成',
-    quitPornEasily: '轻松戒色',
+    quitPornEasily: '清心的艺术',
     articlesDescription: '阅读这些教育文章，了解成瘾、健康影响和康复策略。',
     meditateDescription: '使用这些引导冥想来克服冲动并平静你的心灵。定期练习能增强你的意志力和专注力。',
     
