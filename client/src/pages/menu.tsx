@@ -47,59 +47,76 @@ export default function Menu() {
   ];
 
   return (
-    <div className="p-4 pt-6">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <AppLogo size="md" />
-          <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
-        </div>
-      </div>
-
-      {/* User Profile */}
-      <Card className="bg-background-card rounded-xl mb-6">
-        <CardContent className="p-6 flex items-center">
-          <div className="bg-primary text-white text-base rounded-full w-12 h-12 flex items-center justify-center mr-4">
-            JD
-          </div>
-          <div>
-            <h2 className="font-medium text-lg text-text-primary">John Doe</h2>
-            <p className="text-text-secondary">{streak?.currentStreak || 0} Day Streak</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Menu Items */}
-      <div className="space-y-2 mb-6">
-        {menuItems.map((item, index) => (
-          <Link key={index} to={item.path}>
-            <Card className="bg-background-card rounded-xl">
-              <CardContent className="p-4 flex items-center">
-                {item.icon}
-                <span className="text-text-primary ml-4">{item.title}</span>
-              </CardContent>
-            </Card>
-          </Link>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white relative overflow-hidden">
+      {/* Animated stars background */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-70"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `twinkle ${2 + Math.random() * 4}s infinite`
+            }}
+          />
         ))}
       </div>
 
-      {/* Inspirational Quote */}
-      <Card className="bg-background-card rounded-xl overflow-hidden mb-6">
-        <img 
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
-          alt="Mountain peak representing achievement and goal setting" 
-          className="w-full h-40 object-cover" 
-        />
-        <CardContent className="p-4">
-          <h3 className="font-medium text-text-primary mb-2">{t('dailyMotivation')}</h3>
-          <p className="text-sm text-text-secondary italic">
-            "{randomQuote.quote}"
-          </p>
-          <p className="text-xs text-text-secondary mt-1">― {randomQuote.author}</p>
-        </CardContent>
-      </Card>
+      <div className="relative z-10 p-4 pt-6 pb-20">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <AppLogo size="md" />
+            <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
+          </div>
+        </div>
 
-      {/* Breathing Exercise */}
-      <BreathingExercise />
+        {/* User Profile */}
+        <Card className="bg-background-card rounded-xl mb-6">
+          <CardContent className="p-6 flex items-center">
+            <div className="bg-primary text-white text-base rounded-full w-12 h-12 flex items-center justify-center mr-4">
+              JD
+            </div>
+            <div>
+              <h2 className="font-medium text-lg text-text-primary">John Doe</h2>
+              <p className="text-text-secondary">{streak?.currentStreak || 0} Day Streak</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Menu Items */}
+        <div className="space-y-2 mb-6">
+          {menuItems.map((item, index) => (
+            <Link key={index} to={item.path}>
+              <Card className="bg-background-card rounded-xl">
+                <CardContent className="p-4 flex items-center">
+                  {item.icon}
+                  <span className="text-text-primary ml-4">{item.title}</span>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        {/* Inspirational Quote */}
+        <Card className="bg-background-card rounded-xl overflow-hidden mb-6">
+          <img 
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400" 
+            alt="Mountain peak representing achievement and goal setting" 
+            className="w-full h-40 object-cover" 
+          />
+          <CardContent className="p-4">
+            <h3 className="font-medium text-text-primary mb-2">{t('dailyMotivation')}</h3>
+            <p className="text-sm text-text-secondary italic">
+              "{randomQuote.quote}"
+            </p>
+            <p className="text-xs text-text-secondary mt-1">― {randomQuote.author}</p>
+          </CardContent>
+        </Card>
+
+        {/* Breathing Exercise */}
+        <BreathingExercise />
+      </div>
     </div>
   );
 }
