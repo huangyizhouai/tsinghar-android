@@ -55,6 +55,9 @@ export const translations: Record<Language, Record<string, string>> = {
     reasons: 'Reasons',
     whyStarted: 'Why you started',
     
+    // Library page
+    quitPornEasily: 'The Art of TsingHar',
+    
     // Mindfulness section
     mindfulnessResources: 'Mindfulness Resources',
     breathing: 'Breathing',
