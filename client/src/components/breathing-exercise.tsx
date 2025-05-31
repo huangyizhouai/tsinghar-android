@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/use-language";
@@ -9,9 +9,9 @@ export default function BreathingExercise() {
   const [instruction, setInstruction] = useState("");
   
   // Initialize instruction with translation
-  useState(() => {
+  useEffect(() => {
     setInstruction(t('breathingInstruction'));
-  });
+  }, [t]);
   
   const startSession = () => {
     setIsSessionActive(true);
@@ -64,7 +64,7 @@ export default function BreathingExercise() {
           disabled={isSessionActive} 
           className="w-full py-3 bg-primary hover:bg-primary-light rounded-lg font-medium text-white"
         >
-          {isSessionActive ? "Session in progress..." : "Start Guided Session"}
+          {isSessionActive ? t('sessionInProgress') : t('startGuidedSession')}
         </Button>
       </CardContent>
     </Card>
