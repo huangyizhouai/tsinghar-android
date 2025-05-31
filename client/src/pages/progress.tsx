@@ -148,6 +148,13 @@ export default function ProgressPage() {
           );
         })}
       </Card>
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        dashboardData={dashboardData}
+      />
     </div>
   );
 }
