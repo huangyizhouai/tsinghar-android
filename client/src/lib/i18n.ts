@@ -532,7 +532,7 @@ export const translations: Record<Language, Record<string, string>> = {
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
     completeLibrary: '已完成',
-    quitPornEasily: '清心的艺术',
+    quitPornEasily: '清花的艺术',
     articlesDescription: '阅读这些教育文章，了解成瘾、健康影响和康复策略。',
     meditateDescription: '使用这些引导冥想来克服冲动并平静你的心灵。定期练习能增强你的意志力和专注力。',
     
