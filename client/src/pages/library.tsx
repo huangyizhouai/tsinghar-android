@@ -466,6 +466,29 @@ export default function Library() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Generated Article Modal */}
+      <Dialog open={showGeneratedArticle} onOpenChange={setShowGeneratedArticle}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-background-card border-background-card text-text-primary">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-semibold text-text-primary">
+              {generatedArticle ? 
+                (language === 'zh' ? generatedArticle.titleZh : generatedArticle.title) : 
+                ''
+              }
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            {generatedArticle && (
+              <div className="prose max-w-none text-text-primary">
+                <div className="whitespace-pre-wrap leading-relaxed">
+                  {language === 'zh' ? generatedArticle.contentZh : generatedArticle.content}
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
