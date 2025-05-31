@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Lock } from 'lucide-react';
 import { useLanguage } from '@/hooks/use-language';
+import AchievementIcon, { AchievementKey } from './achievement-icon';
 
 export interface AchievementBadgeProps {
   id?: string;
@@ -13,7 +14,7 @@ export interface AchievementBadgeProps {
   color: string;
   glowColor?: string;
   isLocked?: boolean;
-  assetUnlocked?: string;
+  iconKey?: AchievementKey;
   onClick?: () => void;
 }
 
@@ -25,7 +26,7 @@ export default function AchievementBadge({
   color,
   glowColor = "#7d4dff",
   isLocked = false,
-  assetUnlocked,
+  iconKey,
   onClick
 }: AchievementBadgeProps) {
   const { t } = useLanguage();
@@ -63,7 +64,7 @@ export default function AchievementBadge({
               <Lock className="w-7 h-7 text-gray-400 hidden" />
             </div>
           ) : (
-            // Inner reflective surface for unlocked badges
+            // Inner reflective surface for unlocked badges with new icon system
             <div 
               className="w-16 h-16 rounded-full bg-gradient-to-br from-white/30 via-transparent to-gray-800/40 backdrop-blur-lg flex items-center justify-center overflow-hidden"
               style={{
@@ -71,11 +72,12 @@ export default function AchievementBadge({
                 boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
               }}
             >
-              {assetUnlocked ? (
-                <img 
-                  src={assetUnlocked} 
-                  alt={name} 
-                  className="w-12 h-12 object-contain"
+              {iconKey ? (
+                <AchievementIcon 
+                  name={iconKey} 
+                  locked={false} 
+                  size="sm"
+                  ariaLabel={name}
                 />
               ) : (
                 <>

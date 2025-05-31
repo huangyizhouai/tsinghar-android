@@ -1,13 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Sprout, 
+  Circle, 
   Plant, 
-  ShieldCheck, 
+  Shield, 
   Rocket, 
-  Butterfly, 
-  HandHeart, 
-  Handshake, 
+  Star, 
+  Heart, 
   Trophy 
 } from '@phosphor-icons/react';
 
@@ -21,13 +20,13 @@ interface AchievementIconProps {
 }
 
 const icons: Record<AchievementKey, React.FC<any>> = {
-  seed: Sprout,
+  seed: Circle,
   sprout: Plant,
-  vanguard: ShieldCheck,
+  vanguard: Shield,
   momentum: Rocket,
-  silk: Butterfly,
-  guardian: HandHeart,
-  harmony: Handshake,
+  silk: Star,
+  guardian: Heart,
+  harmony: Heart,
   zenith: Trophy
 };
 

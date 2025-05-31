@@ -108,7 +108,7 @@ export default function AchievementsPage() {
   // Calculate number of collected achievements
   useEffect(() => {
     if (currentDays) {
-      const unlocked = achievementsList.filter(a => currentDays >= a.days && !a.isLocked);
+      const unlocked = achievementsList.filter(a => currentDays >= a.days);
       setCollected(unlocked.length);
     }
   }, [currentDays]);
@@ -150,10 +150,9 @@ export default function AchievementsPage() {
             currentDays={currentDays}
             color={achievement.color}
             glowColor={achievement.glowColor}
-            isLocked={achievement.isLocked}
-            assetUnlocked={achievement.assetUnlocked}
+            iconKey={achievement.iconKey}
             onClick={() => {
-              if (currentDays >= achievement.days && !achievement.isLocked) {
+              if (currentDays >= achievement.days) {
                 // Show achievement unlocked toast with Chinese text
                 toast({
                   title: "🎉 恭喜！",
