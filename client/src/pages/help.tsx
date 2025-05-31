@@ -251,31 +251,31 @@ export default function Help() {
           <Card className="bg-background-card rounded-xl">
             <CardContent className="p-6">
               <h3 className="font-semibold text-text-primary mb-4">
-                {t('language') === 'zh' ? '快速开始指南' : 'Quick Start Guide'}
+                {t('quickStartGuide')}
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">1</div>
                   <span className="text-text-secondary text-sm">
-                    {t('language') === 'zh' ? '设置您的康复理由' : 'Set up your recovery reasons'}
+                    {t('setupReasons')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">2</div>
                   <span className="text-text-secondary text-sm">
-                    {t('language') === 'zh' ? '开始追踪您的每日进度' : 'Start tracking your daily progress'}
+                    {t('trackDailyProgress')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">3</div>
                   <span className="text-text-secondary text-sm">
-                    {t('language') === 'zh' ? '使用呼吸练习管理冲动' : 'Use breathing exercises to manage urges'}
+                    {t('useBreathing')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">4</div>
                   <span className="text-text-secondary text-sm">
-                    {t('language') === 'zh' ? '与社区互动获得支持' : 'Engage with the community for support'}
+                    {t('engageCommunity')}
                   </span>
                 </div>
               </div>
