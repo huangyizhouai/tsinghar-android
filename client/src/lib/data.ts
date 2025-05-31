@@ -38,28 +38,100 @@ export interface LeaderboardUser {
 export const benefitsData = [
   {
     name: "Improved Confidence",
+    nameZh: "自信心提升",
     description: "As you distance yourself from porn, you'll gradually notice improved confidence, especially in social situations.",
+    descriptionZh: "远离色情内容后，你会逐渐注意到自信心的提升，特别是在社交场合中。",
+    resources: [
+      "Practice eye contact in conversations",
+      "Join social activities or clubs", 
+      "Set and achieve small daily goals"
+    ],
+    resourcesZh: [
+      "在对话中练习眼神交流",
+      "参加社交活动或俱乐部",
+      "设定并实现日常小目标"
+    ],
     imageUrl: "https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
   },
   {
     name: "Mental Clarity",
-    description: "Brain fog will begin to clear, leading to improved focus, memory, and cognitive function."
+    nameZh: "思维清晰",
+    description: "Brain fog will begin to clear, leading to improved focus, memory, and cognitive function.",
+    descriptionZh: "大脑迷雾开始消散，专注力、记忆力和认知功能得到改善。",
+    resources: [
+      "Practice meditation for 10 minutes daily",
+      "Read books to exercise your mind",
+      "Try brain training exercises"
+    ],
+    resourcesZh: [
+      "每天冥想10分钟",
+      "阅读书籍锻炼大脑",
+      "尝试大脑训练练习"
+    ]
   },
   {
     name: "Better Sleep",
-    description: "Quitting porn allows your brain to rebalance neurotransmitters, leading to improved sleep quality."
+    nameZh: "睡眠改善",
+    description: "Quitting porn allows your brain to rebalance neurotransmitters, leading to improved sleep quality.",
+    descriptionZh: "戒除色情内容让大脑重新平衡神经递质，改善睡眠质量。",
+    resources: [
+      "Establish a consistent bedtime routine",
+      "Avoid screens 1 hour before bed",
+      "Create a comfortable sleep environment"
+    ],
+    resourcesZh: [
+      "建立固定的睡前例行公事",
+      "睡前1小时避免使用电子设备",
+      "创造舒适的睡眠环境"
+    ]
   },
   {
     name: "Increased Productivity",
-    description: "Free from distraction, you'll have more time and mental energy to focus on meaningful goals."
+    nameZh: "工作效率提升",
+    description: "Free from distraction, you'll have more time and mental energy to focus on meaningful goals.",
+    descriptionZh: "摆脱分心，你将有更多时间和精神能量专注于有意义的目标。",
+    resources: [
+      "Use time-blocking techniques",
+      "Set clear daily priorities",
+      "Take regular productive breaks"
+    ],
+    resourcesZh: [
+      "使用时间分块技术",
+      "设定明确的日常优先事项",
+      "定期进行有效休息"
+    ]
   },
   {
-    name: "Healthier Thoughts",
-    description: "Your thought patterns will normalize, leading to a more positive outlook and fewer intrusive thoughts."
+    name: "Emotional Balance",
+    nameZh: "情绪平衡",
+    description: "Your emotional responses will stabilize, leading to better mood regulation and stress management.",
+    descriptionZh: "你的情绪反应会更加稳定，改善情绪调节和压力管理。",
+    resources: [
+      "Practice deep breathing exercises",
+      "Keep a gratitude journal",
+      "Connect with supportive friends"
+    ],
+    resourcesZh: [
+      "练习深呼吸运动",
+      "记录感恩日记",
+      "与支持你的朋友联系"
+    ]
   },
   {
-    name: "Increased Libido",
-    description: "Real-world arousal will improve as your brain recovers from artificial stimulation."
+    name: "Physical Health",
+    nameZh: "身体健康",
+    description: "Improved energy levels, better posture, and enhanced physical vitality as your body recovers.",
+    descriptionZh: "随着身体恢复，能量水平提升，姿态改善，身体活力增强。",
+    resources: [
+      "Start a regular exercise routine",
+      "Focus on proper nutrition",
+      "Stay hydrated throughout the day"
+    ],
+    resourcesZh: [
+      "开始定期锻炼计划",
+      "专注于合理营养",
+      "全天保持充足水分"
+    ]
   }
 ];
 
