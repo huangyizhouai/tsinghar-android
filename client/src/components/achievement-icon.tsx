@@ -5,8 +5,9 @@ import {
   Plant, 
   Shield, 
   Rocket, 
-  Star, 
-  Heart, 
+  Butterfly, 
+  HandHeart, 
+  Handshake, 
   Trophy 
 } from '@phosphor-icons/react';
 
@@ -24,9 +25,9 @@ const icons: Record<AchievementKey, React.FC<any>> = {
   sprout: Plant,
   vanguard: Shield,
   momentum: Rocket,
-  silk: Star,
-  guardian: Heart,
-  harmony: Heart,
+  silk: Butterfly,
+  guardian: HandHeart,
+  harmony: Handshake,
   zenith: Trophy
 };
 
@@ -68,13 +69,14 @@ export default function AchievementIcon({
         className={`w-full h-full ${
           locked 
             ? 'text-slate-600/40' 
-            : 'text-transparent bg-clip-text bg-gradient-to-br from-teal-300 via-cyan-400 to-indigo-500'
+            : ''
         }`}
         style={locked ? {} : {
-          background: 'linear-gradient(135deg, #5EFCE8, #22d3ee, #736EFE)',
+          background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
+          backgroundClip: 'text',
+          color: 'transparent'
         }}
       />
     </motion.div>
