@@ -228,15 +228,15 @@ export default function Community() {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <Filter className="h-5 w-5 text-primary" />
-                Filter Posts
+                {t('filterPosts')}
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               {/* Keyword Search */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-text-primary">Search Keywords</label>
+                <label className="text-sm font-medium text-text-primary">{t('searchKeywords')}</label>
                 <Input
-                  placeholder="Search in titles and content..."
+                  placeholder={t('searchPlaceholder')}
                   value={filterKeyword}
                   onChange={(e) => setFilterKeyword(e.target.value)}
                   className="bg-background-primary border-background-primary"
@@ -245,7 +245,7 @@ export default function Community() {
 
               {/* Sort Options */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-text-primary">Sort By</label>
+                <label className="text-sm font-medium text-text-primary">{t('sortBy')}</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setSortBy("newest")}
@@ -255,7 +255,7 @@ export default function Community() {
                         : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
                     }`}
                   >
-                    Newest First
+                    {t('newestFirst')}
                   </button>
                   <button
                     onClick={() => setSortBy("oldest")}
@@ -265,7 +265,7 @@ export default function Community() {
                         : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
                     }`}
                   >
-                    Oldest First
+                    {t('oldestFirst')}
                   </button>
                   <button
                     onClick={() => setSortBy("popular")}
@@ -275,7 +275,7 @@ export default function Community() {
                         : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
                     }`}
                   >
-                    Most Popular
+                    {t('mostPopular')}
                   </button>
                   <button
                     onClick={() => setSortBy("unpopular")}
@@ -285,7 +285,7 @@ export default function Community() {
                         : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
                     }`}
                   >
-                    Least Popular
+                    {t('leastPopular')}
                   </button>
                 </div>
               </div>
@@ -299,13 +299,13 @@ export default function Community() {
                   }}
                   className="px-4 py-2 text-text-secondary hover:text-text-primary transition-colors"
                 >
-                  Clear Filters
+                  {t('clearFilters')}
                 </button>
                 <button
                   onClick={() => setIsFilterOpen(false)}
                   className="px-4 py-2 bg-primary hover:bg-primary-light text-white rounded-lg"
                 >
-                  Apply Filters
+                  {t('applyFilters')}
                 </button>
               </div>
             </div>
