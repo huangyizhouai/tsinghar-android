@@ -154,7 +154,7 @@ export default function ProgressPage() {
                 </div>
                 <div>
                   <h3 className="font-medium text-text-primary">{milestone.days} {milestone.days === 1 ? t('daysSingle') : t('days')}</h3>
-                  <p className="text-xs text-text-secondary">{data.description}</p>
+                  <p className="text-xs text-text-secondary">{getMilestoneDescription(data)}</p>
                 </div>
               </div>
               <span className={`text-xs px-2 py-1 rounded ${
