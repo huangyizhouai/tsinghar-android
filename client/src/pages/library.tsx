@@ -152,10 +152,15 @@ export default function Library() {
   const filterArticlesBySearch = (articles: any[]) => {
     if (!searchQuery.trim()) return articles;
     
-    return articles.filter(article => 
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.description.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    return articles.filter(article => {
+      const query = searchQuery.toLowerCase();
+      return (
+        article.title.toLowerCase().includes(query) ||
+        article.description.toLowerCase().includes(query) ||
+        (article.titleZh && article.titleZh.includes(searchQuery)) ||
+        (article.descriptionZh && article.descriptionZh.includes(searchQuery))
+      );
+    });
   };
 
   // Get filtered categories for search
@@ -263,8 +268,12 @@ export default function Library() {
                         </Badge>
                         <span className="text-text-secondary text-xs">{article.readTime} min</span>
                       </div>
-                      <h3 className="font-medium text-text-primary mb-2">{article.title}</h3>
-                      <p className="text-xs text-text-secondary">{article.description}</p>
+                      <h3 className="font-medium text-text-primary mb-2">
+                        {language === 'zh' && article.titleZh ? article.titleZh : article.title}
+                      </h3>
+                      <p className="text-xs text-text-secondary">
+                        {language === 'zh' && article.descriptionZh ? article.descriptionZh : article.description}
+                      </p>
                     </CardContent>
                   </Card>
                 );

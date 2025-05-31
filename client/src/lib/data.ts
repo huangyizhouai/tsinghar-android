@@ -295,9 +295,12 @@ export const libraryCategories: Category[] = [
         moduleId: 3,
         category: "recovery-strategies",
         title: "Leveraging Community Support",
+        titleZh: "利用社区支持",
         description: "How to use accountability partners and groups effectively.",
+        descriptionZh: "如何有效利用责任伙伴和支持小组。",
         readTime: 8,
-        content: "Social support significantly increases recovery success rates. An accountability partner provides mutual support through regular check-ins, celebrating milestones, and offering encouragement during difficult times. When selecting a partner, choose someone you trust but who will hold you accountable without judgment. Set clear expectations about communication frequency and boundaries. Support groups, whether online or in-person, offer broader perspective and reduce feelings of isolation. Active participation by sharing your experiences and supporting others reinforces your own commitment to recovery."
+        content: "Social support significantly increases recovery success rates. An accountability partner provides mutual support through regular check-ins, celebrating milestones, and offering encouragement during difficult times. When selecting a partner, choose someone you trust but who will hold you accountable without judgment. Set clear expectations about communication frequency and boundaries. Support groups, whether online or in-person, offer broader perspective and reduce feelings of isolation. Active participation by sharing your experiences and supporting others reinforces your own commitment to recovery.",
+        contentZh: "社会支持显著提高康复成功率。责任伙伴通过定期检查、庆祝里程碑和在困难时期提供鼓励来提供相互支持。选择伙伴时，选择你信任但会在不评判的情况下让你负责的人。对沟通频率和界限设定明确期望。支持小组，无论是在线还是面对面，都能提供更广阔的视角并减少孤立感。通过分享经历和支持他人来积极参与，这强化了你对康复的承诺。"
       }
     ]
   }
