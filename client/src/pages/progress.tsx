@@ -42,7 +42,7 @@ export default function ProgressPage() {
     }
   };
 
-  const getMilestoneDescription = (milestoneData: any) => {
+  const getMilestoneDescription = (days: number) => {
     const milestoneMap: Record<number, string> = {
       1: t('firstStepCompleted'),
       3: t('healthImprovementBegins'),
@@ -54,7 +54,7 @@ export default function ProgressPage() {
       90: t('fullBrainRebootAchieved')
     };
     
-    return milestoneMap[milestoneData.days] || milestoneData.description;
+    return milestoneMap[days] || `${days} days milestone`;
   };
 
   const handleShareClick = () => {
@@ -142,10 +142,9 @@ export default function ProgressPage() {
         {(milestones || []).map((milestone: any, index: number) => {
           const achieved = milestone.achieved;
           const daysLeft = getDaysLeft(days, milestone.days);
-          const data = milestonesData.find(m => m.days === milestone.days) || { days: milestone.days, description: "Milestone" };
           
           return (
-            <div key={index} className={`flex justify-between items-center ${index < 3 ? 'mb-4' : ''}`}>
+            <div key={index} className={`flex justify-between items-center ${index < (milestones?.length - 1) ? 'mb-4' : ''}`}>
               <div className="flex items-center">
                 <div className={`p-2 rounded-full mr-3 ${achieved ? 'bg-primary' : 'bg-background-primary'}`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${achieved ? 'text-text-primary' : 'text-text-secondary'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -154,7 +153,7 @@ export default function ProgressPage() {
                 </div>
                 <div>
                   <h3 className="font-medium text-text-primary">{milestone.days} {milestone.days === 1 ? t('daysSingle') : t('days')}</h3>
-                  <p className="text-xs text-text-secondary">{getMilestoneDescription(data)}</p>
+                  <p className="text-xs text-text-secondary">{getMilestoneDescription(milestone.days)}</p>
                 </div>
               </div>
               <span className={`text-xs px-2 py-1 rounded ${
