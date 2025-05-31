@@ -1,0 +1,83 @@
+Replit AI Agent Task — Achievements Page Icon Overhaul
+
+Context
+	•	Current route: /achievements
+	•	Framework: React (vite), TypeScript, Tailwind CSS
+	•	Design language: Dark‑mode first, minimal‑glassmorphism
+
+⸻
+
+1. Goal
+
+Replace all placeholder/monochrome icons on the Achievements screen with distinctive, modern‑looking icons that instantly convey each milestone’s spirit. Support both locked and unlocked states.
+
+2. Icon Library & Style
+
+Parameter	Requirement
+Library	Phosphor Icons (@phosphor-icons/react) — consistent weight variants + MIT license
+Default weight	regular
+Unlocked fill & stroke	#5EFCE8→#736EFE radial gradient (Tailwind from-teal-300 via-cyan-400 to-indigo-500)
+Locked fill & stroke	Tailwind slate-600/40 (40 % opacity)
+Size	w-16 h-16 (64 px) on phones, scales to w-20 h-20 on tablets via responsive classes
+Animation	On unlock ➝ 250 ms scale-125 → scale-100 ease‑out with framer-motion
+
+3. Icon Mapping
+
+Achievement Key	Days	Icon (Phosphor)	Semantic Hint
+seed	1	Seed	germination
+sprout	3	Plant	early growth
+vanguard	5	ShieldCheck	first defence
+momentum	7	RocketLaunch	propulsion
+silk	10	Butterfly	metamorphosis
+guardian	14	HandHeart	protect & care
+harmony	21	Handshake	stability
+zenith	30	Trophy	climax
+
+Note: add any missing achievement keys in achievements.ts data model.
+
+4. Code Changes
+	1.	Component refactor
+	•	src/components/AchievementIcon.tsx
+	•	Accept props: name: AchievementKey, locked: boolean
+
+import { Seed, Plant, ShieldCheck, RocketLaunch, Butterfly, HandHeart, Handshake, Trophy } from "@phosphor-icons/react";
+const icons: Record<AchievementKey, React.FC<IconProps>> = { seed: Seed, sprout: Plant, vanguard: ShieldCheck, momentum: RocketLaunch, silk: Butterfly, guardian: HandHeart, harmony: Handshake, zenith: Trophy };
+
+
+	2.	Styling
+	•	Tailwind classes: text-transparent bg-clip-text bg-gradient-to-br for unlocked
+	•	text-slate-600/40 for locked
+	3.	Animation
+
+<motion.div initial={{ scale: locked ? 1 : 1.25 }} animate={{ scale: 1 }} transition={{ duration: 0.25, ease: "easeOut" }}>
+
+
+	4.	Accessibility
+	•	aria-label = translated achievement title from i18n
+	•	Provide alt attr in fallback <img> when SSR
+	5.	Testing
+	•	Jest snapshot for locked/unlocked renders
+	•	Cypress e2e: unlock flow shows animation exactly once
+
+5. Acceptance Criteria
+	•	All eight achievements display correct icons in both states
+	•	Gradient & animation only on unlocked
+	•	No layout shift on icon load (<0.1 CLS)
+	•	Jest & Cypress tests green
+	•	Bundle size increase ≤ 25 kB (tree‑shaking + dynamic import if necessary)
+
+⸻
+
+6. Deliverables
+	1.	PR to feature/achievements‑icons
+	2.	Updated storybook stories AchievementsIcon.stories.tsx
+	3.	Screenshot set (mobile + tablet)
+	4.	Changelog entry UI: revamped Achievements icons
+
+7. ETA
+	•	Development: 0.5 day
+	•	Review + QA: 0.5 day
+
+⸻
+
+Prepared for Replit AI Agent integration. Feel free to tweak mapping or styles before execution.

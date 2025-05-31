@@ -6,7 +6,7 @@ import { Link } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import AchievementBadge from '@/components/achievement-badge';
 
-// Define achievements with their requirements and colors exactly as in the spec
+// Define achievements with their requirements and colors following the new icon mapping
 const achievementsList = [
   {
     id: 'seed',
@@ -16,7 +16,7 @@ const achievementsList = [
     days: 1,
     color: 'bg-pink-400',
     glowColor: '#f472b6',
-    assetUnlocked: '/assets/achievements/seed.png'
+    iconKey: 'seed' as const
   },
   {
     id: 'sprout',
@@ -26,17 +26,17 @@ const achievementsList = [
     days: 3,
     color: 'bg-blue-300',
     glowColor: '#7dd3fc',
-    assetUnlocked: '/assets/achievements/sprout.png'
+    iconKey: 'sprout' as const
   },
   {
-    id: 'pioneer',
+    id: 'vanguard',
     name: '先锋',
-    enName: 'Pioneer',
+    enName: 'Vanguard',
     description: '5/5 天',
     days: 5,
     color: 'bg-cyan-400',
     glowColor: '#22d3ee',
-    assetUnlocked: '/assets/achievements/pioneer.png'
+    iconKey: 'vanguard' as const
   },
   {
     id: 'momentum',
@@ -46,17 +46,17 @@ const achievementsList = [
     days: 7,
     color: 'bg-purple-400',
     glowColor: '#c084fc',
-    assetUnlocked: '/assets/achievements/momentum.png'
+    iconKey: 'momentum' as const
   },
   {
-    id: 'fortress',
-    name: '堡垒',
-    enName: 'Fortress',
+    id: 'silk',
+    name: '蚕蛹',
+    enName: 'Silk',
     description: '10/10 天',
     days: 10,
     color: 'bg-purple-500',
     glowColor: '#a855f7',
-    assetUnlocked: '/assets/achievements/fortress.png'
+    iconKey: 'silk' as const
   },
   {
     id: 'guardian',
@@ -66,29 +66,27 @@ const achievementsList = [
     days: 14,
     color: 'bg-blue-400',
     glowColor: '#60a5fa',
-    assetUnlocked: '/assets/achievements/guardian.png'
+    iconKey: 'guardian' as const
   },
   {
-    id: 'trailblazer',
-    name: '开拓者',
-    enName: 'Trailblazer',
-    description: '30/30 天',
-    days: 30,
+    id: 'harmony',
+    name: '和谐',
+    enName: 'Harmony',
+    description: '21/21 天',
+    days: 21,
     color: 'bg-indigo-400',
     glowColor: '#818cf8',
-    isLocked: true,
-    assetUnlocked: '/assets/achievements/trailblazer.png'
+    iconKey: 'harmony' as const
   },
   {
-    id: 'ascendant',
-    name: '飞升者',
-    enName: 'Ascendant',
-    description: '45/45 天',
-    days: 45,
+    id: 'zenith',
+    name: '巅峰',
+    enName: 'Zenith',
+    description: '30/30 天',
+    days: 30,
     color: 'bg-indigo-500',
     glowColor: '#6366f1',
-    isLocked: true,
-    assetUnlocked: '/assets/achievements/ascendant.png'
+    iconKey: 'zenith' as const
   }
 ];
 
