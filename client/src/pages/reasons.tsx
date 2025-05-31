@@ -100,136 +100,119 @@ export default function ReasonsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white relative overflow-hidden">
-      {/* Animated stars background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-70"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `twinkle ${2 + Math.random() * 4}s infinite`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="relative z-10 p-4 pb-20">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
-            <Heart className="h-8 w-8 text-primary mr-3" />
-            <h1 className="text-2xl font-bold text-text-primary">{t('myReasons')}</h1>
-          </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-primary hover:bg-primary-light text-white rounded-full p-3">
-                <Plus className="h-6 w-6" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-background-card border-background-card text-text-primary">
-              <DialogHeader>
-                <DialogTitle>{t('addNewReason')}</DialogTitle>
-              </DialogHeader>
-              <form onSubmit={handleAddReason}>
-                <div className="space-y-4 py-2">
-                  <div className="space-y-2">
-                    <Input
-                      placeholder={t('reasonTitle')}
-                      value={newTitle}
-                      onChange={(e) => setNewTitle(e.target.value)}
-                      className="bg-background-primary border-background-primary"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Textarea
-                      placeholder={t('reasonDescription')}
-                      rows={4}
-                      value={newDescription}
-                      onChange={(e) => setNewDescription(e.target.value)}
-                      className="bg-background-primary border-background-primary"
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-end space-x-2 mt-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsDialogOpen(false)}
-                    className="border-background-primary text-text-secondary"
-                  >
-                    {t('cancel')}
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={addReasonMutation.isPending}
-                    className="bg-primary hover:bg-primary-light text-white"
-                  >
-                    {addReasonMutation.isPending ? t('adding') : t('add')}
-                  </Button>
-                </div>
-              </form>
-            </DialogContent>
-          </Dialog>
+    <div className="p-4 pt-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center">
+          <Heart className="h-8 w-8 text-primary mr-3" />
+          <h1 className="text-2xl font-bold text-text-primary">{t('myReasons')}</h1>
         </div>
-
-        {/* Subtitle */}
-        <p className="text-text-secondary mb-6">
-          {t('reasonsSubtitle')}
-        </p>
-
-        {/* Reasons List */}
-        {isLoading ? (
-          <div className="text-center py-8">
-            <div className="text-text-secondary">{t('loadingReasons')}</div>
-          </div>
-        ) : reasons && reasons.length > 0 ? (
-          <div className="space-y-4">
-            {reasons.map((reason) => (
-              <div key={reason.id} className="bg-background-card p-4 rounded-xl shadow-lg">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-text-primary mb-2">
-                      {reason.title}
-                    </h3>
-                    <p className="text-text-secondary text-sm">
-                      {reason.description}
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleDeleteReason(reason.id)}
-                    disabled={deleteReasonMutation.isPending}
-                    className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-primary hover:bg-primary-light text-white rounded-full p-3">
+              <Plus className="h-6 w-6" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-background-card border-background-card text-text-primary">
+            <DialogHeader>
+              <DialogTitle>{t('addNewReason')}</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleAddReason}>
+              <div className="space-y-4 py-2">
+                <div className="space-y-2">
+                  <Input
+                    placeholder={t('reasonTitle')}
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                    className="bg-background-primary border-background-primary"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Textarea
+                    placeholder={t('reasonDescription')}
+                    rows={4}
+                    value={newDescription}
+                    onChange={(e) => setNewDescription(e.target.value)}
+                    className="bg-background-primary border-background-primary"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <Heart className="h-16 w-16 text-text-secondary mx-auto mb-4 opacity-50" />
-            <h3 className="text-xl font-medium text-text-primary mb-2">
-              {t('noReasonsYet')}
-            </h3>
-            <p className="text-text-secondary mb-6">
-              {t('addFirstReason')}
-            </p>
-            <Button
-              onClick={() => setIsDialogOpen(true)}
-              className="bg-primary hover:bg-primary-light text-white"
-            >
-              <Plus className="h-5 w-5 mr-2" />
-              {t('addReason')}
-            </Button>
-          </div>
-        )}
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsDialogOpen(false)}
+                  className="border-background-primary text-text-secondary"
+                >
+                  {t('cancel')}
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={addReasonMutation.isPending}
+                  className="bg-primary hover:bg-primary-light text-white"
+                >
+                  {addReasonMutation.isPending ? t('adding') : t('add')}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
+
+      {/* Subtitle */}
+      <p className="text-text-secondary mb-6">
+        {t('reasonsSubtitle')}
+      </p>
+
+      {/* Reasons List */}
+      {isLoading ? (
+        <div className="text-center py-8">
+          <div className="text-text-secondary">{t('loadingReasons')}</div>
+        </div>
+      ) : reasons && reasons.length > 0 ? (
+        <div className="space-y-4">
+          {reasons.map((reason) => (
+            <div key={reason.id} className="bg-background-card p-4 rounded-xl shadow-lg">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-text-primary mb-2">
+                    {reason.title}
+                  </h3>
+                  <p className="text-text-secondary text-sm">
+                    {reason.description}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleDeleteReason(reason.id)}
+                  disabled={deleteReasonMutation.isPending}
+                  className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <Heart className="h-16 w-16 text-text-secondary mx-auto mb-4 opacity-50" />
+          <h3 className="text-xl font-medium text-text-primary mb-2">
+            {t('noReasonsYet')}
+          </h3>
+          <p className="text-text-secondary mb-6">
+            {t('addFirstReason')}
+          </p>
+          <Button
+            onClick={() => setIsDialogOpen(true)}
+            className="bg-primary hover:bg-primary-light text-white"
+          >
+            <Plus className="h-5 w-5 mr-2" />
+            {t('addReason')}
+          </Button>
+        </div>
+      )}
 
       <Navigation currentPath="/reasons" />
     </div>
