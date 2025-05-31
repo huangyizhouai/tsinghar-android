@@ -71,20 +71,33 @@ export default function AchievementBadge({
             boxShadow: isUnlocked ? `0 0 20px ${glowColor}` : 'none',
           }}
         >
-          {isLocked || !isUnlocked ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <img 
-                src="/assets/achievements/lock.svg" 
-                alt="Locked" 
-                className="w-7 h-7 opacity-70"
-                onError={(e) => {
-                  // Fallback to Lucide icon if SVG not found
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-              />
-              <Lock className="w-7 h-7 text-gray-400 hidden" />
-            </div>
+          {/* Always show the achievement icon, but with different styling based on unlock status */}
+          {iconKey && achievementIcons[iconKey] ? (
+            (() => {
+              const IconComponent = achievementIcons[iconKey];
+              return (
+                <div className="relative flex items-center justify-center">
+                  <IconComponent
+                    weight="regular"
+                    className="w-12 h-12"
+                    style={isUnlocked ? {
+                      background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: 'transparent'
+                    } : {
+                      color: 'rgb(71 85 105 / 0.4)'
+                    }}
+                  />
+                  {!isUnlocked && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Lock className="w-6 h-6 text-gray-400/60" />
+                    </div>
+                  )}
+                </div>
+              );
+            })()
           ) : (
             // Inner reflective surface for unlocked badges with new icon system
             <div 
