@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <title>势头 (Momentum)</title>
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <circle fill="#c084fc" cx="60" cy="60" r="50"></circle>
-        <text font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle" x="60" y="68">势头</text>
-    </g>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="momentumGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9333ea;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <circle cx="24" cy="24" r="20" fill="url(#momentumGradient)" stroke="#ddd6fe" stroke-width="2"/>
+  <path d="M24 12l8 6-3 10h-10l-3-10z" fill="#ffffff" opacity="0.9"/>
+  <path d="M24 14l6 4-2 8h-8l-2-8z" fill="#fbbf24"/>
+  <circle cx="24" cy="18" r="2" fill="#ffffff"/>
+  <path d="M20 22h8l-1 2h-6z" fill="#ef4444"/>
 </svg>
