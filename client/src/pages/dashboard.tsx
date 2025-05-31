@@ -223,6 +223,62 @@ export default function Dashboard() {
         <div className="mt-4 mb-8">
           <PanicButton onClick={() => setShowPanicModal(true)} />
         </div>
+
+        {/* Success Stories Section */}
+        <div className="mb-8">
+          <h2 className="font-medium text-lg mb-4 text-text-primary">{t('helpSuccessStories')}</h2>
+          <div className="space-y-4">
+            {[
+              {
+                id: 1,
+                titleKey: 'successStory1Title',
+                contentKey: 'successStory1Content',
+                days: 90,
+                age: 28
+              },
+              {
+                id: 2,
+                titleKey: 'successStory2Title',
+                contentKey: 'successStory2Content',
+                days: 180,
+                age: 35
+              },
+              {
+                id: 3,
+                titleKey: 'successStory3Title',
+                contentKey: 'successStory3Content',
+                days: 60,
+                age: 22
+              }
+            ].map((story) => (
+              <div key={story.id} className="bg-background-card p-4 rounded-xl shadow-lg">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
+                      <Star className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-text-primary mb-2 text-sm">
+                      {t(story.titleKey)}
+                    </h3>
+                    <p className="text-text-secondary text-xs leading-relaxed mb-3">
+                      {t(story.contentKey)}
+                    </p>
+                    <div className="flex gap-3 text-xs text-text-secondary">
+                      <span className="bg-background-primary px-2 py-1 rounded">
+                        {story.days} {t('days')}
+                      </span>
+                      <span className="bg-background-primary px-2 py-1 rounded">
+                        {t('language') === 'zh' ? `${story.age}岁` : `Age ${story.age}`}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Panic Modal */}
