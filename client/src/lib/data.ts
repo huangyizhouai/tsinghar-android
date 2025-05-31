@@ -276,7 +276,7 @@ export const libraryCategories: Category[] = [
         readTime: 15,
         content: "Mindfulness meditation strengthens the prefrontal cortex, the part of your brain responsible for impulse control. When practiced regularly, mindfulness helps you observe urges without automatically acting on them. Start with just 5 minutes daily of focused breathing, gradually increasing to 15-20 minutes. When urges arise, use the RAIN technique: Recognize the urge, Allow it to be there without judgment, Investigate how it feels in your body, and Note that urges are temporary sensations that will pass.",
         contentZh: "正念冥想强化前额叶皮质，这是大脑中负责冲动控制的部分。定期练习正念有助于观察冲动而不自动行动。从每日5分钟的专注呼吸开始，逐渐增加到15-20分钟。当冲动出现时，使用RAIN技巧：识别冲动，允许它不带判断地存在，调查它在身体中的感受，注意冲动是会过去的暂时感觉。",
-        imageUrl: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=450&h=220"
+        imageUrl: "@assets/IMG_1089.jpeg"
       },
       {
         id: "recovery-plan",
@@ -288,7 +288,8 @@ export const libraryCategories: Category[] = [
         descriptionZh: "建立个性化的长期成功策略。",
         readTime: 10,
         content: "A successful recovery plan addresses multiple aspects of your life. Start by defining clear, measurable goals (e.g., 90 days porn-free). Identify and eliminate easy access points by installing blockers and creating environmental barriers. Schedule alternative activities during vulnerable times. Create a daily routine that includes exercise, healthy social contact, and mindfulness practice. Develop a relapse prevention plan with specific steps to take when urges are strong. Review and adjust your plan weekly based on what's working and what isn't.",
-        contentZh: "成功的康复计划涉及生活的多个方面。首先定义清晰、可衡量的目标（例如，90天无色情）。通过安装拦截器和创建环境障碍来识别并消除容易接触的途径。在脆弱时段安排替代活动。创建包括运动、健康社交接触和正念练习的日常程序。制定复发预防计划，包括在冲动强烈时采取的具体步骤。根据有效和无效的方法每周回顾和调整计划。"
+        contentZh: "成功的康复计划涉及生活的多个方面。首先定义清晰、可衡量的目标（例如，90天无色情）。通过安装拦截器和创建环境障碍来识别并消除容易接触的途径。在脆弱时段安排替代活动。创建包括运动、健康社交接触和正念练习的日常程序。制定复发预防计划，包括在冲动强烈时采取的具体步骤。根据有效和无效的方法每周回顾和调整计划。",
+        imageUrl: "@assets/IMG_1090.jpeg"
       },
       {
         id: "community-support",
