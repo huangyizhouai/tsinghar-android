@@ -16,6 +16,8 @@ import { libraryCategories, meditationTracks } from "@/lib/data";
 import { apiRequest } from "@/lib/queryClient";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export default function Library() {
   const { t } = useLanguage();
@@ -28,6 +30,51 @@ export default function Library() {
     title: "", 
     description: "" 
   });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDailyNotesOpen, setIsDailyNotesOpen] = useState(false);
+  
+  // Daily notes data
+  const dailyNotes = [
+    {
+      en: "Recovery is not about perfection, it's about progress. Every day you choose recovery is a victory.",
+      zh: "康复不是关于完美，而是关于进步。你选择康复的每一天都是胜利。"
+    },
+    {
+      en: "Your brain is healing with every day of abstinence. Trust the process and be patient with yourself.",
+      zh: "你的大脑在每一天的戒断中都在愈合。相信这个过程，对自己要有耐心。"
+    },
+    {
+      en: "Urges are temporary feelings, not permanent states. This too shall pass.",
+      zh: "冲动是暂时的感觉，而不是永久的状态。这也会过去的。"
+    },
+    {
+      en: "Focus on building new, healthy habits that align with your values and goals.",
+      zh: "专注于建立与你的价值观和目标一致的新的健康习惯。"
+    },
+    {
+      en: "Remember your reasons for recovery. They are stronger than any momentary temptation.",
+      zh: "记住你康复的原因。它们比任何瞬间的诱惑都要强大。"
+    },
+    {
+      en: "Each day of recovery strengthens your willpower and builds resilience.",
+      zh: "康复的每一天都会增强你的意志力并建立韧性。"
+    },
+    {
+      en: "You are retraining your brain to find joy in real connections and meaningful activities.",
+      zh: "你正在重新训练你的大脑，在真实的联系和有意义的活动中找到快乐。"
+    },
+    {
+      en: "Self-compassion is key to recovery. Treat yourself with the kindness you'd show a good friend.",
+      zh: "自我同情是康复的关键。用你对待好朋友的善意来对待自己。"
+    }
+  ];
+  
+  // Get current daily note (changes based on day of year)
+  const getCurrentDailyNote = () => {
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+    return dailyNotes[dayOfYear % dailyNotes.length];
+  };
   
   // Get location for navigation
   const [location, setLocation] = useLocation();
@@ -100,6 +147,26 @@ export default function Library() {
     setInfoModalContent({ title, description });
     setIsInfoModalOpen(true);
   };
+
+  // Search functionality
+  const filterArticlesBySearch = (articles: any[]) => {
+    if (!searchQuery.trim()) return articles;
+    
+    return articles.filter(article => 
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  // Get filtered categories for search
+  const getFilteredCategories = () => {
+    if (!searchQuery.trim()) return libraryCategories;
+    
+    return libraryCategories.map(category => ({
+      ...category,
+      articles: filterArticlesBySearch(category.articles)
+    })).filter(category => category.articles.length > 0);
+  };
   
   // Get current meditation track if one is selected
   const currentTrack = currentTrackId 
@@ -115,10 +182,16 @@ export default function Library() {
           <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
         </div>
         <div className="flex space-x-2">
-          <button className="p-2 rounded-full bg-background-card">
+          <button 
+            className="p-2 rounded-full bg-background-card hover:bg-background-card/80 transition-colors"
+            onClick={() => setIsDailyNotesOpen(true)}
+          >
             <Shield className="h-6 w-6 text-text-primary" />
           </button>
-          <button className="p-2 rounded-full bg-background-card">
+          <button 
+            className="p-2 rounded-full bg-background-card hover:bg-background-card/80 transition-colors"
+            onClick={() => setIsSearchOpen(true)}
+          >
             <Search className="h-6 w-6 text-text-primary" />
           </button>
         </div>
@@ -155,7 +228,7 @@ export default function Library() {
       </div>
       
       {/* Articles Content */}
-      {libraryCategories.map((category) => (
+      {getFilteredCategories().map((category) => (
         <div key={category.id} className="mb-6">
           <div className="flex justify-between items-center mb-3">
             <h2 className="font-medium text-text-primary">{category.name}</h2>
@@ -286,6 +359,79 @@ export default function Library() {
         open={isInfoModalOpen}
         onClose={() => setIsInfoModalOpen(false)}
       />
+
+      {/* Search Modal */}
+      <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+        <DialogContent className="bg-background-card border-background-card text-text-primary">
+          <DialogHeader>
+            <DialogTitle>Search Articles</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <Input
+              placeholder="Search for articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-background-primary border-background-primary"
+            />
+            {searchQuery && (
+              <div className="max-h-60 overflow-y-auto space-y-2">
+                {getFilteredCategories().map((category) => (
+                  <div key={category.id}>
+                    <h3 className="font-medium text-text-primary mb-2">{category.name}</h3>
+                    {category.articles.map((article) => (
+                      <div
+                        key={article.id}
+                        className="p-3 bg-background-primary rounded-lg cursor-pointer hover:bg-background-primary/80"
+                        onClick={() => {
+                          markArticleAsCompleted(article.id);
+                          setIsSearchOpen(false);
+                          setSearchQuery("");
+                        }}
+                      >
+                        <h4 className="font-medium text-text-primary">{article.title}</h4>
+                        <p className="text-sm text-text-secondary">{article.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                {getFilteredCategories().length === 0 && (
+                  <p className="text-text-secondary text-center py-4">No articles found</p>
+                )}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Daily Notes Modal */}
+      <Dialog open={isDailyNotesOpen} onOpenChange={setIsDailyNotesOpen}>
+        <DialogContent className="bg-background-card border-background-card text-text-primary">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-primary" />
+              Daily Recovery Note
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="p-4 bg-background-primary rounded-lg">
+              <p className="text-text-primary leading-relaxed mb-3">
+                {t('language') === 'zh' ? getCurrentDailyNote().zh : getCurrentDailyNote().en}
+              </p>
+              <div className="text-xs text-text-secondary">
+                Today's motivation • {new Date().toLocaleDateString()}
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsDailyNotesOpen(false)}
+                className="px-4 py-2 bg-primary hover:bg-primary-light text-white rounded-lg"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
