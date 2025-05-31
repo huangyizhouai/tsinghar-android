@@ -33,9 +33,8 @@ export default function Library() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDailyNotesOpen, setIsDailyNotesOpen] = useState(false);
-  const [isGeneratingArticle, setIsGeneratingArticle] = useState(false);
-  const [generatedArticle, setGeneratedArticle] = useState<any>(null);
-  const [showGeneratedArticle, setShowGeneratedArticle] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState<any>(null);
+  const [showArticleModal, setShowArticleModal] = useState(false);
   
   // Daily notes data
   const dailyNotes = [
@@ -107,30 +106,9 @@ export default function Library() {
     }
   };
 
-  const generateArticleContent = async (article: any) => {
-    setIsGeneratingArticle(true);
-    try {
-      // First try to use OpenAI API for dynamic generation
-      const response = await apiRequest('POST', '/api/articles/generate', {
-        topic: language === 'zh' && article.titleZh ? article.titleZh : article.title,
-        category: article.category
-      });
-      
-      setGeneratedArticle(response);
-      setShowGeneratedArticle(true);
-    } catch (error) {
-      console.error('Failed to generate article:', error);
-      // Fallback to static content if API fails
-      setGeneratedArticle({
-        title: article.title,
-        titleZh: article.titleZh,
-        content: article.content,
-        contentZh: article.contentZh
-      });
-      setShowGeneratedArticle(true);
-    } finally {
-      setIsGeneratingArticle(false);
-    }
+  const showArticleContent = (article: any) => {
+    setSelectedArticle(article);
+    setShowArticleModal(true);
   };
   
   const isArticleCompleted = (articleId: string) => {
@@ -289,14 +267,10 @@ export default function Library() {
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center mb-3">
                         <button
-                          onClick={() => generateArticleContent(article)}
-                          disabled={isGeneratingArticle}
-                          className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors disabled:opacity-50"
+                          onClick={() => showArticleContent(article)}
+                          className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors"
                         >
-                          {isGeneratingArticle ? 
-                            (language === 'zh' ? '生成中...' : 'Generating...') : 
-                            (language === 'zh' ? '生成文章' : 'Generate Article')
-                          }
+                          {language === 'zh' ? '阅读文章' : 'Read Article'}
                         </button>
                         <span className="text-text-secondary text-xs">{article.readTime} min</span>
                       </div>
@@ -476,22 +450,22 @@ export default function Library() {
         </DialogContent>
       </Dialog>
 
-      {/* Generated Article Modal */}
-      <Dialog open={showGeneratedArticle} onOpenChange={setShowGeneratedArticle}>
+      {/* Article Modal */}
+      <Dialog open={showArticleModal} onOpenChange={setShowArticleModal}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-background-card border-background-card text-text-primary">
           <DialogHeader>
             <DialogTitle className="text-lg font-semibold text-text-primary">
-              {generatedArticle ? 
-                (language === 'zh' ? generatedArticle.titleZh : generatedArticle.title) : 
+              {selectedArticle ? 
+                (language === 'zh' && selectedArticle.titleZh ? selectedArticle.titleZh : selectedArticle.title) : 
                 ''
               }
             </DialogTitle>
           </DialogHeader>
           <div className="mt-4">
-            {generatedArticle && (
+            {selectedArticle && (
               <div className="prose max-w-none text-text-primary">
                 <div className="whitespace-pre-wrap leading-relaxed">
-                  {language === 'zh' ? generatedArticle.contentZh : generatedArticle.content}
+                  {language === 'zh' && selectedArticle.contentZh ? selectedArticle.contentZh : selectedArticle.content}
                 </div>
               </div>
             )}
