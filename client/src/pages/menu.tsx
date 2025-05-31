@@ -36,8 +36,8 @@ export default function Menu() {
     },
     {
       icon: <HelpCircle className="h-6 w-6 text-text-secondary" />,
-      title: t('help'),
-      path: "/"
+      title: t('helpAndSupport'),
+      path: "/help"
     },
     {
       icon: <Settings className="h-6 w-6 text-text-secondary" />,

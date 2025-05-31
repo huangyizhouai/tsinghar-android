@@ -37,6 +37,7 @@ function Router() {
           <Route path="/settings" component={SettingsPage} />
           <Route path="/journal" component={JournalPage} />
           <Route path="/analytics" component={AnalyticsPage} />
+          <Route path="/help" component={HelpPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
