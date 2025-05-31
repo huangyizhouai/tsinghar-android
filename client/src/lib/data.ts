@@ -64,10 +64,46 @@ export const benefitsData = [
 ];
 
 export const milestonesData = [
-  { days: 1, description: "First step completed!" },
-  { days: 7, description: "One week milestone" },
-  { days: 30, description: "One month clean" },
-  { days: 90, description: "Full reboot achieved" }
+  { 
+    days: 1, 
+    description: "First step completed!",
+    category: "commitment"
+  },
+  { 
+    days: 3, 
+    description: "Health improvement begins",
+    category: "health"
+  },
+  { 
+    days: 7, 
+    description: "Mental clarity improving",
+    category: "mental"
+  },
+  { 
+    days: 14, 
+    description: "Life balance restoring",
+    category: "balance"
+  },
+  { 
+    days: 21, 
+    description: "Productivity enhancement",
+    category: "productivity"
+  },
+  { 
+    days: 30, 
+    description: "Emotional stability gained",
+    category: "emotional"
+  },
+  { 
+    days: 60, 
+    description: "Relationship quality improving",
+    category: "relationships"
+  },
+  { 
+    days: 90, 
+    description: "Full brain reboot achieved",
+    category: "complete"
+  }
 ];
 
 export const libraryCategories: Category[] = [

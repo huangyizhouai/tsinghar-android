@@ -42,6 +42,21 @@ export default function ProgressPage() {
     }
   };
 
+  const getMilestoneDescription = (milestoneData: any) => {
+    const milestoneMap: Record<number, string> = {
+      1: t('firstStepCompleted'),
+      3: t('healthImprovementBegins'),
+      7: t('mentalClarityImproving'),
+      14: t('lifeBalanceRestoring'),
+      21: t('productivityEnhancement'),
+      30: t('emotionalStabilityGained'),
+      60: t('relationshipQualityImproving'),
+      90: t('fullBrainRebootAchieved')
+    };
+    
+    return milestoneMap[milestoneData.days] || milestoneData.description;
+  };
+
   const handleShareClick = () => {
     setIsShareModalOpen(true);
   };

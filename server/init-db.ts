@@ -43,12 +43,16 @@ async function initDb() {
         { userId, title: "Relationships", description: "To have better relationships with family and friends", createdAt: new Date() }
       ]);
       
-      // Add milestones
-      console.log("Adding default milestones...");
+      // Add meaningful recovery milestones
+      console.log("Adding enhanced recovery milestones...");
       await db.insert(milestones).values([
         { userId, days: 1, achieved: true, achievedDate: new Date() },
+        { userId, days: 3, achieved: false, achievedDate: null },
         { userId, days: 7, achieved: false, achievedDate: null },
+        { userId, days: 14, achieved: false, achievedDate: null },
+        { userId, days: 21, achieved: false, achievedDate: null },
         { userId, days: 30, achieved: false, achievedDate: null },
+        { userId, days: 60, achieved: false, achievedDate: null },
         { userId, days: 90, achieved: false, achievedDate: null }
       ]);
       

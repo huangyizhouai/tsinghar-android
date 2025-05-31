@@ -33,6 +33,16 @@ export const translations: Record<Language, Record<string, string>> = {
     days: 'Days',
     hours: 'Hours',
     minutes: 'Minutes',
+    
+    // Milestone descriptions
+    firstStepCompleted: 'First step completed!',
+    healthImprovementBegins: 'Health improvement begins',
+    mentalClarityImproving: 'Mental clarity improving',
+    lifeBalanceRestoring: 'Life balance restoring',
+    productivityEnhancement: 'Productivity enhancement',
+    emotionalStabilityGained: 'Emotional stability gained',
+    relationshipQualityImproving: 'Relationship quality improving',
+    fullBrainRebootAchieved: 'Full brain reboot achieved',
     seconds: 'Seconds',
     recovery: 'Recovery',
     streak: 'Streak',
@@ -274,6 +284,16 @@ export const translations: Record<Language, Record<string, string>> = {
     streak: '连续',
     projectedQuitDate: '预计戒除日期',
     brainRewiring: '大脑重塑',
+    
+    // Milestone descriptions
+    firstStepCompleted: '迈出第一步！',
+    healthImprovementBegins: '健康状况开始改善',
+    mentalClarityImproving: '思维清晰度提升',
+    lifeBalanceRestoring: '生活平衡恢复',
+    productivityEnhancement: '工作效率提升',
+    emotionalStabilityGained: '情绪稳定增强',
+    relationshipQualityImproving: '人际关系质量改善',
+    fullBrainRebootAchieved: '大脑完全重启成功',
     daysRemaining: '天剩余',
     completeZh: '完成',
     hr: '小时',
