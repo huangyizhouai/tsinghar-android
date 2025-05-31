@@ -20,7 +20,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 
 export default function Library() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   // State
   const [currentView, setCurrentView] = useState("main"); // main, articles, meditate, learn, podcast
@@ -231,7 +231,9 @@ export default function Library() {
       {getFilteredCategories().map((category) => (
         <div key={category.id} className="mb-6">
           <div className="flex justify-between items-center mb-3">
-            <h2 className="font-medium text-text-primary">{category.name}</h2>
+            <h2 className="font-medium text-text-primary">
+              {language === 'zh' && category.nameZh ? category.nameZh : category.name}
+            </h2>
             <span className="text-xs text-text-secondary">
               {getCategoryCompletionPercentage(category.id)}% {t('complete')}
             </span>
