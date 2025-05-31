@@ -16,6 +16,7 @@ import ProfilePage from "@/pages/profile";
 import SettingsPage from "@/pages/settings";
 import JournalPage from "@/pages/journal";
 import AnalyticsPage from "@/pages/analytics";
+import HelpPage from "@/pages/help";
 import Navigation from "@/components/navigation";
 
 function Router() {

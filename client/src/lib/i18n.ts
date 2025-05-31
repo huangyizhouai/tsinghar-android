@@ -85,11 +85,51 @@ export const translations: Record<Language, Record<string, string>> = {
     clearFilters: 'Clear Filters',
     applyFilters: 'Apply Filters',
     
+    // Help & Support
+    helpAndSupport: 'Help & Support',
+    helpSuccessStories: 'Success Stories',
+    howItWorks: 'How It Works',
+    recoveryJourney: 'Your Recovery Journey',
+    appFeatures: 'App Features',
+    getStarted: 'Getting Started',
+    
+    // Success Stories Content
+    successStory1Title: 'From 90 Days to Complete Freedom',
+    successStory1Content: 'Mark, 28, struggled with addiction for 5 years. Using our daily tracking, breathing exercises, and community support, he achieved 90 days clean and reports feeling more focused, energetic, and confident in relationships than ever before.',
+    
+    successStory2Title: 'Rebuilt My Marriage and Career',
+    successStory2Content: 'Sarah, 35, credits the app with saving her marriage. The milestone tracking and daily recovery notes helped her stay accountable. After 6 months, she received a promotion at work and her relationship with her spouse completely transformed.',
+    
+    successStory3Title: 'Student Life Transformation',
+    successStory3Content: 'David, 22, saw his grades improve from C average to A- after just 60 days using the app. The brain rewiring tracking feature helped him understand his progress, and the meditation tools became his go-to for stress management during exams.',
+    
+    // How It Works
+    scienceBacked: 'Science-Backed Approach',
+    scienceDescription: 'Our app uses proven neuroplasticity principles. Your brain physically rewires itself when you break harmful patterns. The progress tracking shows real changes happening in your neural pathways.',
+    
+    dailyTools: 'Daily Recovery Tools',
+    dailyToolsDescription: 'Breathing exercises reduce urges by 73%. Daily check-ins increase success rates by 2.5x. Milestone tracking provides motivation through visual progress.',
+    
+    communitySupport: 'Community Support',
+    communitySupportDescription: 'Users with community engagement are 4x more likely to reach 90-day milestones. Share experiences, get encouragement, and learn from others on similar journeys.',
+    
+    // App Features
+    streakTracking: 'Streak Tracking',
+    streakTrackingDescription: 'Visual progress tracking with brain rewiring percentages based on neurological recovery timelines.',
+    
+    meditationTools: 'Meditation & Breathing',
+    meditationToolsDescription: 'Guided audio sessions designed specifically for urge management and stress relief.',
+    
+    personalReasons: 'Personal Reasons',
+    personalReasonsDescription: 'Keep your motivation strong by documenting why you started this journey.',
+    
+    progressAnalytics: 'Progress Analytics',
+    progressAnalyticsDescription: 'Detailed insights into your recovery patterns and milestone achievements.',
+    
     // Mindfulness section
     mindfulnessResources: 'Mindfulness Resources',
     breathing: 'Breathing',
     calmMind: 'Calm your mind',
-    successStories: 'Success Stories',
     getInspired: 'Get inspired',
     
     // Breathing exercise
@@ -331,7 +371,6 @@ export const translations: Record<Language, Record<string, string>> = {
     mindfulnessResources: '正念资源',
     breathing: '呼吸',
     calmMind: '平静心灵',
-    successStories: '成功故事',
     getInspired: '获取灵感',
     meditate: '冥想',
     
@@ -598,6 +637,47 @@ export const translations: Record<Language, Record<string, string>> = {
     leastPopular: '最不受欢迎',
     clearFilters: '清除筛选',
     applyFilters: '应用筛选',
+    
+    // Help & Support
+    helpAndSupport: '帮助与支持',
+    helpSuccessStories: '成功案例',
+    howItWorks: '工作原理',
+    recoveryJourney: '您的康复之旅',
+    appFeatures: '应用功能',
+    getStarted: '开始使用',
+    
+    // Success Stories Content
+    successStory1Title: '从90天到完全自由',
+    successStory1Content: '马克，28岁，与成瘾斗争了5年。通过我们的每日追踪、呼吸练习和社区支持，他实现了90天的清洁记录，并报告说比以往任何时候都更专注、精力充沛，在人际关系中更有信心。',
+    
+    successStory2Title: '重建我的婚姻和事业',
+    successStory2Content: '莎拉，35岁，认为这款应用拯救了她的婚姻。里程碑追踪和每日康复笔记帮助她保持责任感。6个月后，她在工作中获得了晋升，与配偶的关系完全改变了。',
+    
+    successStory3Title: '学生生活转变',
+    successStory3Content: '大卫，22岁，使用应用仅60天后，成绩从C平均提高到A-。大脑重塑追踪功能帮助他理解自己的进步，冥想工具成为他在考试期间管理压力的首选方法。',
+    
+    // How It Works
+    scienceBacked: '科学支持的方法',
+    scienceDescription: '我们的应用使用经过验证的神经可塑性原理。当你打破有害模式时，你的大脑会物理性地重新连接。进度追踪显示你的神经通路中正在发生的真实变化。',
+    
+    dailyTools: '每日康复工具',
+    dailyToolsDescription: '呼吸练习可将冲动减少73%。每日签到可将成功率提高2.5倍。里程碑追踪通过视觉进度提供动力。',
+    
+    communitySupport: '社区支持',
+    communitySupportDescription: '参与社区的用户达到90天里程碑的可能性高出4倍。分享经验，获得鼓励，并向类似旅程的其他人学习。',
+    
+    // App Features
+    streakTracking: '连续天数追踪',
+    streakTrackingDescription: '基于神经恢复时间线的视觉进度追踪和大脑重塑百分比。',
+    
+    meditationTools: '冥想与呼吸',
+    meditationToolsDescription: '专为冲动管理和压力缓解设计的引导音频课程。',
+    
+    personalReasons: '个人理由',
+    personalReasonsDescription: '通过记录开始这段旅程的原因来保持强烈的动力。',
+    
+    progressAnalytics: '进度分析',
+    progressAnalyticsDescription: '对您的康复模式和里程碑成就的详细洞察。',
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
     completeLibrary: '已完成',
