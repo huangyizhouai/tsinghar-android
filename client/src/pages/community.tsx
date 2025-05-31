@@ -221,6 +221,96 @@ export default function Community() {
             </form>
           </DialogContent>
         </Dialog>
+
+        {/* Filter Dialog */}
+        <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+          <DialogContent className="bg-background-card border-background-card text-text-primary">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Filter className="h-5 w-5 text-primary" />
+                Filter Posts
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              {/* Keyword Search */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-text-primary">Search Keywords</label>
+                <Input
+                  placeholder="Search in titles and content..."
+                  value={filterKeyword}
+                  onChange={(e) => setFilterKeyword(e.target.value)}
+                  className="bg-background-primary border-background-primary"
+                />
+              </div>
+
+              {/* Sort Options */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-text-primary">Sort By</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setSortBy("newest")}
+                    className={`p-2 text-sm rounded-lg border transition-colors ${
+                      sortBy === "newest"
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
+                    }`}
+                  >
+                    Newest First
+                  </button>
+                  <button
+                    onClick={() => setSortBy("oldest")}
+                    className={`p-2 text-sm rounded-lg border transition-colors ${
+                      sortBy === "oldest"
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
+                    }`}
+                  >
+                    Oldest First
+                  </button>
+                  <button
+                    onClick={() => setSortBy("popular")}
+                    className={`p-2 text-sm rounded-lg border transition-colors ${
+                      sortBy === "popular"
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
+                    }`}
+                  >
+                    Most Popular
+                  </button>
+                  <button
+                    onClick={() => setSortBy("unpopular")}
+                    className={`p-2 text-sm rounded-lg border transition-colors ${
+                      sortBy === "unpopular"
+                        ? "bg-primary text-white border-primary"
+                        : "bg-background-primary border-background-primary text-text-secondary hover:bg-background-primary/80"
+                    }`}
+                  >
+                    Least Popular
+                  </button>
+                </div>
+              </div>
+
+              {/* Filter Actions */}
+              <div className="flex justify-between pt-4">
+                <button
+                  onClick={() => {
+                    setFilterKeyword("");
+                    setSortBy("newest");
+                  }}
+                  className="px-4 py-2 text-text-secondary hover:text-text-primary transition-colors"
+                >
+                  Clear Filters
+                </button>
+                <button
+                  onClick={() => setIsFilterOpen(false)}
+                  className="px-4 py-2 bg-primary hover:bg-primary-light text-white rounded-lg"
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
