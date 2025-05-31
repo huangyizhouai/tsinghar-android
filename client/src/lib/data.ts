@@ -311,6 +311,59 @@ export const motivationalQuotes = [
 ];
 
 export const meditationTracks: MeditationTrack[] = [
+  // Mindfulness & Focus Category
+  {
+    id: "mindful-awareness",
+    title: "正念觉察",
+    titleEn: "Mindful Awareness",
+    subtitle: "专注当下 · 8分钟",
+    subtitleEn: "Present Moment Focus · 8 min",
+    duration: 480, // 8 minutes
+    audioUrl: "custom:mindful-awareness",
+    color: "#6366F1", // Indigo
+    description: "通过正念练习培养对当下的觉察，帮助你观察想法而不被它们带走。这个练习增强你的注意力和情绪调节能力。",
+    descriptionEn: "Develop present-moment awareness through mindfulness practice, helping you observe thoughts without being carried away by them. This practice enhances your attention and emotional regulation abilities."
+  },
+  {
+    id: "focused-breathing",
+    title: "专注呼吸",
+    titleEn: "Focused Breathing",
+    subtitle: "增强专注力 · 6分钟",
+    subtitleEn: "Enhance Concentration · 6 min",
+    duration: 360, // 6 minutes
+    audioUrl: "custom:focused-breathing",
+    color: "#0EA5E9", // Sky Blue
+    description: "通过专注于呼吸来训练你的注意力。这个简单而强大的练习是所有冥想的基础，帮助你建立心理韧性。",
+    descriptionEn: "Train your attention by focusing on the breath. This simple yet powerful practice is the foundation of all meditation, helping you build mental resilience."
+  },
+
+  // Stress Relief & Relaxation Category
+  {
+    id: "stress-relief",
+    title: "释放压力",
+    titleEn: "Stress Relief",
+    subtitle: "身心放松 · 12分钟",
+    subtitleEn: "Body & Mind Relaxation · 12 min",
+    duration: 720, // 12 minutes
+    audioUrl: "custom:stress-relief",
+    color: "#059669", // Emerald Green
+    description: "渐进式肌肉放松结合深度呼吸，帮助你释放身体紧张和心理压力。适合在紧张或疲劳时使用。",
+    descriptionEn: "Progressive muscle relaxation combined with deep breathing to help you release physical tension and mental stress. Perfect for when feeling tense or fatigued."
+  },
+  {
+    id: "inner-peace",
+    title: "内心平静",
+    titleEn: "Inner Peace",
+    subtitle: "寻找宁静 · 10分钟",
+    subtitleEn: "Finding Tranquility · 10 min",
+    duration: 600, // 10 minutes
+    audioUrl: "custom:inner-peace",
+    color: "#7C3AED", // Violet
+    description: "通过冥想找到内心的平静与安宁。这个练习帮助你在混乱的世界中建立一个宁静的内在空间。",
+    descriptionEn: "Find inner peace and serenity through meditation. This practice helps you create a tranquil inner space amidst the chaos of the world."
+  },
+
+  // Recovery & Motivation Category
   {
     id: "urge-control",
     title: "抵制冲动",
@@ -319,45 +372,47 @@ export const meditationTracks: MeditationTrack[] = [
     subtitleEn: "Strengthen Self-Control · 7 min",
     duration: 420, // 7 minutes
     audioUrl: "custom:urge-control",
-    color: "#F9A826", // Yellow/Orange
+    color: "#F59E0B", // Amber
     description: "特别设计的4-7-8呼吸法冥想练习，帮助克服冲动和增强意志力。当你感到冲动或者想要放弃时，这个音频将帮助你平静下来，重新掌控自己。",
     descriptionEn: "A specially designed 4-7-8 breathing meditation practice to help overcome urges and strengthen willpower. When you feel urges or want to give up, this audio will help you calm down and regain control."
   },
   {
-    id: "calmness",
-    title: "平静心灵",
-    titleEn: "Inner Calmness",
-    subtitle: "呼吸练习 · 5分钟",
-    subtitleEn: "Breathing Exercise · 5 min",
-    duration: 300, // 5 minutes
-    audioUrl: "custom:calmness",
-    color: "#7C4DFF", // Purple
-    description: "这个平静的呼吸引导练习使用箱式呼吸法（4-4-4-4），帮助你快速找回平静和专注。适合焦虑或压力大的时候使用。",
-    descriptionEn: "This calming guided breathing practice uses box breathing (4-4-4-4) to help you quickly regain calm and focus. Perfect for times of anxiety or stress."
+    id: "motivation-boost",
+    title: "动力提升",
+    titleEn: "Motivation Boost",
+    subtitle: "重燃斗志 · 9分钟",
+    subtitleEn: "Reignite Drive · 9 min",
+    duration: 540, // 9 minutes
+    audioUrl: "custom:motivation-boost",
+    color: "#DC2626", // Red
+    description: "通过可视化和积极暗示重新点燃你的动力和决心。这个练习帮助你记住目标，增强继续前进的意志。",
+    descriptionEn: "Reignite your motivation and determination through visualization and positive affirmations. This practice helps you remember your goals and strengthens your will to keep moving forward."
   },
-  {
-    id: "gratitude",
-    title: "感恩冥想",
-    titleEn: "Gratitude Meditation",
-    subtitle: "增强动力 · 6分钟",
-    subtitleEn: "Boost Motivation · 6 min",
-    duration: 360, // 6 minutes
-    audioUrl: "custom:gratitude",
-    color: "#10B981", // Emerald
-    description: "这个冥想练习帮助你培养感恩的心态，提醒自己戒色旅程的目标和重要性。在感到迷茫或缺乏动力时特别有效。",
-    descriptionEn: "This meditation practice helps you cultivate gratitude and reminds you of your recovery journey's goals and importance. Especially effective when feeling lost or lacking motivation."
-  },
+
+  // Sleep & Recovery Category
   {
     id: "deep-sleep",
     title: "深度睡眠",
     titleEn: "Deep Sleep",
-    subtitle: "放松身心 · 10分钟",
-    subtitleEn: "Relax Body & Mind · 10 min",
-    duration: 600, // 10 minutes
+    subtitle: "优质睡眠 · 15分钟",
+    subtitleEn: "Quality Sleep · 15 min",
+    duration: 900, // 15 minutes
     audioUrl: "custom:deep-sleep",
-    color: "#8B5CF6", // Purple
-    description: "这个冥想练习使用4-8呼吸节奏帮助你放松并准备睡眠。睡眠质量对抵抗冲动至关重要，这个音频帮助你获得更好的夜间休息。",
-    descriptionEn: "This meditation practice uses 4-8 breathing rhythm to help you relax and prepare for sleep. Quality sleep is crucial for resisting urges, and this audio helps you get better nighttime rest."
+    color: "#1E293B", // Slate
+    description: "通过渐进放松和呼吸调节帮助你进入深度睡眠。良好的睡眠是康复过程中的重要支柱。",
+    descriptionEn: "Enter deep sleep through progressive relaxation and breath regulation. Quality sleep is a crucial pillar in the recovery process."
+  },
+  {
+    id: "body-scan",
+    title: "身体扫描",
+    titleEn: "Body Scan",
+    subtitle: "全身放松 · 11分钟",
+    subtitleEn: "Full Body Relaxation · 11 min",
+    duration: 660, // 11 minutes
+    audioUrl: "custom:body-scan",
+    color: "#475569", // Gray
+    description: "系统性地放松身体的每个部位，释放紧张和促进深度放松。这个练习也有助于改善睡眠质量。",
+    descriptionEn: "Systematically relax every part of your body, releasing tension and promoting deep relaxation. This practice also helps improve sleep quality."
   }
 ];
 
