@@ -1,14 +1,8 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="guardianGradient" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
-    </radialGradient>
-  </defs>
-  <circle cx="24" cy="24" r="20" fill="url(#guardianGradient)" stroke="#93c5fd" stroke-width="2"/>
-  <path d="M24 12l-8 6v10l8 6 8-6V18z" fill="#ffffff" opacity="0.9"/>
-  <path d="M24 14l-6 4v8l6 4 6-4v-8z" fill="#fbbf24"/>
-  <path d="M20 20l4-2 4 2v6l-4 2-4-2z" fill="#10b981"/>
-  <circle cx="24" cy="23" r="2" fill="#ffffff"/>
-  <path d="M22 26h4v2h-4z" fill="#ef4444"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>守护者 (Guardian)</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle fill="#60a5fa" cx="60" cy="60" r="50"></circle>
+        <text font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle" x="60" y="68">守护者</text>
+    </g>
 </svg>

@@ -1,13 +1,8 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="pioneerGradient" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" style="stop-color:#22d3ee;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
-    </radialGradient>
-  </defs>
-  <circle cx="24" cy="24" r="20" fill="url(#pioneerGradient)" stroke="#67e8f9" stroke-width="2"/>
-  <path d="M18 20l6-4 6 4v8l-6 4-6-4z" fill="#ffffff" opacity="0.9"/>
-  <path d="M24 16l4 2v6l-4 2-4-2v-6z" fill="#fbbf24"/>
-  <circle cx="24" cy="20" r="1.5" fill="#ffffff"/>
-  <path d="M22 22h4v2h-4z" fill="#dc2626"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>先锋 (Pioneer)</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle fill="#22d3ee" cx="60" cy="60" r="50"></circle>
+        <text font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle" x="60" y="68">先锋</text>
+    </g>
 </svg>

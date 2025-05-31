@@ -1,15 +1,8 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="trailblazerGradient" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#4338ca;stop-opacity:1" />
-    </radialGradient>
-  </defs>
-  <circle cx="24" cy="24" r="20" fill="url(#trailblazerGradient)" stroke="#a5b4fc" stroke-width="2"/>
-  <path d="M24 10l6 8-2 12h-8l-2-12z" fill="#ffffff" opacity="0.9"/>
-  <path d="M24 12l4 6-1 10h-6l-1-10z" fill="#fbbf24"/>
-  <path d="M20 18l4-2 4 2v8l-4 2-4-2z" fill="#10b981"/>
-  <circle cx="24" cy="22" r="2" fill="#ffffff"/>
-  <path d="M22 25h4l-1 3h-2z" fill="#ef4444"/>
-  <circle cx="24" cy="8" r="1" fill="#fbbf24"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>开拓者 (Trailblazer)</title>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle fill="#818cf8" cx="60" cy="60" r="50"></circle>
+        <text font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle" x="60" y="68">开拓者</text>
+    </g>
 </svg>

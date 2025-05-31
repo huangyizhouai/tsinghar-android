@@ -29,7 +29,7 @@ export default function AchievementBadge({
   onClick
 }: AchievementBadgeProps) {
   const { t } = useLanguage();
-  const isUnlocked = currentDays >= days && !isLocked;
+  const isUnlocked = currentDays >= days;
   const progress = Math.min(currentDays / days, 1);
   
   return (
@@ -41,15 +41,14 @@ export default function AchievementBadge({
         {/* Main circle with glow effect */}
         <div
           className={cn(
-            "w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500 relative overflow-hidden",
-            isUnlocked ? "bg-gradient-to-br from-white/20 to-transparent" : "bg-gray-800/60 backdrop-blur-sm"
+            "w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300",
+            isUnlocked ? color : "bg-gray-800/50 backdrop-blur-sm"
           )}
           style={{ 
-            boxShadow: isUnlocked ? `0 0 25px ${glowColor}, 0 0 50px ${glowColor}40` : 'none',
-            border: isUnlocked ? `2px solid ${glowColor}60` : '2px solid #374151'
+            boxShadow: isUnlocked ? `0 0 20px ${glowColor}` : 'none',
           }}
         >
-          {!isUnlocked ? (
+          {isLocked || !isUnlocked ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <img 
                 src="/assets/achievements/lock.svg" 
@@ -64,39 +63,38 @@ export default function AchievementBadge({
               <Lock className="w-7 h-7 text-gray-400 hidden" />
             </div>
           ) : (
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Achievement icon */}
-              {assetUnlocked && (
+            // Inner reflective surface for unlocked badges
+            <div 
+              className="w-16 h-16 rounded-full bg-gradient-to-br from-white/30 via-transparent to-gray-800/40 backdrop-blur-lg flex items-center justify-center overflow-hidden"
+              style={{
+                transform: 'perspective(100px) rotateX(5deg)',
+                boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
+              }}
+            >
+              {assetUnlocked ? (
                 <img 
                   src={assetUnlocked} 
                   alt={name} 
-                  className="w-12 h-12 object-contain relative z-10 drop-shadow-lg"
+                  className="w-12 h-12 object-contain"
                 />
+              ) : (
+                <>
+                  {/* Central light reflection */}
+                  <div className="absolute w-14 h-14 bg-gradient-to-br from-white/15 to-transparent rounded-full"
+                    style={{
+                      filter: 'blur(2px)',
+                      transform: 'translateY(-2px)'
+                    }}
+                  />
+                  
+                  {/* Diagonal light streak */}
+                  <div className="absolute w-full h-10 bg-white/10" 
+                    style={{
+                      transform: 'rotate(-45deg) translate(-5px, -5px)'
+                    }}
+                  />
+                </>
               )}
-              
-              {/* Animated glow effect */}
-              <div 
-                className="absolute inset-0 rounded-full opacity-30 animate-pulse"
-                style={{
-                  background: `radial-gradient(circle, ${glowColor}40 0%, transparent 70%)`
-                }}
-              />
-              
-              {/* Sparkle effect for unlocked achievements */}
-              <div className="absolute inset-0 rounded-full">
-                <div 
-                  className="absolute top-2 right-2 w-1 h-1 bg-white rounded-full animate-ping"
-                  style={{ animationDelay: '0s' }}
-                />
-                <div 
-                  className="absolute bottom-3 left-3 w-1 h-1 bg-white rounded-full animate-ping"
-                  style={{ animationDelay: '1s' }}
-                />
-                <div 
-                  className="absolute top-1/2 left-1 w-0.5 h-0.5 bg-white rounded-full animate-ping"
-                  style={{ animationDelay: '2s' }}
-                />
-              </div>
             </div>
           )}
         </div>
