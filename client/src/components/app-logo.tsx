@@ -17,8 +17,8 @@ export default function AppLogo({ size = "md", className }: AppLogoProps) {
   return (
     <div className={cn("relative", sizeMap[size], className)}>
       <img 
-        src="/icon_new.png"
-        alt="清心"
+        src="/TsingHar.png"
+        alt="TsingHar"
         className={cn("w-full h-full object-contain", sizeMap[size])}
         style={{ 
           filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',
