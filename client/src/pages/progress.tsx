@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Share, Award } from "lucide-react";
-import SectionHeader from "@/components/ui/section-header";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { calculateRecoveryPercentage, getDaysLeft } from "@/lib/utils";
@@ -10,6 +9,7 @@ import { useLanguage } from "@/hooks/use-language";
 import { Link } from "wouter";
 import RecoveryProgressRing from "@/components/recovery-progress-ring";
 import ShareModal from "@/components/share-modal";
+import AppLogo from "@/components/app-logo";
 
 export default function ProgressPage() {
   const { t } = useLanguage();
@@ -55,7 +55,12 @@ export default function ProgressPage() {
 
   return (
     <div className="p-4 pt-6">
-      <SectionHeader title={t('progress')}>
+      {/* Custom Header with Logo and Title */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <AppLogo size="md" />
+          <h1 className="text-xl font-semibold text-text-primary">{t('progress')}</h1>
+        </div>
         <div className="flex space-x-2">
           <Link to="/achievements">
             <button className="p-2 rounded-full bg-background-card">
@@ -69,7 +74,7 @@ export default function ProgressPage() {
             <Share className="h-6 w-6 text-text-primary" />
           </button>
         </div>
-      </SectionHeader>
+      </div>
 
       {/* Recovery Percentage */}
       <Card className="bg-background-card rounded-xl mb-6">
