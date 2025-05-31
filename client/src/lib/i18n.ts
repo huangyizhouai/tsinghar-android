@@ -401,6 +401,16 @@ export const translations: Record<Language, Record<string, string>> = {
     followOnTiktok: '抖音分享',
     tiktokUrl: 'https://www.douyin.com',
     
+    // Success Stories Content - Chinese
+    successStory1Title: '从90天到完全自由',
+    successStory1Content: '马克，28岁，与成瘾斗争了5年。通过我们的日常追踪、呼吸练习和社区支持，他实现了90天的清醒，并表示感到比以往任何时候都更加专注、精力充沛，在人际关系中更有信心。',
+    
+    successStory2Title: '重建我的婚姻和事业',
+    successStory2Content: '萨拉，35岁，认为这个应用拯救了她的婚姻。里程碑追踪和每日康复笔记帮助她保持负责任的态度。6个月后，她在工作中获得了晋升，与配偶的关系也完全改善了。',
+    
+    successStory3Title: '学生生活的转变',
+    successStory3Content: '大卫，22岁，仅使用应用60天后，成绩就从C平均分提升到A-。大脑重塑追踪功能帮助他了解自己的进步，冥想工具成为他在考试期间管理压力的首选方法。',
+    
     // Reasons page
     myReasons: '我的理由',
     addNewReason: '添加新理由',
