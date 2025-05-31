@@ -33,6 +33,9 @@ export default function Library() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDailyNotesOpen, setIsDailyNotesOpen] = useState(false);
+  const [isGeneratingArticle, setIsGeneratingArticle] = useState(false);
+  const [generatedArticle, setGeneratedArticle] = useState<any>(null);
+  const [showGeneratedArticle, setShowGeneratedArticle] = useState(false);
   
   // Daily notes data
   const dailyNotes = [
@@ -101,6 +104,23 @@ export default function Library() {
       queryClient.invalidateQueries({ queryKey: ['/api/articles/progress'] });
     } catch (error) {
       console.error('Failed to mark article as completed:', error);
+    }
+  };
+
+  const generateArticleContent = async (article: any) => {
+    setIsGeneratingArticle(true);
+    try {
+      const response = await apiRequest('POST', '/api/articles/generate', {
+        topic: language === 'zh' && article.titleZh ? article.titleZh : article.title,
+        category: article.category
+      });
+      
+      setGeneratedArticle(response);
+      setShowGeneratedArticle(true);
+    } catch (error) {
+      console.error('Failed to generate article:', error);
+    } finally {
+      setIsGeneratingArticle(false);
     }
   };
   
@@ -252,20 +272,23 @@ export default function Library() {
                 return (
                   <Card 
                     key={article.id}
-                    className="bg-background-card rounded-xl min-w-[220px] cursor-pointer"
-                    onClick={() => markArticleAsCompleted(article.id)}
+                    className="bg-background-card rounded-xl min-w-[220px]"
                   >
                     {article.imageUrl && (
                       <img src={article.imageUrl} alt={article.title} className="w-full h-28 object-cover" />
                     )}
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center mb-3">
-                        <Badge variant={completed ? "default" : "outline"} className={`
-                          text-xs rounded px-2 py-1 
-                          ${completed ? 'bg-primary bg-opacity-20 text-primary' : 'bg-background-primary text-text-secondary'}
-                        `}>
-                          Module {article.moduleId}
-                        </Badge>
+                        <button
+                          onClick={() => generateArticleContent(article)}
+                          disabled={isGeneratingArticle}
+                          className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors disabled:opacity-50"
+                        >
+                          {isGeneratingArticle ? 
+                            (language === 'zh' ? '生成中...' : 'Generating...') : 
+                            (language === 'zh' ? '生成文章' : 'Generate Article')
+                          }
+                        </button>
                         <span className="text-text-secondary text-xs">{article.readTime} min</span>
                       </div>
                       <h3 className="font-medium text-text-primary mb-2">

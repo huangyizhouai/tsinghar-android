@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { generateArticleContent } from "./openai-service";
 import { z } from "zod";
 import { 
   insertReasonSchema, 
@@ -254,6 +255,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(updatedUser);
     } catch (error) {
       res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
+
+  // Generate article content
+  app.post("/api/articles/generate", async (req, res) => {
+    try {
+      const { topic, category } = req.body;
+      
+      if (!topic || !category) {
+        return res.status(400).json({ message: "Topic and category are required" });
+      }
+      
+      const articleContent = await generateArticleContent(topic, category);
+      res.json(articleContent);
+    } catch (error) {
+      console.error("Failed to generate article:", error);
+      res.status(500).json({ message: "Failed to generate article content" });
     }
   });
 
