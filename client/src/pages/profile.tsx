@@ -59,9 +59,9 @@ export default function ProfilePage() {
     },
     onError: () => {
       toast({
-        title: t('error'),
-        description: t('failedUpdateProfile'),
-        variant: "destructive",
+        title: t('updateFailed'),
+        description: t('updateFailedDesc'),
+        variant: 'destructive',
       });
     },
   });
@@ -76,6 +76,10 @@ export default function ProfilePage() {
       });
     }
     setIsEditing(true);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
@@ -106,215 +110,168 @@ export default function ProfilePage() {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white relative overflow-hidden">
-      {/* Animated stars background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-70"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `twinkle ${2 + Math.random() * 4}s infinite`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="relative z-10 p-4 pb-20">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
-            <User className="h-8 w-8 text-primary mr-3" />
-            <h1 className="text-2xl font-bold text-text-primary">{t('personalInformation')}</h1>
-          </div>
-          {!isEditing ? (
-            <Button 
-              onClick={handleEdit}
-              className="bg-primary hover:bg-primary-light text-white rounded-full p-3"
-            >
-              <Edit className="h-5 w-5" />
-            </Button>
-          ) : (
-            <div className="flex space-x-2">
-              <Button 
-                onClick={handleCancel}
-                variant="outline"
-                className="border-background-primary text-text-secondary"
-              >
-                {t('cancel')}
-              </Button>
-              <Button 
-                onClick={handleSave}
-                disabled={updateProfileMutation.isPending}
-                className="bg-primary hover:bg-primary-light text-white"
-              >
-                <Save className="h-4 w-4 mr-2" />
-                {updateProfileMutation.isPending ? t('saving') : t('save')}
-              </Button>
-            </div>
-          )}
+  if (isLoading) {
+    return (
+      <div className="p-4 pt-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-text-secondary">{t('loading')}</div>
         </div>
+      </div>
+    );
+  }
 
-        {isLoading ? (
-          <div className="text-center py-8">
-            <div className="text-text-secondary">{t('loadingProfile')}</div>
-          </div>
-        ) : profile ? (
-          <div className="space-y-4">
-            {/* Basic Info Card */}
-            <div className="bg-background-card p-6 rounded-xl shadow-lg">
-              <h2 className="text-lg font-semibold text-text-primary mb-4">{t('basicInformation')}</h2>
-              
-              {/* Username */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  {t('username')}
-                </label>
-                <div className="text-text-primary font-medium">{profile.username}</div>
-              </div>
-
-              {/* Age */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  {t('age')}
-                </label>
-                {isEditing ? (
-                  <Input
-                    type="number"
-                    value={formData.age}
-                    onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                    placeholder={t('enterAge')}
-                    className="bg-background-primary border-background-primary"
-                  />
-                ) : (
-                  <div className="text-text-primary">
-                    {profile.age ? `${profile.age} ${t('yearsOld')}` : t('notSet')}
-                  </div>
-                )}
-              </div>
-
-              {/* Gender */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  {t('gender')}
-                </label>
-                {isEditing ? (
-                  <Select value={formData.gender} onValueChange={(value) => setFormData({ ...formData, gender: value })}>
-                    <SelectTrigger className="bg-background-primary border-background-primary">
-                      <SelectValue placeholder={t('selectGender')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="male">{t('male')}</SelectItem>
-                      <SelectItem value="female">{t('female')}</SelectItem>
-                      <SelectItem value="other">{t('other')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                ) : (
-                  <div className="text-text-primary">
-                    {profile.gender ? t(profile.gender) : t('notSet')}
-                  </div>
-                )}
-              </div>
-
-              {/* Location */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  <MapPin className="h-4 w-4 inline mr-1" />
-                  {t('location')}
-                </label>
-                {isEditing ? (
-                  <Input
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    placeholder={t('enterLocation')}
-                    className="bg-background-primary border-background-primary"
-                  />
-                ) : (
-                  <div className="text-text-primary">
-                    {profile.location || t('notSet')}
-                  </div>
-                )}
-              </div>
-
-              {/* Recovery Goal */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  <Target className="h-4 w-4 inline mr-1" />
-                  {t('recoveryGoal')}
-                </label>
-                {isEditing ? (
-                  <Input
-                    value={formData.recoveryGoal}
-                    onChange={(e) => setFormData({ ...formData, recoveryGoal: e.target.value })}
-                    placeholder={t('enterRecoveryGoal')}
-                    className="bg-background-primary border-background-primary"
-                  />
-                ) : (
-                  <div className="text-text-primary">
-                    {profile.recoveryGoal || t('notSet')}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Journey Stats Card */}
-            <div className="bg-background-card p-6 rounded-xl shadow-lg">
-              <h2 className="text-lg font-semibold text-text-primary mb-4">{t('journeyStats')}</h2>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-1">
-                    <Calendar className="h-4 w-4 inline mr-1" />
-                    {t('joinDate')}
-                  </label>
-                  <div className="text-text-primary font-medium">
-                    {formatDate(profile.joinDate)}
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-1">
-                    {t('currentStreak')}
-                  </label>
-                  <div className="text-text-primary font-medium">
-                    {streak?.currentStreak || 0} {t('days')}
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-1">
-                    {t('bestStreak')}
-                  </label>
-                  <div className="text-text-primary font-medium">
-                    {profile.streakRecord || 0} {t('days')}
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-1">
-                    {t('totalDays')}
-                  </label>
-                  <div className="text-text-primary font-medium">
-                    {Math.floor((new Date().getTime() - new Date(profile.joinDate).getTime()) / (1000 * 60 * 60 * 24))} {t('days')}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  return (
+    <div className="p-4 pt-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center">
+          <User className="h-8 w-8 text-primary mr-3" />
+          <h1 className="text-2xl font-bold text-text-primary">{t('personalInformation')}</h1>
+        </div>
+        {!isEditing ? (
+          <Button 
+            onClick={handleEdit}
+            className="bg-primary hover:bg-primary-light text-white rounded-full p-3"
+          >
+            <Edit className="h-5 w-5" />
+          </Button>
         ) : (
-          <div className="text-center py-12">
-            <User className="h-16 w-16 text-text-secondary mx-auto mb-4 opacity-50" />
-            <h3 className="text-xl font-medium text-text-primary mb-2">
-              {t('profileNotFound')}
-            </h3>
-            <p className="text-text-secondary">
-              {t('unableToLoadProfile')}
-            </p>
+          <div className="flex space-x-2">
+            <Button 
+              onClick={handleCancel}
+              variant="outline"
+              className="border-background-primary text-text-secondary"
+            >
+              {t('cancel')}
+            </Button>
+            <Button 
+              onClick={handleSave}
+              disabled={updateProfileMutation.isPending}
+              className="bg-primary hover:bg-primary-light text-white"
+            >
+              <Save className="h-4 w-4 mr-2" />
+              {t('save')}
+            </Button>
           </div>
         )}
+      </div>
+
+      <div className="space-y-6">
+        {/* Basic Information */}
+        <div className="bg-background-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('basicInformation')}</h2>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('username')}</span>
+              <span className="text-text-primary font-medium">{profile?.username}</span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('age')}</span>
+              {isEditing ? (
+                <Input
+                  type="number"
+                  value={formData.age}
+                  onChange={(e) => handleInputChange('age', e.target.value)}
+                  className="w-24 bg-background-primary border-background-primary text-text-primary"
+                  placeholder="25"
+                />
+              ) : (
+                <span className="text-text-primary">{profile?.age || t('notSet')}</span>
+              )}
+            </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('gender')}</span>
+              {isEditing ? (
+                <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
+                  <SelectTrigger className="w-32 bg-background-primary border-background-primary text-text-primary">
+                    <SelectValue placeholder={t('selectGender')} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background-primary border-background-primary">
+                    <SelectItem value="male" className="text-text-primary hover:bg-background-card">{t('male')}</SelectItem>
+                    <SelectItem value="female" className="text-text-primary hover:bg-background-card">{t('female')}</SelectItem>
+                    <SelectItem value="other" className="text-text-primary hover:bg-background-card">{t('other')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <span className="text-text-primary">{profile?.gender ? t(profile.gender) : t('notSet')}</span>
+              )}
+            </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary flex items-center">
+                <MapPin className="h-4 w-4 mr-2" />
+                {t('location')}
+              </span>
+              {isEditing ? (
+                <Input
+                  value={formData.location}
+                  onChange={(e) => handleInputChange('location', e.target.value)}
+                  className="w-40 bg-background-primary border-background-primary text-text-primary"
+                  placeholder={t('city')}
+                />
+              ) : (
+                <span className="text-text-primary">{profile?.location || t('notSet')}</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Recovery Goals */}
+        <div className="bg-background-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center">
+            <Target className="h-5 w-5 mr-2" />
+            {t('recoveryGoals')}
+          </h2>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="text-text-secondary text-sm mb-2 block">{t('primaryGoal')}</label>
+              {isEditing ? (
+                <Select value={formData.recoveryGoal} onValueChange={(value) => handleInputChange('recoveryGoal', value)}>
+                  <SelectTrigger className="bg-background-primary border-background-primary text-text-primary">
+                    <SelectValue placeholder={t('selectGoal')} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background-primary border-background-primary">
+                    <SelectItem value="30days" className="text-text-primary hover:bg-background-card">{t('thirtyDays')}</SelectItem>
+                    <SelectItem value="90days" className="text-text-primary hover:bg-background-card">{t('ninetyDays')}</SelectItem>
+                    <SelectItem value="1year" className="text-text-primary hover:bg-background-card">{t('oneYear')}</SelectItem>
+                    <SelectItem value="forever" className="text-text-primary hover:bg-background-card">{t('forever')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <span className="text-text-primary">{profile?.recoveryGoal ? t(profile.recoveryGoal) : t('notSet')}</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Account Statistics */}
+        <div className="bg-background-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center">
+            <Calendar className="h-5 w-5 mr-2" />
+            {t('accountStatistics')}
+          </h2>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('memberSince')}</span>
+              <span className="text-text-primary">{profile?.joinDate ? formatDate(profile.joinDate) : t('unknown')}</span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('currentStreak')}</span>
+              <span className="text-primary font-bold">{streak?.currentStreak || 0} {t('days')}</span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">{t('bestStreak')}</span>
+              <span className="text-text-primary">{profile?.streakRecord || 0} {t('days')}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Navigation currentPath="/profile" />
