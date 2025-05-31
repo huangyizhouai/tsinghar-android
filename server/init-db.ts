@@ -38,9 +38,9 @@ async function initDb() {
       // Add some reasons
       console.log("Adding default reasons...");
       await db.insert(reasons).values([
-        { userId, reason: "To improve my mental clarity", createdAt: new Date() },
-        { userId, reason: "To be more productive", createdAt: new Date() },
-        { userId, reason: "To have better relationships", createdAt: new Date() }
+        { userId, title: "Mental Clarity", description: "To improve my mental clarity and focus", createdAt: new Date() },
+        { userId, title: "Productivity", description: "To be more productive in my daily tasks", createdAt: new Date() },
+        { userId, title: "Relationships", description: "To have better relationships with family and friends", createdAt: new Date() }
       ]);
       
       // Add milestones
