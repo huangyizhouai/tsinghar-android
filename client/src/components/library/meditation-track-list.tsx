@@ -2,12 +2,15 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Clock, Music } from "lucide-react";
 import { meditationTracks } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 
 interface MeditationTrackListProps {
   onSelectTrack: (trackId: string) => void;
 }
 
 export default function MeditationTrackList({ onSelectTrack }: MeditationTrackListProps) {
+  const { language } = useLanguage();
+  
   return (
     <div className="space-y-4">
       {meditationTracks.map((track) => (
@@ -22,8 +25,12 @@ export default function MeditationTrackList({ onSelectTrack }: MeditationTrackLi
               <Music className="h-6 w-6 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-text-primary">{track.title}</h3>
-              <p className="text-xs text-text-secondary">{track.subtitle}</p>
+              <h3 className="font-medium text-text-primary">
+                {language === 'en' && track.titleEn ? track.titleEn : track.title}
+              </h3>
+              <p className="text-xs text-text-secondary">
+                {language === 'en' && track.subtitleEn ? track.subtitleEn : track.subtitle}
+              </p>
             </div>
             <div className="flex items-center text-text-secondary text-xs">
               <Clock className="h-4 w-4 mr-1" />

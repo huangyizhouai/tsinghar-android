@@ -19,11 +19,14 @@ export interface Category {
 export interface MeditationTrack {
   id: string;
   title: string;
+  titleEn?: string;
   subtitle: string;
+  subtitleEn?: string;
   duration: number; // in seconds
   audioUrl: string;
   color: string;
   description?: string;
+  descriptionEn?: string;
 }
 
 export interface LeaderboardUser {
@@ -311,38 +314,50 @@ export const meditationTracks: MeditationTrack[] = [
   {
     id: "urge-control",
     title: "抵制冲动",
+    titleEn: "Urge Control",
     subtitle: "强化自律 · 7分钟",
+    subtitleEn: "Strengthen Self-Control · 7 min",
     duration: 420, // 7 minutes
     audioUrl: "custom:urge-control",
     color: "#F9A826", // Yellow/Orange
-    description: "特别设计的4-7-8呼吸法冥想练习，帮助克服冲动和增强意志力。当你感到冲动或者想要放弃时，这个音频将帮助你平静下来，重新掌控自己。"
+    description: "特别设计的4-7-8呼吸法冥想练习，帮助克服冲动和增强意志力。当你感到冲动或者想要放弃时，这个音频将帮助你平静下来，重新掌控自己。",
+    descriptionEn: "A specially designed 4-7-8 breathing meditation practice to help overcome urges and strengthen willpower. When you feel urges or want to give up, this audio will help you calm down and regain control."
   },
   {
     id: "calmness",
     title: "平静心灵",
+    titleEn: "Inner Calmness",
     subtitle: "呼吸练习 · 5分钟",
+    subtitleEn: "Breathing Exercise · 5 min",
     duration: 300, // 5 minutes
     audioUrl: "custom:calmness",
     color: "#7C4DFF", // Purple
-    description: "这个平静的呼吸引导练习使用箱式呼吸法（4-4-4-4），帮助你快速找回平静和专注。适合焦虑或压力大的时候使用。"
+    description: "这个平静的呼吸引导练习使用箱式呼吸法（4-4-4-4），帮助你快速找回平静和专注。适合焦虑或压力大的时候使用。",
+    descriptionEn: "This calming guided breathing practice uses box breathing (4-4-4-4) to help you quickly regain calm and focus. Perfect for times of anxiety or stress."
   },
   {
     id: "gratitude",
     title: "感恩冥想",
+    titleEn: "Gratitude Meditation",
     subtitle: "增强动力 · 6分钟",
+    subtitleEn: "Boost Motivation · 6 min",
     duration: 360, // 6 minutes
     audioUrl: "custom:gratitude",
     color: "#10B981", // Emerald
-    description: "这个冥想练习帮助你培养感恩的心态，提醒自己戒色旅程的目标和重要性。在感到迷茫或缺乏动力时特别有效。"
+    description: "这个冥想练习帮助你培养感恩的心态，提醒自己戒色旅程的目标和重要性。在感到迷茫或缺乏动力时特别有效。",
+    descriptionEn: "This meditation practice helps you cultivate gratitude and reminds you of your recovery journey's goals and importance. Especially effective when feeling lost or lacking motivation."
   },
   {
     id: "deep-sleep",
     title: "深度睡眠",
+    titleEn: "Deep Sleep",
     subtitle: "放松身心 · 10分钟",
+    subtitleEn: "Relax Body & Mind · 10 min",
     duration: 600, // 10 minutes
     audioUrl: "custom:deep-sleep",
     color: "#8B5CF6", // Purple
-    description: "这个冥想练习使用4-8呼吸节奏帮助你放松并准备睡眠。睡眠质量对抵抗冲动至关重要，这个音频帮助你获得更好的夜间休息。"
+    description: "这个冥想练习使用4-8呼吸节奏帮助你放松并准备睡眠。睡眠质量对抵抗冲动至关重要，这个音频帮助你获得更好的夜间休息。",
+    descriptionEn: "This meditation practice uses 4-8 breathing rhythm to help you relax and prepare for sleep. Quality sleep is crucial for resisting urges, and this audio helps you get better nighttime rest."
   }
 ];
 
