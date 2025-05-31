@@ -2,12 +2,15 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import { leaderboardUsers } from "@/lib/data";
+import { useLanguage } from "@/hooks/use-language";
 
 interface LeaderboardProps {
   onViewAll: () => void;
 }
 
 export default function Leaderboard({ onViewAll }: LeaderboardProps) {
+  const { t } = useLanguage();
+  
   // Sort users by rank
   const sortedUsers = [...leaderboardUsers].sort((a, b) => a.rank - b.rank);
   
@@ -19,12 +22,12 @@ export default function Leaderboard({ onViewAll }: LeaderboardProps) {
     <Card className="bg-background-card rounded-xl mb-6">
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-medium text-lg text-text-primary">Leaderboard</h3>
+          <h3 className="font-medium text-lg text-text-primary">{t('leaderboardTitle')}</h3>
           <button 
             onClick={onViewAll} 
             className="flex items-center text-text-secondary text-sm"
           >
-            View All <ChevronRight className="h-4 w-4 ml-1" />
+            {t('viewAll')} <ChevronRight className="h-4 w-4 ml-1" />
           </button>
         </div>
 

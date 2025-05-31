@@ -61,6 +61,8 @@ export const translations: Record<Language, Record<string, string>> = {
     meditateTitle: 'Meditate',
     learnTitle: 'Learn',
     podcastTitle: 'Podcast',
+    leaderboardTitle: 'Leaderboard',
+    viewAll: 'View All',
     
     // Mindfulness section
     mindfulnessResources: 'Mindfulness Resources',
@@ -536,6 +538,7 @@ export const translations: Record<Language, Record<string, string>> = {
     learnTitle: '学习',
     podcastTitle: '播客',
     leaderboardTitle: '排行榜',
+    viewAll: '查看全部',
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
     completeLibrary: '已完成',
