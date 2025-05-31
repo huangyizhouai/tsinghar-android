@@ -165,7 +165,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Analytics page
     analytics: 'Analytics',
     currentStreakAnalytics: 'Current Streak',
-    bestStreak: 'Best Streak',
+    bestStreakAnalytics: 'Best Streak',
     achievementRate: 'Achievement Rate',
     weeklyProgress: 'Weekly Progress',
     brainRewiringStages: 'Brain Rewiring Stages',
@@ -248,7 +248,7 @@ export const translations: Record<Language, Record<string, string>> = {
     projectedQuitDate: '预计戒除日期',
     brainRewiring: '大脑重塑',
     daysRemaining: '天剩余',
-    complete: '完成',
+    completeZh: '完成',
     hr: '小时',
     m: '分',
     s: '秒',
@@ -379,8 +379,8 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Analytics page  
     analytics: '数据分析',
-    currentStreak: '当前连续天数',
-    bestStreak: '最佳连续记录',
+    currentStreakAnalytics: '当前连续天数',
+    bestStreakAnalytics: '最佳连续记录',
     achievementRate: '成就达成率',
     weeklyProgress: '每周进度',
     brainRewiringStages: '大脑重塑阶段',
@@ -502,7 +502,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'state.disabled': '已禁用',
     
     // Progress page
-    recoveryBenefits: '康复益处',
+    recoveryBenefitsProgress: '康复益处',
     milestonesTitle: '里程碑',
     achieved: '已达成',
     daysLeft: '天后达成',
@@ -522,7 +522,7 @@ export const translations: Record<Language, Record<string, string>> = {
     leaderboardTitle: '排行榜',
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
-    complete: '已完成',
+    completeLibrary: '已完成',
     quitPornEasily: '清心的艺术',
     articlesDescription: '阅读这些教育文章，了解成瘾、健康影响和康复策略。',
     meditateDescription: '使用这些引导冥想来克服冲动并平静你的心灵。定期练习能增强你的意志力和专注力。',
