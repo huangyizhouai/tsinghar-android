@@ -87,7 +87,8 @@ export const insertStreakSchema = createInsertSchema(streaks).pick({
 
 export const insertReasonSchema = createInsertSchema(reasons).pick({
   userId: true,
-  reason: true,
+  title: true,
+  description: true,
 });
 
 export const insertForumPostSchema = createInsertSchema(forumPosts).pick({
