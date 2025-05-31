@@ -57,6 +57,10 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Library page
     quitPornEasily: 'The Art of TsingHar',
+    articlesTitle: 'Articles',
+    meditateTitle: 'Meditate',
+    learnTitle: 'Learn',
+    podcastTitle: 'Podcast',
     
     // Mindfulness section
     mindfulnessResources: 'Mindfulness Resources',
