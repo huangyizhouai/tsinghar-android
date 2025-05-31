@@ -6,7 +6,7 @@ export type Language = 'en' | 'zh';
 export const translations: Record<Language, Record<string, string>> = {
   en: {
     // App title
-    appName: 'QingXiner',
+    appName: 'Tsinghar',
     achievements: 'Achievements',
     collected: 'collected',
     
@@ -164,7 +164,7 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Analytics page
     analytics: 'Analytics',
-    currentStreak: 'Current Streak',
+    currentStreakAnalytics: 'Current Streak',
     bestStreak: 'Best Streak',
     achievementRate: 'Achievement Rate',
     weeklyProgress: 'Weekly Progress',
@@ -215,7 +215,7 @@ export const translations: Record<Language, Record<string, string>> = {
   
   zh: {
     // App title
-    appName: '清心',
+    appName: '清花',
     achievements: '成就',
     collected: '已收集',
     

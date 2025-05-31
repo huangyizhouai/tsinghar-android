@@ -3,7 +3,7 @@ export type Language = 'en' | 'zh';
 export const translations: Record<Language, Record<string, string>> = {
   en: {
     // App title
-    appName: 'QingXiner',
+    appName: 'Tsinghar',
     
     // Navigation
     dashboard: 'Dashboard',
@@ -59,7 +59,7 @@ export const translations: Record<Language, Record<string, string>> = {
   
   zh: {
     // App title
-    appName: '戒色恢复跟踪器',
+    appName: '清花',
     
     // Navigation
     dashboard: '仪表板',

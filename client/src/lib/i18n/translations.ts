@@ -3,7 +3,7 @@ export type Language = 'en' | 'zh';
 export const translations = {
   en: {
     // General
-    appName: 'QingXiner',
+    appName: 'Tsinghar',
     dashboard: 'Dashboard',
     library: 'Library',
     community: 'Community',
@@ -96,7 +96,7 @@ export const translations = {
   
   zh: {
     // General
-    appName: '戒色恢复跟踪器',
+    appName: '清花',
     dashboard: '仪表板',
     library: '资料库',
     community: '社区',
