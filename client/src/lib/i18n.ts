@@ -71,6 +71,15 @@ export const translations: Record<Language, Record<string, string>> = {
     successStories: 'Success Stories',
     getInspired: 'Get inspired',
     
+    // Breathing exercise
+    breathingExercise: 'Breathing Exercise',
+    breathingInstruction: 'Breathe in... and out... Follow the circle\'s rhythm to calm your mind.',
+    breatheIn: 'Breathe in...',
+    hold: 'Hold...',
+    breatheOut: 'Breathe out...',
+    startGuidedSession: 'Start Guided Session',
+    sessionInProgress: 'Session in progress...',
+    
     // Todo section
     toDo: 'To-do',
     joinCommunity: 'Join Community',
@@ -295,6 +304,15 @@ export const translations: Record<Language, Record<string, string>> = {
     getInspired: '获取灵感',
     meditate: '冥想',
     
+    // Breathing exercise
+    breathingExercise: '呼吸练习',
+    breathingInstruction: '吸气...呼气...跟随圆圈的节奏来平静你的心灵。',
+    breatheIn: '吸气...',
+    hold: '屏住...',
+    breatheOut: '呼气...',
+    startGuidedSession: '开始引导练习',
+    sessionInProgress: '练习进行中...',
+    
     // Todo section
     toDo: '待办事项',
     joinCommunity: '加入社群',
@@ -429,7 +447,6 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Breathing
     breathingTitle: '呼吸练习',
-    startGuidedSession: '开始引导',
     
     // Community
     communityJoinBtn: '加入社区',

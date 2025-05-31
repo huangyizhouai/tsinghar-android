@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/hooks/use-language";
 
 export default function BreathingExercise() {
+  const { t } = useLanguage();
   const [isSessionActive, setIsSessionActive] = useState(false);
-  const [instruction, setInstruction] = useState("Breathe in... and out... Follow the circle's rhythm to calm your mind.");
+  const [instruction, setInstruction] = useState("");
+  
+  // Initialize instruction with translation
+  useState(() => {
+    setInstruction(t('breathingInstruction'));
+  });
   
   const startSession = () => {
     setIsSessionActive(true);
@@ -16,18 +23,18 @@ export default function BreathingExercise() {
       
       // Cycle of breathing in for 4s, holding for 4s, breathing out for 4s
       if (secondsElapsed % 12 === 0) {
-        setInstruction("Breathe in...");
+        setInstruction(t('breatheIn'));
       } else if (secondsElapsed % 12 === 4) {
-        setInstruction("Hold...");
+        setInstruction(t('hold'));
       } else if (secondsElapsed % 12 === 8) {
-        setInstruction("Breathe out...");
+        setInstruction(t('breatheOut'));
       }
       
       // Stop the session after 2 minutes
       if (secondsElapsed >= 120) {
         clearInterval(breathingInterval);
         setIsSessionActive(false);
-        setInstruction("Breathe in... and out... Follow the circle's rhythm to calm your mind.");
+        setInstruction(t('breathingInstruction'));
       }
     }, 1000);
     
@@ -38,7 +45,7 @@ export default function BreathingExercise() {
   return (
     <Card className="bg-background-card rounded-xl mb-6">
       <CardContent className="p-6">
-        <h3 className="font-medium text-text-primary mb-4 text-center">Breathing Exercise</h3>
+        <h3 className="font-medium text-text-primary mb-4 text-center">{t('breathingExercise')}</h3>
         
         <div className="flex justify-center mb-4">
           <div className={`breathing-circle w-32 h-32 rounded-full bg-primary bg-opacity-20 flex items-center justify-center ${isSessionActive ? 'animate-pulse' : ''}`}>
