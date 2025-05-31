@@ -174,35 +174,89 @@ export default function ProgressPage() {
 
       {/* Milestones */}
       <h2 className="font-medium text-lg mb-4 text-text-primary">{t('milestonesTitle')}</h2>
-      <Card className="bg-background-card rounded-xl p-4 mb-8">
+      <div className="space-y-3 mb-8">
         {(milestones || []).map((milestone: any, index: number) => {
           const achieved = milestone.achieved;
           const daysLeft = getDaysLeft(days, milestone.days);
+          const isNext = !achieved && (index === 0 || (milestones[index - 1]?.achieved));
           
           return (
-            <div key={index} className={`flex justify-between items-center ${index < ((milestones?.length || 1) - 1) ? 'mb-4' : ''}`}>
-              <div className="flex items-center">
-                <div className={`p-2 rounded-full mr-3 ${achieved ? 'bg-primary' : 'bg-background-primary'}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${achieved ? 'text-text-primary' : 'text-text-secondary'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+            <Card key={index} className={`bg-background-card rounded-xl transition-all duration-300 ${
+              achieved ? 'ring-2 ring-primary bg-primary bg-opacity-5' : 
+              isNext ? 'ring-1 ring-primary ring-opacity-50' : ''
+            }`}>
+              <CardContent className="p-4">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <div className={`p-3 rounded-full mr-4 transition-all duration-300 ${
+                      achieved 
+                        ? 'bg-primary shadow-lg shadow-primary/30' 
+                        : isNext 
+                          ? 'bg-primary bg-opacity-20 border-2 border-primary border-opacity-50' 
+                          : 'bg-background-primary'
+                    }`}>
+                      {achieved ? (
+                        <Award className="h-6 w-6 text-white" />
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 ${
+                          isNext ? 'text-primary' : 'text-text-secondary'
+                        }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={`font-semibold ${achieved ? 'text-primary' : 'text-text-primary'}`}>
+                        {milestone.days} {milestone.days === 1 ? t('daysSingle') : t('days')}
+                      </h3>
+                      <p className="text-sm text-text-secondary mt-1">
+                        {getMilestoneDescription(milestone.days)}
+                      </p>
+                      {achieved && milestone.achievedDate && (
+                        <p className="text-xs text-primary mt-1">
+                          {language === 'zh' ? '完成于：' : 'Achieved on:'} {new Date(milestone.achievedDate).toLocaleDateString()}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className={`text-sm font-medium px-3 py-1 rounded-full ${
+                      achieved 
+                        ? 'bg-primary bg-opacity-20 text-primary' 
+                        : isNext
+                          ? 'bg-warning bg-opacity-20 text-warning'
+                          : 'bg-background-primary text-text-secondary'
+                    }`}>
+                      {achieved ? t('achieved') : isNext ? `${daysLeft} ${t('daysLeft')}` : `${daysLeft} ${t('daysLeft')}`}
+                    </span>
+                    {isNext && (
+                      <p className="text-xs text-warning mt-1">
+                        {language === 'zh' ? '下一个目标' : 'Next Goal'}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-text-primary">{milestone.days} {milestone.days === 1 ? t('daysSingle') : t('days')}</h3>
-                  <p className="text-xs text-text-secondary">{getMilestoneDescription(milestone.days)}</p>
-                </div>
-              </div>
-              <span className={`text-xs px-2 py-1 rounded ${
-                achieved 
-                  ? 'bg-primary bg-opacity-20 text-primary' 
-                  : 'bg-background-primary text-text-secondary'
-              }`}>
-                {achieved ? t('achieved') : `${daysLeft} ${t('daysLeft')}`}
-              </span>
-            </div>
+                
+                {/* Progress bar for current milestone */}
+                {isNext && (
+                  <div className="mt-3 pt-3 border-t border-background-primary">
+                    <div className="flex justify-between text-xs text-text-secondary mb-2">
+                      <span>{language === 'zh' ? '进度' : 'Progress'}</span>
+                      <span>{Math.round((days / milestone.days) * 100)}%</span>
+                    </div>
+                    <div className="w-full bg-background-primary rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-primary to-warning h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${Math.min((days / milestone.days) * 100, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           );
         })}
-      </Card>
+      </div>
 
       {/* Share Modal */}
       <ShareModal

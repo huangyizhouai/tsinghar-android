@@ -165,8 +165,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/milestones", async (req, res) => {
     try {
       const userId = 1; // Default user
+      
+      // Get current streak to update milestone progress
+      const streak = await storage.getStreak(userId);
+      const currentDays = streak?.currentStreak || 0;
+      
       const milestones = await storage.getMilestones(userId);
-      res.json(milestones);
+      
+      // Update milestone achievements based on current streak
+      for (const milestone of milestones) {
+        const shouldBeAchieved = currentDays >= milestone.days;
+        if (shouldBeAchieved !== milestone.achieved) {
+          await storage.updateMilestone(milestone.id, shouldBeAchieved);
+        }
+      }
+      
+      // Get updated milestones
+      const updatedMilestones = await storage.getMilestones(userId);
+      res.json(updatedMilestones);
     } catch (error) {
       res.status(500).json({ message: "Failed to get milestones" });
     }

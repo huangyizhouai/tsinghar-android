@@ -15,6 +15,7 @@ import StreakSwirlEmblem from "@/components/streak-swirl-emblem";
 import TodoCard from "@/components/todo-card";
 import ToolCard from "@/components/tool-card";
 import MotivationalQuote from "@/components/motivational-quote";
+import DeploymentClock from "@/components/deployment-clock";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Dashboard() {
@@ -68,7 +69,8 @@ export default function Dashboard() {
             <AppLogo size="md" />
             <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex items-center space-x-3">
+            <DeploymentClock className="mr-2" showSeconds={true} format24={false} />
             <Link to="/achievements">
               <button className="p-2 rounded-full bg-background-card">
                 <Award className="h-6 w-6 text-text-primary" />
