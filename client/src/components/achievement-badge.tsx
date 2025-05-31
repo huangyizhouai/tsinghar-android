@@ -15,17 +15,6 @@ import {
 
 export type AchievementKey = 'seed' | 'sprout' | 'vanguard' | 'momentum' | 'silk' | 'guardian' | 'harmony' | 'zenith';
 
-const achievementIcons: Record<AchievementKey, React.FC<any>> = {
-  seed: Circle,
-  sprout: Plant,
-  vanguard: Shield,
-  momentum: Rocket,
-  silk: Butterfly,
-  guardian: HandHeart,
-  harmony: Handshake,
-  zenith: Trophy
-};
-
 export interface AchievementBadgeProps {
   id?: string;
   name: string;
@@ -41,7 +30,9 @@ export interface AchievementBadgeProps {
 }
 
 export default function AchievementBadge({
+  id,
   name,
+  enName,
   description,
   days,
   currentDays,
@@ -71,79 +62,87 @@ export default function AchievementBadge({
             boxShadow: isUnlocked ? `0 0 20px ${glowColor}` : 'none',
           }}
         >
-          {/* Always show the achievement icon, but with different styling based on unlock status */}
-          {iconKey && achievementIcons[iconKey] ? (
-            (() => {
-              const IconComponent = achievementIcons[iconKey];
-              return (
-                <div className="relative flex items-center justify-center">
-                  <IconComponent
-                    weight="regular"
-                    className="w-12 h-12"
-                    style={{
-                      background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                      color: 'transparent'
-                    }}
-                  />
-                  {!isUnlocked && (
-                    <div className="absolute top-0 right-0 w-4 h-4 bg-gray-800/80 rounded-full flex items-center justify-center">
-                      <Lock className="w-3 h-3 text-gray-300" />
-                    </div>
-                  )}
-                </div>
-              );
-            })()
-          ) : (
-            // Inner reflective surface for unlocked badges with new icon system
-            <div 
-              className="w-16 h-16 rounded-full bg-gradient-to-br from-white/30 via-transparent to-gray-800/40 backdrop-blur-lg flex items-center justify-center overflow-hidden"
-              style={{
-                transform: 'perspective(100px) rotateX(5deg)',
-                boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
-              }}
-            >
-              {iconKey && achievementIcons[iconKey] ? (
-                (() => {
-                  const IconComponent = achievementIcons[iconKey];
-                  return (
-                    <IconComponent
-                      weight="regular"
-                      className="w-12 h-12"
-                      style={isUnlocked && !isLocked ? {
-                        background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        color: 'transparent'
-                      } : {
-                        color: 'rgb(71 85 105 / 0.4)'
-                      }}
-                    />
-                  );
-                })()
-              ) : (
-                <>
-                  {/* Central light reflection */}
-                  <div className="absolute w-14 h-14 bg-gradient-to-br from-white/15 to-transparent rounded-full"
-                    style={{
-                      filter: 'blur(2px)',
-                      transform: 'translateY(-2px)'
-                    }}
-                  />
-                  
-                  {/* Diagonal light streak */}
-                  <div className="absolute w-full h-10 bg-white/10" 
-                    style={{
-                      transform: 'rotate(-45deg) translate(-5px, -5px)'
-                    }}
-                  />
-                </>
-              )}
-            </div>
-          )}
+          {/* Achievement Icon Display */}
+          <div className="relative flex items-center justify-center">
+            {iconKey === 'seed' && (
+              <Circle 
+                weight="fill" 
+                className="w-12 h-12 text-pink-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #f472b6)'
+                }}
+              />
+            )}
+            {iconKey === 'sprout' && (
+              <Plant 
+                weight="fill" 
+                className="w-12 h-12 text-green-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #4ade80)'
+                }}
+              />
+            )}
+            {iconKey === 'vanguard' && (
+              <Shield 
+                weight="fill" 
+                className="w-12 h-12 text-blue-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #60a5fa)'
+                }}
+              />
+            )}
+            {iconKey === 'momentum' && (
+              <Rocket 
+                weight="fill" 
+                className="w-12 h-12 text-purple-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #c084fc)'
+                }}
+              />
+            )}
+            {iconKey === 'silk' && (
+              <Butterfly 
+                weight="fill" 
+                className="w-12 h-12 text-orange-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #fb923c)'
+                }}
+              />
+            )}
+            {iconKey === 'guardian' && (
+              <HandHeart 
+                weight="fill" 
+                className="w-12 h-12 text-red-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #f87171)'
+                }}
+              />
+            )}
+            {iconKey === 'harmony' && (
+              <Handshake 
+                weight="fill" 
+                className="w-12 h-12 text-cyan-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #22d3ee)'
+                }}
+              />
+            )}
+            {iconKey === 'zenith' && (
+              <Trophy 
+                weight="fill" 
+                className="w-12 h-12 text-yellow-400"
+                style={{
+                  filter: 'drop-shadow(0 0 8px #facc15)'
+                }}
+              />
+            )}
+            
+            {!isUnlocked && (
+              <div className="absolute top-0 right-0 w-4 h-4 bg-gray-800/80 rounded-full flex items-center justify-center">
+                <Lock className="w-3 h-3 text-gray-300" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
       
