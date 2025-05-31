@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Share, Award } from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
@@ -8,9 +9,12 @@ import { benefitsData, milestonesData } from "@/lib/data";
 import { useLanguage } from "@/hooks/use-language";
 import { Link } from "wouter";
 import RecoveryProgressRing from "@/components/recovery-progress-ring";
+import ShareModal from "@/components/share-modal";
 
 export default function ProgressPage() {
   const { t } = useLanguage();
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  
   const { data: streak, isLoading: streakLoading } = useQuery<{currentStreak: number}>({
     queryKey: ['/api/streak'],
   });
@@ -38,6 +42,17 @@ export default function ProgressPage() {
     }
   };
 
+  const handleShareClick = () => {
+    setIsShareModalOpen(true);
+  };
+
+  const dashboardData = {
+    days,
+    recoveryPercentage,
+    currentDate: new Date().toLocaleDateString(),
+    motivationalText: motivationalText(),
+  };
+
   return (
     <div className="p-4 pt-6">
       <SectionHeader title={t('progress')}>
@@ -47,7 +62,10 @@ export default function ProgressPage() {
               <Award className="h-6 w-6 text-text-primary" />
             </button>
           </Link>
-          <button className="p-2 rounded-full bg-background-card">
+          <button 
+            onClick={handleShareClick}
+            className="p-2 rounded-full bg-background-card hover:bg-background-card/80 transition-colors"
+          >
             <Share className="h-6 w-6 text-text-primary" />
           </button>
         </div>

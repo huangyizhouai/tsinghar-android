@@ -211,6 +211,15 @@ export const translations: Record<Language, Record<string, string>> = {
     fri: 'Fri',
     sat: 'Sat',
     sun: 'Sun',
+    
+    // Share functionality
+    shareProgress: 'Share Progress',
+    saveToAlbum: 'Save to Album',
+    generating: 'Generating...',
+    linkCopied: 'Link copied to clipboard!',
+    wechat: 'WeChat',
+    weibo: 'Weibo',
+    douyin: 'Douyin',
   },
   
   zh: {
@@ -558,6 +567,15 @@ export const translations: Record<Language, Record<string, string>> = {
     fri: '周五',
     sat: '周六',
     sun: '周日',
+    
+    // Share functionality
+    shareProgress: '分享进度',
+    saveToAlbum: '保存到相册',
+    generating: '生成中...',
+    linkCopied: '链接已复制到剪贴板！',
+    wechat: '微信',
+    weibo: '微博',
+    douyin: '抖音',
   }
 };
 
