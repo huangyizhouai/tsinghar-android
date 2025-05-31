@@ -110,6 +110,7 @@ export default function Library() {
   const generateArticleContent = async (article: any) => {
     setIsGeneratingArticle(true);
     try {
+      // First try to use OpenAI API for dynamic generation
       const response = await apiRequest('POST', '/api/articles/generate', {
         topic: language === 'zh' && article.titleZh ? article.titleZh : article.title,
         category: article.category
@@ -119,6 +120,14 @@ export default function Library() {
       setShowGeneratedArticle(true);
     } catch (error) {
       console.error('Failed to generate article:', error);
+      // Fallback to static content if API fails
+      setGeneratedArticle({
+        title: article.title,
+        titleZh: article.titleZh,
+        content: article.content,
+        contentZh: article.contentZh
+      });
+      setShowGeneratedArticle(true);
     } finally {
       setIsGeneratingArticle(false);
     }
