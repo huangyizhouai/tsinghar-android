@@ -143,14 +143,12 @@ export default function Help() {
           <Card className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
             <CardContent className="p-6 text-center">
               <h3 className="font-semibold text-text-primary mb-2">
-                {t('language') === 'zh' ? '开始您的康复之旅' : 'Start Your Recovery Journey'}
+                {t('startRecoveryJourney')}
               </h3>
               <p className="text-text-secondary text-sm mb-4">
-                {t('language') === 'zh' 
-                  ? '加入成千上万已经改变生活的用户。今天就开始您的转变。' 
-                  : 'Join thousands of users who have already transformed their lives. Start your transformation today.'}
+                {t('joinThousands')}
               </p>
-              <Link to="/dashboard">
+              <Link to="/">
                 <button className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
                   {t('getStarted')}
                 </button>
@@ -196,23 +194,19 @@ export default function Help() {
           <Card className="bg-background-card rounded-xl">
             <CardContent className="p-6">
               <h3 className="font-semibold text-text-primary mb-4">
-                {t('language') === 'zh' ? '科学事实' : 'Scientific Facts'}
+                {t('scientificFacts')}
               </h3>
               <div className="grid grid-cols-1 gap-4">
                 <div className="bg-background-primary p-4 rounded-lg">
                   <div className="text-2xl font-bold text-primary mb-1">90%</div>
                   <div className="text-sm text-text-secondary">
-                    {t('language') === 'zh' 
-                      ? '使用我们应用90天的用户报告显著改善' 
-                      : 'of users report significant improvement after 90 days'}
+                    {t('usersReportImprovement')}
                   </div>
                 </div>
                 <div className="bg-background-primary p-4 rounded-lg">
                   <div className="text-2xl font-bold text-primary mb-1">73%</div>
                   <div className="text-sm text-text-secondary">
-                    {t('language') === 'zh' 
-                      ? '呼吸练习可减少冲动强度' 
-                      : 'reduction in urge intensity with breathing exercises'}
+                    {t('reductionUrgeIntensity')}
                   </div>
                 </div>
               </div>

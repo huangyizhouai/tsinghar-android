@@ -126,6 +126,18 @@ export const translations: Record<Language, Record<string, string>> = {
     progressAnalytics: 'Progress Analytics',
     progressAnalyticsDescription: 'Detailed insights into your recovery patterns and milestone achievements.',
     
+    // Additional Help Content
+    startRecoveryJourney: 'Start Your Recovery Journey',
+    scientificFacts: 'Scientific Facts',
+    quickStartGuide: 'Quick Start Guide',
+    joinThousands: 'Join thousands of users who have already transformed their lives. Start your transformation today.',
+    usersReportImprovement: 'of users report significant improvement after 90 days',
+    reductionUrgeIntensity: 'reduction in urge intensity with breathing exercises',
+    setupReasons: 'Set up your recovery reasons',
+    trackDailyProgress: 'Start tracking your daily progress',
+    useBreathing: 'Use breathing exercises to manage urges',
+    engageCommunity: 'Engage with the community for support',
+    
     // Mindfulness section
     mindfulnessResources: 'Mindfulness Resources',
     breathing: 'Breathing',
@@ -678,6 +690,18 @@ export const translations: Record<Language, Record<string, string>> = {
     
     progressAnalytics: '进度分析',
     progressAnalyticsDescription: '对您的康复模式和里程碑成就的详细洞察。',
+    
+    // Additional Help Content
+    startRecoveryJourney: '开始您的康复之旅',
+    scientificFacts: '科学事实',
+    quickStartGuide: '快速开始指南',
+    joinThousands: '加入成千上万已经改变生活的用户。今天就开始您的转变。',
+    usersReportImprovement: '使用我们应用90天的用户报告显著改善',
+    reductionUrgeIntensity: '呼吸练习可减少冲动强度',
+    setupReasons: '设置您的康复理由',
+    trackDailyProgress: '开始追踪您的每日进度',
+    useBreathing: '使用呼吸练习管理冲动',
+    engageCommunity: '与社区互动获得支持',
     comingSoon: '即将推出',
     featureInDevelopment: '此功能正在开发中。',
     completeLibrary: '已完成',
