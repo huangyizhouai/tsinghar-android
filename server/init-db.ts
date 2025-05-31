@@ -61,53 +61,56 @@ async function initDb() {
         { userId, benefit: "Increased Productivity", percentage: 1, lastUpdated: new Date() }
       ]);
       
-      // Add some forum posts
+      // Add some forum posts with recovery content
       console.log("Adding default forum posts...");
-      const [post1] = await db.insert(forumPosts).values({
-        userId,
-        title: "I reached 90 days - Here's what changed",
-        content: "After three months of staying clean, I wanted to share my experience and the benefits I've noticed physically and mentally...",
-        upvotes: 0,
-        createdAt: new Date()
-      }).returning();
-      
-      const [post2] = await db.insert(forumPosts).values({
-        userId,
-        title: "Need serious help - feeling low",
-        content: "I'm really struggling today. Had a stressful week at work and the urges are stronger than ever. Any advice on getting through this?",
-        upvotes: 0,
-        createdAt: new Date()
-      }).returning();
-      
-      const [post3] = await db.insert(forumPosts).values({
-        userId,
-        title: "Weekly accountability check-in",
-        content: "Hey everyone, it's Sunday - time for our weekly check-in. How did you do this week? Any challenges, victories or goals for next week?",
-        upvotes: 0,
-        createdAt: new Date()
-      }).returning();
-      
-      const [post4] = await db.insert(forumPosts).values({
-        userId,
-        title: "Book recommendation: Your Brain on Porn",
-        content: "Just finished reading \"Your Brain on Porn\" by Gary Wilson. Highly recommend it - it explains the science behind addiction in accessible ways...",
-        upvotes: 0,
-        createdAt: new Date()
-      }).returning();
-      
-      // Upvote posts to different counts
-      console.log("Adding upvotes to forum posts...");
-      // Post 1: 24 upvotes
-      await db.update(forumPosts).set({ upvotes: 24 }).where(eq(forumPosts.id, post1.id));
-      
-      // Post 2: 3 upvotes
-      await db.update(forumPosts).set({ upvotes: 3 }).where(eq(forumPosts.id, post2.id));
-      
-      // Post 3: 18 upvotes
-      await db.update(forumPosts).set({ upvotes: 18 }).where(eq(forumPosts.id, post3.id));
-      
-      // Post 4: 12 upvotes
-      await db.update(forumPosts).set({ upvotes: 12 }).where(eq(forumPosts.id, post4.id));
+      const posts = [
+        {
+          title: "90天的转变：我的康复之路 | 90 Days Clean: My Recovery Journey",
+          content: "经过三个月的康复，我想分享一些身心上的变化。最明显的是注意力集中了，睡眠质量也改善了，人际关系变得更真实。最重要的是，我重新找回了对生活的控制感。 | After three months clean, I want to share the changes I've experienced. The most noticeable improvements are better focus, improved sleep quality, and more authentic relationships. Most importantly, I've regained a sense of control over my life.",
+          upvotes: 24,
+          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) // 2 days ago
+        },
+        {
+          title: "寻求帮助：今天感觉很低落 | Need Help: Feeling Really Low Today",
+          content: "今天真的很挣扎。工作压力很大，冲动比以往任何时候都强烈。有人能给些建议如何度过这个难关吗？我知道这只是暂时的，但现在感觉很困难。 | I'm really struggling today. Work has been stressful and the urges are stronger than ever. Anyone have advice on getting through this? I know it's temporary but it feels overwhelming right now.",
+          upvotes: 8,
+          createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000) // 6 hours ago
+        },
+        {
+          title: "每周问责检查 | Weekly Accountability Check-in",
+          content: "大家好，今天是周日，我们的每周检查时间。这周你们过得怎么样？有什么挑战、胜利或下周的目标吗？记住，每一天的进步都值得庆祝。 | Hey everyone, it's Sunday - time for our weekly check-in. How did you do this week? Any challenges, victories or goals for next week? Remember, every day of progress is worth celebrating.",
+          upvotes: 15,
+          createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) // 1 day ago
+        },
+        {
+          title: "书籍推荐：《你的大脑与色情》| Book Recommendation: Your Brain on Porn",
+          content: "刚读完Gary Wilson的《你的大脑与色情》。强烈推荐！它用通俗易懂的方式解释了成瘾背后的科学原理。理解大脑的变化帮助我更好地应对康复过程。 | Just finished reading 'Your Brain on Porn' by Gary Wilson. Highly recommend it! It explains the science behind addiction in accessible ways. Understanding the brain changes has helped me better cope with recovery.",
+          upvotes: 19,
+          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) // 3 days ago
+        },
+        {
+          title: "健康习惯替代法 | Healthy Habit Replacement Strategy",
+          content: "分享一个对我很有效的方法：每当有冲动时，我就去做20个俯卧撑或冲个冷水澡。身体活动真的有助于重新引导注意力，而且让我感觉更强大。 | Sharing something that's been working for me: whenever I get urges, I do 20 pushups or take a cold shower. Physical activity really helps redirect focus and makes me feel empowered.",
+          upvotes: 12,
+          createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000) // 4 days ago
+        },
+        {
+          title: "冥想如何改变了我的恢复 | How Meditation Changed My Recovery",
+          content: "开始冥想后，我学会了观察冲动而不被它们控制。每天10分钟的正念练习让我在困难时刻保持清醒。推荐给所有在康复路上的朋友。 | Since starting meditation, I've learned to observe urges without being controlled by them. Just 10 minutes of daily mindfulness practice helps me stay clear-headed during difficult moments. Highly recommend to everyone on the recovery path.",
+          upvotes: 21,
+          createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) // 5 days ago
+        }
+      ];
+
+      for (const postData of posts) {
+        await db.insert(forumPosts).values({
+          userId,
+          title: postData.title,
+          content: postData.content,
+          upvotes: postData.upvotes,
+          createdAt: postData.createdAt
+        });
+      }
       
       console.log("Database initialization complete!");
     } else {

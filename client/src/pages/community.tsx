@@ -19,6 +19,9 @@ export default function Community() {
   const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterKeyword, setFilterKeyword] = useState("");
+  const [sortBy, setSortBy] = useState("newest"); // newest, oldest, popular, unpopular
   
   const { toast } = useToast();
   
@@ -70,6 +73,35 @@ export default function Community() {
     
     createPostMutation.mutate();
   };
+
+  // Filter and sort posts
+  const getFilteredAndSortedPosts = () => {
+    if (!posts) return [];
+    
+    // Filter by keyword
+    let filtered = posts.filter(post => {
+      if (!filterKeyword) return true;
+      const keyword = filterKeyword.toLowerCase();
+      return (
+        post.title.toLowerCase().includes(keyword) ||
+        post.content.toLowerCase().includes(keyword)
+      );
+    });
+    
+    // Sort posts
+    switch (sortBy) {
+      case "newest":
+        return filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      case "oldest":
+        return filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      case "popular":
+        return filtered.sort((a, b) => b.upvotes - a.upvotes);
+      case "unpopular":
+        return filtered.sort((a, b) => a.upvotes - b.upvotes);
+      default:
+        return filtered;
+    }
+  };
   
   const upvotePostMutation = useMutation({
     mutationFn: async (postId: number) => {
@@ -99,7 +131,10 @@ export default function Community() {
           <AppLogo size="md" />
           <h1 className="text-xl font-semibold text-text-primary">{t('appName')}</h1>
         </div>
-        <button className="p-2 rounded-full bg-background-card">
+        <button 
+          className="p-2 rounded-full bg-background-card hover:bg-background-card/80 transition-colors"
+          onClick={() => setIsFilterOpen(true)}
+        >
           <Filter className="h-6 w-6 text-text-primary" />
         </button>
       </div>
@@ -115,8 +150,8 @@ export default function Community() {
         <TabsContent value="forum" className="m-0 p-0 space-y-4 mb-20">
           {isLoading ? (
             <div className="text-center py-8">{t('loadingPosts')}</div>
-          ) : posts && posts.length > 0 ? (
-            posts.map((post: any) => (
+          ) : getFilteredAndSortedPosts().length > 0 ? (
+            getFilteredAndSortedPosts().map((post: any) => (
               <PostCard 
                 key={post.id}
                 post={post}
