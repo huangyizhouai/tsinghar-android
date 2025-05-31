@@ -10,7 +10,7 @@ interface CustomMeditationPlayerProps {
 }
 
 export default function CustomMeditationPlayer({ track, onBack, onShowInfo }: CustomMeditationPlayerProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -415,8 +415,12 @@ export default function CustomMeditationPlayer({ track, onBack, onShowInfo }: Cu
       
       {/* Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4">
-        <h1 className="text-2xl font-bold text-white mb-2">{track.title}</h1>
-        <p className="text-white text-opacity-80 mb-6">{track.subtitle}</p>
+        <h1 className="text-2xl font-bold text-white mb-2">
+          {language === 'en' && track.titleEn ? track.titleEn : track.title}
+        </h1>
+        <p className="text-white text-opacity-80 mb-6">
+          {language === 'en' && track.subtitleEn ? track.subtitleEn : track.subtitle}
+        </p>
         
         <div className="text-xl text-white mb-8">{formatTime(currentTime)}</div>
         
