@@ -276,7 +276,7 @@ export const libraryCategories: Category[] = [
         readTime: 15,
         content: "Mindfulness meditation strengthens the prefrontal cortex, the part of your brain responsible for impulse control. When practiced regularly, mindfulness helps you observe urges without automatically acting on them. Start with just 5 minutes daily of focused breathing, gradually increasing to 15-20 minutes. When urges arise, use the RAIN technique: Recognize the urge, Allow it to be there without judgment, Investigate how it feels in your body, and Note that urges are temporary sensations that will pass.",
         contentZh: "正念冥想强化前额叶皮质，这是大脑中负责冲动控制的部分。定期练习正念有助于观察冲动而不自动行动。从每日5分钟的专注呼吸开始，逐渐增加到15-20分钟。当冲动出现时，使用RAIN技巧：识别冲动，允许它不带判断地存在，调查它在身体中的感受，注意冲动是会过去的暂时感觉。",
-        imageUrl: "/attached_assets/IMG_1089.jpeg"
+        imageUrl: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=450&h=220&q=80"
       },
       {
         id: "recovery-plan",
@@ -289,7 +289,7 @@ export const libraryCategories: Category[] = [
         readTime: 10,
         content: "A successful recovery plan addresses multiple aspects of your life. Start by defining clear, measurable goals (e.g., 90 days porn-free). Identify and eliminate easy access points by installing blockers and creating environmental barriers. Schedule alternative activities during vulnerable times. Create a daily routine that includes exercise, healthy social contact, and mindfulness practice. Develop a relapse prevention plan with specific steps to take when urges are strong. Review and adjust your plan weekly based on what's working and what isn't.",
         contentZh: "成功的康复计划涉及生活的多个方面。首先定义清晰、可衡量的目标（例如，90天无色情）。通过安装拦截器和创建环境障碍来识别并消除容易接触的途径。在脆弱时段安排替代活动。创建包括运动、健康社交接触和正念练习的日常程序。制定复发预防计划，包括在冲动强烈时采取的具体步骤。根据有效和无效的方法每周回顾和调整计划。",
-        imageUrl: "/attached_assets/IMG_1090.jpeg"
+        imageUrl: "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&auto=format&fit=crop&w=450&h=220&q=80"
       },
       {
         id: "community-support",
@@ -302,7 +302,7 @@ export const libraryCategories: Category[] = [
         readTime: 8,
         content: "Social support significantly increases recovery success rates. An accountability partner provides mutual support through regular check-ins, celebrating milestones, and offering encouragement during difficult times. When selecting a partner, choose someone you trust but who will hold you accountable without judgment. Set clear expectations about communication frequency and boundaries. Support groups, whether online or in-person, offer broader perspective and reduce feelings of isolation. Active participation by sharing your experiences and supporting others reinforces your own commitment to recovery.",
         contentZh: "社会支持显著提高康复成功率。责任伙伴通过定期检查、庆祝里程碑和在困难时期提供鼓励来提供相互支持。选择伙伴时，选择你信任但会在不评判的情况下让你负责的人。对沟通频率和界限设定明确期望。支持小组，无论是在线还是面对面，都能提供更广阔的视角并减少孤立感。通过分享经历和支持他人来积极参与，这强化了你对康复的承诺。",
-        imageUrl: "/attached_assets/IMG_1091.jpeg"
+        imageUrl: "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=450&h=220&q=80"
       }
     ]
   }
