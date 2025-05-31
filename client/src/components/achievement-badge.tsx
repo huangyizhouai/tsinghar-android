@@ -80,19 +80,17 @@ export default function AchievementBadge({
                   <IconComponent
                     weight="regular"
                     className="w-12 h-12"
-                    style={isUnlocked ? {
+                    style={{
                       background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: 'transparent'
-                    } : {
-                      color: 'rgb(71 85 105 / 0.4)'
                     }}
                   />
                   {!isUnlocked && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Lock className="w-6 h-6 text-gray-400/60" />
+                    <div className="absolute top-0 right-0 w-4 h-4 bg-gray-800/80 rounded-full flex items-center justify-center">
+                      <Lock className="w-3 h-3 text-gray-300" />
                     </div>
                   )}
                 </div>
