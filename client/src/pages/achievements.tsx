@@ -16,7 +16,8 @@ const achievementsList = [
     days: 1,
     color: 'bg-pink-400',
     glowColor: '#f472b6',
-    assetUnlocked: '/assets/achievements/seed.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/seed.svg'
   },
   {
     id: 'sprout',
@@ -26,7 +27,8 @@ const achievementsList = [
     days: 3,
     color: 'bg-blue-300',
     glowColor: '#7dd3fc',
-    assetUnlocked: '/assets/achievements/sprout.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/sprout.svg'
   },
   {
     id: 'pioneer',
@@ -36,7 +38,8 @@ const achievementsList = [
     days: 5,
     color: 'bg-cyan-400',
     glowColor: '#22d3ee',
-    assetUnlocked: '/assets/achievements/pioneer.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/pioneer.svg'
   },
   {
     id: 'momentum',
@@ -46,7 +49,8 @@ const achievementsList = [
     days: 7,
     color: 'bg-purple-400',
     glowColor: '#c084fc',
-    assetUnlocked: '/assets/achievements/momentum.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/momentum.svg'
   },
   {
     id: 'fortress',
@@ -56,7 +60,8 @@ const achievementsList = [
     days: 10,
     color: 'bg-purple-500',
     glowColor: '#a855f7',
-    assetUnlocked: '/assets/achievements/fortress.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/fortress.svg'
   },
   {
     id: 'guardian',
@@ -66,7 +71,8 @@ const achievementsList = [
     days: 14,
     color: 'bg-blue-400',
     glowColor: '#60a5fa',
-    assetUnlocked: '/assets/achievements/guardian.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/guardian.svg'
   },
   {
     id: 'trailblazer',
@@ -76,8 +82,8 @@ const achievementsList = [
     days: 30,
     color: 'bg-indigo-400',
     glowColor: '#818cf8',
-    isLocked: true,
-    assetUnlocked: '/assets/achievements/trailblazer.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/trailblazer.svg'
   },
   {
     id: 'ascendant',
@@ -87,8 +93,8 @@ const achievementsList = [
     days: 45,
     color: 'bg-indigo-500',
     glowColor: '#6366f1',
-    isLocked: true,
-    assetUnlocked: '/assets/achievements/ascendant.png'
+    isLocked: false,
+    assetUnlocked: '/assets/achievements/ascendant.svg'
   }
 ];
 
