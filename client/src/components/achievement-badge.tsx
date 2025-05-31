@@ -2,7 +2,29 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Lock } from 'lucide-react';
 import { useLanguage } from '@/hooks/use-language';
-import AchievementIcon, { AchievementKey } from './achievement-icon';
+import { 
+  Circle, 
+  Plant, 
+  Shield, 
+  Rocket, 
+  Butterfly, 
+  HandHeart, 
+  Handshake, 
+  Trophy 
+} from '@phosphor-icons/react';
+
+export type AchievementKey = 'seed' | 'sprout' | 'vanguard' | 'momentum' | 'silk' | 'guardian' | 'harmony' | 'zenith';
+
+const achievementIcons: Record<AchievementKey, React.FC<any>> = {
+  seed: Circle,
+  sprout: Plant,
+  vanguard: Shield,
+  momentum: Rocket,
+  silk: Butterfly,
+  guardian: HandHeart,
+  harmony: Handshake,
+  zenith: Trophy
+};
 
 export interface AchievementBadgeProps {
   id?: string;
@@ -72,13 +94,25 @@ export default function AchievementBadge({
                 boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.1)'
               }}
             >
-              {iconKey ? (
-                <AchievementIcon 
-                  name={iconKey} 
-                  locked={false} 
-                  size="sm"
-                  ariaLabel={name}
-                />
+              {iconKey && achievementIcons[iconKey] ? (
+                (() => {
+                  const IconComponent = achievementIcons[iconKey];
+                  return (
+                    <IconComponent
+                      weight="regular"
+                      className="w-12 h-12"
+                      style={isUnlocked && !isLocked ? {
+                        background: 'radial-gradient(circle, #5EFCE8 0%, #22d3ee 50%, #736EFE 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent'
+                      } : {
+                        color: 'rgb(71 85 105 / 0.4)'
+                      }}
+                    />
+                  );
+                })()
               ) : (
                 <>
                   {/* Central light reflection */}
