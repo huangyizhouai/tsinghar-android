@@ -12,7 +12,7 @@ import ShareModal from "@/components/share-modal";
 import AppLogo from "@/components/app-logo";
 
 export default function ProgressPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   
   const { data: streak, isLoading: streakLoading } = useQuery<{currentStreak: number}>({
@@ -109,27 +109,63 @@ export default function ProgressPage() {
       <h2 className="font-medium text-lg mb-4 text-text-primary">{t('recoveryBenefits')}</h2>
       
       <div className="space-y-4 mb-8">
-        {(progressData || []).map((benefit: any, index: number) => {
-          const data = benefitsData.find(b => b.name === benefit.benefit) || benefitsData[0];
+        {benefitsData.map((benefit: any, index: number) => {
+          // Calculate progress based on user's current days
+          const baseProgress = Math.min((days / 30) * 100, 100); // Base progress over 30 days
+          const variance = index * 10; // Different starting points for variety
+          let currentProgress = Math.max(0, baseProgress - variance + (days * 2));
+          currentProgress = Math.min(currentProgress, 100); // Cap at 100%
+          
+          const isUnlocked = days >= (index + 1); // Progressive unlock
           
           return (
-            <Card key={index} className="bg-background-card rounded-xl overflow-hidden">
-              {data.imageUrl && index === 0 && (
+            <Card key={index} className={`bg-background-card rounded-xl overflow-hidden transition-all duration-300 ${!isUnlocked ? 'opacity-60' : ''}`}>
+              {benefit.imageUrl && index === 0 && (
                 <img 
-                  src={data.imageUrl} 
-                  alt={`Visual representation of ${data.name}`} 
-                  className="w-full h-40 object-cover" 
+                  src={benefit.imageUrl} 
+                  alt={`Visual representation of ${language === 'zh' ? benefit.nameZh : benefit.name}`} 
+                  className="w-full h-40 object-cover"
                 />
               )}
-              <CardContent className={data.imageUrl && index === 0 ? "p-4" : "p-4"}>
+              <CardContent className="p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="font-medium text-text-primary">{data.name}</h3>
-                  <span className="text-xs text-primary">{benefit.percentage}%</span>
+                  <h3 className="font-medium text-text-primary">
+                    {language === 'zh' ? benefit.nameZh : benefit.name}
+                  </h3>
+                  <span className="text-xs text-primary">
+                    {isUnlocked ? Math.round(currentProgress) : 0}%
+                  </span>
                 </div>
                 <p className="text-sm text-text-secondary mb-3">
-                  {data.description}
+                  {language === 'zh' ? benefit.descriptionZh : benefit.description}
                 </p>
-                <Progress value={benefit.percentage} className="h-1.5" />
+                <Progress value={isUnlocked ? currentProgress : 0} className="h-1.5 mb-3" />
+                
+                {/* Recovery Resources */}
+                {isUnlocked && benefit.resources && (
+                  <div className="mt-3 pt-3 border-t border-background-primary">
+                    <h4 className="text-xs font-medium text-text-primary mb-2">
+                      {language === 'zh' ? '恢复建议：' : 'Recovery Tips:'}
+                    </h4>
+                    <ul className="space-y-1">
+                      {(language === 'zh' ? benefit.resourcesZh : benefit.resources).map((resource: string, resourceIndex: number) => (
+                        <li key={resourceIndex} className="text-xs text-text-secondary flex items-start">
+                          <span className="text-primary mr-2 mt-0.5">•</span>
+                          <span>{resource}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {!isUnlocked && (
+                  <div className="mt-2 text-xs text-text-secondary opacity-70">
+                    {language === 'zh' 
+                      ? `第 ${index + 1} 天解锁` 
+                      : `Unlocks on day ${index + 1}`
+                    }
+                  </div>
+                )}
               </CardContent>
             </Card>
           );
@@ -144,7 +180,7 @@ export default function ProgressPage() {
           const daysLeft = getDaysLeft(days, milestone.days);
           
           return (
-            <div key={index} className={`flex justify-between items-center ${index < (milestones?.length - 1) ? 'mb-4' : ''}`}>
+            <div key={index} className={`flex justify-between items-center ${index < ((milestones?.length || 1) - 1) ? 'mb-4' : ''}`}>
               <div className="flex items-center">
                 <div className={`p-2 rounded-full mr-3 ${achieved ? 'bg-primary' : 'bg-background-primary'}`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 ${achieved ? 'text-text-primary' : 'text-text-secondary'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
