@@ -12,6 +12,57 @@ async function initDb() {
   console.log("Initializing database with default data...");
   
   try {
+    // Check if TsingHar user exists
+    const [tsingharUser] = await db.select().from(users).where(eq(users.username, "TsingHar"));
+    
+    if (!tsingharUser) {
+      console.log("Creating TsingHar user...");
+      // Create TsingHar user
+      const [user] = await db.insert(users).values({
+        username: "TsingHar",
+        password: "Hui2025",
+        email: "huangdanni2025@gmail.com"
+      }).returning();
+      
+      const userId = user.id;
+      
+      // Create streak for TsingHar
+      console.log("Creating TsingHar streak...");
+      await db.insert(streaks).values({
+        userId,
+        startDate: new Date("2025-05-31T01:56:00Z"),
+        currentStreak: 3,
+        bestStreak: 14,
+        lastUpdated: new Date()
+      });
+      
+      // Add milestones and progress data for TsingHar
+      console.log("Adding TsingHar milestones...");
+      await db.insert(milestones).values([
+        { userId, days: 1, achieved: true, achievedDate: new Date() },
+        { userId, days: 3, achieved: true, achievedDate: new Date() },
+        { userId, days: 7, achieved: false, achievedDate: null },
+        { userId, days: 14, achieved: false, achievedDate: null },
+        { userId, days: 21, achieved: false, achievedDate: null },
+        { userId, days: 30, achieved: false, achievedDate: null },
+        { userId, days: 60, achieved: false, achievedDate: null },
+        { userId, days: 90, achieved: false, achievedDate: null }
+      ]);
+      
+      // Add progress benefits for TsingHar
+      console.log("Adding TsingHar progress benefits...");
+      await db.insert(progress).values([
+        { userId, benefit: "Improved Confidence", percentage: 3, lastUpdated: new Date() },
+        { userId, benefit: "Mental Clarity", percentage: 2, lastUpdated: new Date() },
+        { userId, benefit: "Better Sleep", percentage: 4, lastUpdated: new Date() },
+        { userId, benefit: "Increased Productivity", percentage: 2, lastUpdated: new Date() }
+      ]);
+      
+      console.log("TsingHar user initialization complete!");
+    } else {
+      console.log("TsingHar user already exists, skipping initialization.");
+    }
+
     // Check if default user exists
     const [defaultUser] = await db.select().from(users).where(eq(users.username, "default"));
     
