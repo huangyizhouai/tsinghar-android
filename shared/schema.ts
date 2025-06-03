@@ -1,11 +1,15 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, varchar, jsonb, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  username: text("username").notNull().unique(),
-  password: text("password").notNull(),
+  username: text("username").unique(),
+  password: text("password"),
+  email: text("email").unique(),
+  appleId: text("apple_id").unique(),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
   age: integer("age"),
   gender: text("gender"),
   location: text("location"),
@@ -13,6 +17,17 @@ export const users = pgTable("users", {
   joinDate: timestamp("join_date").notNull().defaultNow(),
   streakRecord: integer("streak_record").default(0),
 });
+
+// Session storage for authentication
+export const sessions = pgTable(
+  "sessions",
+  {
+    sid: varchar("sid").primaryKey(),
+    sess: jsonb("sess").notNull(),
+    expire: timestamp("expire").notNull(),
+  },
+  (table) => [index("IDX_session_expire").on(table.expire)],
+);
 
 export const streaks = pgTable("streaks", {
   id: serial("id").primaryKey(),
@@ -76,6 +91,25 @@ export const articleProgress = pgTable("article_progress", {
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
+  email: true,
+  appleId: true,
+  firstName: true,
+  lastName: true,
+  age: true,
+  gender: true,
+  location: true,
+  recoveryGoal: true,
+});
+
+export const loginSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
+
+export const signupSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().email("Valid email is required").optional(),
 });
 
 export const insertStreakSchema = createInsertSchema(streaks).pick({
