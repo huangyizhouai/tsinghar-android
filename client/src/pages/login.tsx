@@ -64,7 +64,8 @@ export default function LoginPage() {
         title: t("success"),
         description: t("loginSuccessful"),
       });
-      setLocation("/");
+      // Force page reload to refresh authentication state
+      window.location.href = "/";
     },
     onError: (error: any) => {
       toast({
@@ -85,7 +86,8 @@ export default function LoginPage() {
         title: t("success"),
         description: t("accountCreated"),
       });
-      setLocation("/");
+      // Force page reload to refresh authentication state
+      window.location.href = "/";
     },
     onError: (error: any) => {
       toast({
