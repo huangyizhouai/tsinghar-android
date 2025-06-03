@@ -12,12 +12,12 @@ async function initDb() {
   console.log("Initializing database with default data...");
   
   try {
-    // Check if TsingHar user exists
+    // Always ensure TsingHar user exists for production deployment
     const [tsingharUser] = await db.select().from(users).where(eq(users.username, "TsingHar"));
     
     if (!tsingharUser) {
-      console.log("Creating TsingHar user...");
-      // Create TsingHar user
+      console.log("Creating TsingHar user for production deployment...");
+      // Create TsingHar user with exact credentials for deployment
       const [user] = await db.insert(users).values({
         username: "TsingHar",
         password: "Hui2025",
