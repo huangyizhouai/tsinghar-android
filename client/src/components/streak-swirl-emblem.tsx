@@ -1,5 +1,15 @@
 import React from 'react';
 import { useLanguage } from '@/hooks/use-language';
+import { 
+  Circle, 
+  Plant, 
+  Shield, 
+  Rocket, 
+  Butterfly, 
+  HandHeart, 
+  Handshake, 
+  Trophy 
+} from '@phosphor-icons/react';
 
 interface StreakSwirlEmblemProps {
   days: number;
@@ -20,7 +30,22 @@ export default function StreakSwirlEmblem({ days, className = '' }: StreakSwirlE
     return "#FF4D4D"; // Red for 90+ days
   };
   
+  // Get achievement icon based on days
+  const getAchievementIcon = (days: number) => {
+    if (days >= 30) return { icon: Trophy, color: '#FF4D4D', name: 'zenith' };
+    if (days >= 21) return { icon: Handshake, color: '#818cf8', name: 'harmony' };
+    if (days >= 14) return { icon: HandHeart, color: '#60a5fa', name: 'guardian' };
+    if (days >= 10) return { icon: Butterfly, color: '#a855f7', name: 'silk' };
+    if (days >= 7) return { icon: Rocket, color: '#c084fc', name: 'momentum' };
+    if (days >= 5) return { icon: Shield, color: '#22d3ee', name: 'vanguard' };
+    if (days >= 3) return { icon: Plant, color: '#4ade80', name: 'sprout' };
+    if (days >= 1) return { icon: Circle, color: '#f472b6', name: 'seed' };
+    return { icon: Circle, color: '#A7AEF9', name: 'locked' };
+  };
+  
   const emblemColor = getEmblemColor(days);
+  const achievement = getAchievementIcon(days);
+  const AchievementIcon = achievement.icon;
   
   return (
     <div className={`relative ${className}`}>
@@ -65,14 +90,36 @@ export default function StreakSwirlEmblem({ days, className = '' }: StreakSwirlE
           strokeDasharray="8 5"
         />
         
-        {/* Center point */}
+        {/* Center achievement icon background */}
+        <circle
+          cx="80"
+          cy="80"
+          r="18"
+          fill={achievement.color}
+          fillOpacity="0.2"
+        />
         <circle
           cx="80"
           cy="80"
           r="15"
-          fill={emblemColor}
+          fill={achievement.color}
+          fillOpacity="0.1"
         />
       </svg>
+      
+      {/* Center Achievement Icon */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="animate-pulse" style={{animationDuration: '3s'}}>
+          <AchievementIcon
+            weight="fill"
+            className="w-8 h-8"
+            style={{
+              color: achievement.color,
+              filter: `drop-shadow(0 0 8px ${achievement.color})`,
+            }}
+          />
+        </div>
+      </div>
       
       {/* Small stars scattered around (as mentioned in the spec) */}
       <div className="absolute inset-0 overflow-hidden">
