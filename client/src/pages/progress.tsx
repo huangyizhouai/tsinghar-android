@@ -178,7 +178,7 @@ export default function ProgressPage() {
         {(milestones || []).map((milestone: any, index: number) => {
           const achieved = milestone.achieved;
           const daysLeft = getDaysLeft(days, milestone.days);
-          const isNext = !achieved && (index === 0 || (milestones[index - 1]?.achieved));
+          const isNext = !achieved && (index === 0 || (milestones && milestones[index - 1]?.achieved));
           
           return (
             <Card key={index} className={`bg-background-card rounded-xl transition-all duration-300 ${
