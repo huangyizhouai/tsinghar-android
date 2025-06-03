@@ -63,7 +63,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="p-4 pt-6">
+      <div className="p-4 pt-6 pb-32">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <AppLogo size="md" />

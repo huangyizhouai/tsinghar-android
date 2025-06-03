@@ -13,9 +13,9 @@ export default function PanicButton({ onClick }: PanicButtonProps) {
   return (
     <Button
       onClick={onClick}
-      className="w-full py-8 bg-destructive hover:bg-opacity-90 rounded-xl font-medium text-lg text-white flex items-center justify-center"
+      className="w-full py-4 bg-red-900/80 hover:bg-red-900/90 border border-red-600/50 rounded-full font-medium text-lg text-white flex items-center justify-center backdrop-blur-sm"
     >
-      <AlertTriangle className="h-6 w-6 mr-2" />
+      <AlertTriangle className="h-5 w-5 mr-2" />
       {t("panicButton")}
     </Button>
   );
