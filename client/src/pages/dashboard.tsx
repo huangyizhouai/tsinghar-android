@@ -84,11 +84,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Time Display */}
-        <div className="bg-background-card rounded-lg p-3 mb-2 text-center">
-          <DeploymentClock className="justify-center" showSeconds={true} format24={false} />
-        </div>
-
         {/* Week Progress Bar */}
         <div className="bg-background-card rounded-lg p-3 mb-2">
           <WeekBar />

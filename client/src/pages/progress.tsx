@@ -173,18 +173,12 @@ export default function ProgressPage() {
       </div>
 
       {/* Milestones */}
-      <div className="bg-background-card rounded-lg p-4 mb-6">
-        <h2 className="font-medium text-lg mb-4 text-text-primary">里程碑 / Milestones</h2>
-        {milestonesLoading ? (
-          <p className="text-text-secondary">Loading milestones...</p>
-        ) : !milestones || milestones.length === 0 ? (
-          <p className="text-text-secondary">No milestones data available</p>
-        ) : (
-          <div className="space-y-3">
-            {milestones.map((milestone: any, index: number) => {
-              const achieved = milestone.achieved;
-              const daysLeft = getDaysLeft(days, milestone.days);
-              const isNext = !achieved && (index === 0 || (milestones && milestones[index - 1]?.achieved));
+      <h2 className="font-medium text-lg mb-4 text-text-primary">{t('milestonesTitle')}</h2>
+      <div className="space-y-3 mb-8">
+        {(milestones || []).map((milestone: any, index: number) => {
+          const achieved = milestone.achieved;
+          const daysLeft = getDaysLeft(days, milestone.days);
+          const isNext = !achieved && (index === 0 || (milestones && milestones[index - 1]?.achieved));
           
           return (
             <Card key={index} className={`bg-background-card rounded-xl transition-all duration-300 ${
@@ -262,8 +256,6 @@ export default function ProgressPage() {
             </Card>
           );
         })}
-          </div>
-        )}
       </div>
 
       {/* Share Modal */}
