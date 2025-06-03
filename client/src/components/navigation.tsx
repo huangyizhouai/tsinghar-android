@@ -12,7 +12,7 @@ export default function Navigation({ currentPath }: NavigationProps) {
   
   const tabs = [
     {
-      path: "/",
+      path: "/TsingHar",
       label: t('dashboard'),
       icon: <Home className="h-6 w-6" />,
     },

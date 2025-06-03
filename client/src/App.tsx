@@ -28,7 +28,8 @@ function AuthenticatedApp() {
     <div className="flex flex-col min-h-screen bg-background-primary dark text-white">
       <main className="flex-grow overflow-y-auto pb-16">
         <Switch>
-          <Route path="/" component={Dashboard} />
+          <Route path="/" component={() => <Dashboard />} />
+          <Route path="/TsingHar" component={Dashboard} />
           <Route path="/progress" component={Progress} />
           <Route path="/library" component={Library} />
           <Route path="/community" component={Community} />
