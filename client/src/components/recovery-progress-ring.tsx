@@ -20,12 +20,12 @@ export default function RecoveryProgressRing({ days, className = '' }: RecoveryP
   // Calculate stroke-dashoffset based on recovery percentage
   const offset = circumference - (recovery / 100) * circumference;
   
-  // Calculate projected date (1 year from start)
+  // Calculate projected date (90 days from start)
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days); // Get the approximate start date
   
   const projectedDate = new Date(startDate);
-  projectedDate.setDate(projectedDate.getDate() + 365); // 1 year from start
+  projectedDate.setDate(projectedDate.getDate() + 90); // 90 days from start
   
   // Format date as Month DD, YYYY
   const formattedDate = projectedDate.toLocaleDateString(undefined, {
