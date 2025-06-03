@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Apple, Eye, EyeOff, Languages } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import iconNewPath from "/icon_new.png";
 
 
 type LoginData = {
@@ -130,8 +131,12 @@ export default function LoginPage() {
           <div className="flex justify-between items-start mb-4">
             <div className="flex-1"></div>
             <div className="flex-1 flex justify-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-                <span className="text-2xl font-bold text-white">清花</span>
+              <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center p-2">
+                <img 
+                  src={iconNewPath} 
+                  alt="清花 Logo" 
+                  className="w-full h-full object-contain rounded-full"
+                />
               </div>
             </div>
             <div className="flex-1 flex justify-end">
