@@ -168,15 +168,10 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          <div className="space-y-1">
-                            <div>用户名</div>
-                            <div className="text-xs text-gray-500">Username</div>
-                          </div>
-                        </FormLabel>
+                        <FormLabel>{t("username")}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="请输入用户名 / Enter username"
+                            placeholder={t("enterUsername")}
                             {...field}
                             className="h-12"
                           />
@@ -191,17 +186,12 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          <div className="space-y-1">
-                            <div>密码</div>
-                            <div className="text-xs text-gray-500">Password</div>
-                          </div>
-                        </FormLabel>
+                        <FormLabel>{t("password")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder="请输入密码 / Enter password"
+                              placeholder={t("enterPassword")}
                               {...field}
                               className="h-12 pr-10"
                             />
@@ -230,17 +220,7 @@ export default function LoginPage() {
                     className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
                     disabled={loginMutation.isPending}
                   >
-                    {loginMutation.isPending ? (
-                      <div className="space-y-1">
-                        <div>登录中...</div>
-                        <div className="text-xs opacity-80">Logging in...</div>
-                      </div>
-                    ) : (
-                      <div className="space-y-1">
-                        <div>登录</div>
-                        <div className="text-xs opacity-80">Login</div>
-                      </div>
-                    )}
+                    {loginMutation.isPending ? t("loggingIn") : t("login")}
                   </Button>
                 </form>
               </Form>
@@ -255,15 +235,10 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          <div className="space-y-1">
-                            <div>用户名</div>
-                            <div className="text-xs text-gray-500">Username</div>
-                          </div>
-                        </FormLabel>
+                        <FormLabel>{t("username")}</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="请输入用户名 / Enter username"
+                            placeholder={t("enterUsername")}
                             {...field}
                             className="h-12"
                           />
@@ -278,16 +253,11 @@ export default function LoginPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          <div className="space-y-1">
-                            <div>邮箱 (可选)</div>
-                            <div className="text-xs text-gray-500">Email (Optional)</div>
-                          </div>
-                        </FormLabel>
+                        <FormLabel>{t("email")} ({t("optional")})</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="请输入邮箱 / Enter email"
+                            placeholder={t("enterEmail")}
                             {...field}
                             className="h-12"
                           />
@@ -302,17 +272,12 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          <div className="space-y-1">
-                            <div>密码</div>
-                            <div className="text-xs text-gray-500">Password</div>
-                          </div>
-                        </FormLabel>
+                        <FormLabel>{t("password")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder="请输入密码 / Enter password"
+                              placeholder={t("enterPassword")}
                               {...field}
                               className="h-12 pr-10"
                             />
@@ -341,17 +306,7 @@ export default function LoginPage() {
                     className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
                     disabled={signupMutation.isPending}
                   >
-                    {signupMutation.isPending ? (
-                      <div className="space-y-1">
-                        <div>创建账户中...</div>
-                        <div className="text-xs opacity-80">Creating account...</div>
-                      </div>
-                    ) : (
-                      <div className="space-y-1">
-                        <div>创建账户</div>
-                        <div className="text-xs opacity-80">Create Account</div>
-                      </div>
-                    )}
+                    {signupMutation.isPending ? t("creatingAccount") : t("createAccount")}
                   </Button>
                 </form>
               </Form>
