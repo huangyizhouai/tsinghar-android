@@ -31,6 +31,7 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Progress metrics
     days: 'Days',
+    daysSingle: 'Day',
     hours: 'Hours',
     minutes: 'Minutes',
     
@@ -244,6 +245,7 @@ export const translations: Record<Language, Record<string, string>> = {
     primaryGoal: 'Primary Goal',
     memberSince: 'Member Since',
     unknown: 'Unknown',
+    milestonesTitle: 'Milestones',
     
     // Journal page
     reasonsCount: 'reasons',
