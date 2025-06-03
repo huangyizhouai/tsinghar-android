@@ -47,8 +47,23 @@ export default function Analytics() {
   ];
 
   // Recovery benefits progress
+  const { language } = useLanguage();
+  
+  // Map English benefit names to Chinese translations
+  const benefitTranslations: Record<string, string> = {
+    "Improved Confidence": "自信心提升",
+    "Mental Clarity": "思维清晰", 
+    "Better Sleep": "睡眠改善",
+    "Increased Productivity": "工作效率提升",
+    "Enhanced Energy": "精力充沛",
+    "Better Social Connections": "社交关系改善",
+    "Emotional Stability": "情感稳定",
+    "Improved Focus": "专注力提升"
+  };
+  
   const benefitsData = progress?.map(item => ({
     name: item.benefit,
+    nameZh: benefitTranslations[item.benefit] || item.benefit,
     value: item.percentage,
     color: item.percentage > 75 ? '#22c55e' : item.percentage > 50 ? '#3b82f6' : '#f59e0b'
   })) || [];
@@ -203,7 +218,12 @@ export default function Analytics() {
               {benefitsData.map((benefit, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-white">{benefit.name}</span>
+                    <div className="flex flex-col">
+                      <span className="text-white">{language === 'zh' ? benefit.nameZh : benefit.name}</span>
+                      {language === 'zh' && (
+                        <span className="text-gray-400 text-xs">{benefit.name}</span>
+                      )}
+                    </div>
                     <span className="text-gray-300">{benefit.value}%</span>
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
