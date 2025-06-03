@@ -144,6 +144,11 @@ export default function Dashboard() {
               <span className="mr-2">📊</span> {t('analytics')}
             </button>
           </Link>
+          
+          {/* Panic Button */}
+          <div className="w-full mt-4">
+            <PanicButton onClick={() => setShowPanicModal(true)} />
+          </div>
         </div>
         
         {/* Todo Card */}
@@ -204,7 +209,7 @@ export default function Dashboard() {
 
         {/* Mindfulness Resources */}
         <h2 className="font-medium text-lg mb-4 text-text-primary">{t('mindfulnessResources')}</h2>
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-2 gap-4 mb-8">
           <ToolCard 
             icon={<Waves className="h-6 w-6 text-text-primary" />}
             title={t('breathing')}
@@ -219,11 +224,6 @@ export default function Dashboard() {
             bgColor="bg-primary-dark"
             path="/community"
           />
-        </div>
-
-        {/* Panic Button */}
-        <div className="mb-8">
-          <PanicButton onClick={() => setShowPanicModal(true)} />
         </div>
 
         {/* Success Stories Section */}
