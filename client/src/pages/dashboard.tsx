@@ -144,11 +144,6 @@ export default function Dashboard() {
               <span className="mr-2">📊</span> {t('analytics')}
             </button>
           </Link>
-          
-          {/* Panic Button */}
-          <div className="w-full mt-4">
-            <PanicButton onClick={() => setShowPanicModal(true)} />
-          </div>
         </div>
         
         {/* Todo Card */}
@@ -281,6 +276,11 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Fixed Panic Button - positioned above bottom navigation */}
+      <div className="fixed bottom-20 left-0 right-0 px-4 z-40">
+        <PanicButton onClick={() => setShowPanicModal(true)} />
       </div>
 
       {/* Panic Modal */}
