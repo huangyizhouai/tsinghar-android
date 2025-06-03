@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Apple, Eye, EyeOff } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
-import splashImage from "@assets/splash3.png";
+
 
 type LoginData = {
   username: string;
@@ -109,12 +109,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${splashImage})` }}
-      >
-        <div className="absolute inset-0 bg-black/20" />
+      {/* Beautiful Purple Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
+        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-transparent to-purple-800/30" />
+        {/* Subtle animated background elements */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-400/10 rounded-full blur-xl animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400/10 rounded-full blur-2xl animate-pulse delay-1000" />
       </div>
 
       {/* Login Card */}
