@@ -204,7 +204,7 @@ export default function Dashboard() {
 
         {/* Mindfulness Resources */}
         <h2 className="font-medium text-lg mb-4 text-text-primary">{t('mindfulnessResources')}</h2>
-        <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-2 gap-4 mb-4">
           <ToolCard 
             icon={<Waves className="h-6 w-6 text-text-primary" />}
             title={t('breathing')}
@@ -222,7 +222,7 @@ export default function Dashboard() {
         </div>
 
         {/* Panic Button */}
-        <div className="mt-4 mb-8">
+        <div className="mb-8">
           <PanicButton onClick={() => setShowPanicModal(true)} />
         </div>
 
