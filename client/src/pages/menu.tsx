@@ -1,21 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
-import { User, BookText, BarChart2, HelpCircle, Settings } from "lucide-react";
+import { User, BookText, BarChart2, HelpCircle, Settings, LogOut, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/ui/section-header";
 import BreathingExercise from "@/components/breathing-exercise";
 import { motivationalQuotes } from "@/lib/data";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Menu() {
   const { t } = useLanguage();
+  const { user, logout, isLoggingOut } = useAuth();
   const { data: streak } = useQuery<{ currentStreak: number }>({
     queryKey: ['/api/streak'],
   });
   
   // Get a random quote
   const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+  
+  // Format join date
+  const formatJoinDate = (dateString?: string) => {
+    if (!dateString) return t('unknown');
+    return new Date(dateString).toLocaleDateString();
+  };
   
   // Menu items
   const menuItems = [
@@ -57,13 +66,49 @@ export default function Menu() {
 
       {/* User Profile */}
       <Card className="bg-background-card rounded-xl mb-6">
-        <CardContent className="p-6 flex items-center">
-          <div className="bg-primary text-white text-base rounded-full w-12 h-12 flex items-center justify-center mr-4">
-            JD
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="bg-primary text-white text-base rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <div>
+                <h2 className="font-medium text-lg text-text-primary">
+                  {user?.username || t('unknown')}
+                </h2>
+                <p className="text-text-secondary">
+                  {streak?.currentStreak || 0} {t('daysSingle')} {t('streak')}
+                </p>
+                {user?.email && (
+                  <p className="text-xs text-text-secondary">{user.email}</p>
+                )}
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              disabled={isLoggingOut}
+              className="text-text-secondary hover:text-red-500"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
-          <div>
-            <h2 className="font-medium text-lg text-text-primary">John Doe</h2>
-            <p className="text-text-secondary">{streak?.currentStreak || 0} Day Streak</p>
+          
+          {/* Account Stats */}
+          <div className="mt-4 pt-4 border-t border-gray-700 grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <p className="text-sm text-text-secondary">{t('memberSince')}</p>
+              <p className="text-sm font-medium text-text-primary">
+                {formatJoinDate(user?.joinDate)}
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-text-secondary">{t('bestStreak')}</p>
+              <p className="text-sm font-medium text-text-primary">
+                {user?.streakRecord || 0} {t('days')}
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
