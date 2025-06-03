@@ -330,7 +330,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get user profile
   app.get("/api/profile", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const userId = (req.session as any)?.userId;
+      if (!userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+      
       const user = await storage.getUser(userId);
       
       if (!user) {
@@ -346,7 +350,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Update user profile
   app.put("/api/profile", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const userId = (req.session as any)?.userId;
+      if (!userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+      
       const { age, gender, location, recoveryGoal } = req.body;
       
       const updatedUser = await storage.updateUser(userId, {
@@ -358,6 +366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json(updatedUser);
     } catch (error) {
+      console.error("Profile update error:", error);
       res.status(500).json({ message: "Failed to update profile" });
     }
   });
