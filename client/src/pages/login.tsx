@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { Apple, Eye, EyeOff } from "lucide-react";
+import { Apple, Eye, EyeOff, Languages } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 
 
@@ -29,9 +29,13 @@ type SignupData = {
 export default function LoginPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'zh' ? 'en' : 'zh');
+  };
 
   const loginForm = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
@@ -121,9 +125,23 @@ export default function LoginPage() {
       {/* Login Card */}
       <Card className="w-full max-w-md bg-white/95 backdrop-blur-sm shadow-2xl relative z-10">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto mb-4">
-            <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
-              <span className="text-2xl font-bold text-white">清花</span>
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1"></div>
+            <div className="flex-1 flex justify-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+                <span className="text-2xl font-bold text-white">清花</span>
+              </div>
+            </div>
+            <div className="flex-1 flex justify-end">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleLanguage}
+                className="text-gray-500 hover:text-gray-700 p-2"
+              >
+                <Languages className="h-5 w-5" />
+                <span className="ml-1 text-xs">{language === 'zh' ? 'EN' : '中'}</span>
+              </Button>
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-gray-900">
@@ -150,10 +168,15 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("username")}</FormLabel>
+                        <FormLabel>
+                          <div className="space-y-1">
+                            <div>用户名</div>
+                            <div className="text-xs text-gray-500">Username</div>
+                          </div>
+                        </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={t("enterUsername")}
+                            placeholder="请输入用户名 / Enter username"
                             {...field}
                             className="h-12"
                           />
@@ -168,12 +191,17 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("password")}</FormLabel>
+                        <FormLabel>
+                          <div className="space-y-1">
+                            <div>密码</div>
+                            <div className="text-xs text-gray-500">Password</div>
+                          </div>
+                        </FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder={t("enterPassword")}
+                              placeholder="请输入密码 / Enter password"
                               {...field}
                               className="h-12 pr-10"
                             />
@@ -202,7 +230,17 @@ export default function LoginPage() {
                     className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
                     disabled={loginMutation.isPending}
                   >
-                    {loginMutation.isPending ? t("loggingIn") : t("login")}
+                    {loginMutation.isPending ? (
+                      <div className="space-y-1">
+                        <div>登录中...</div>
+                        <div className="text-xs opacity-80">Logging in...</div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <div>登录</div>
+                        <div className="text-xs opacity-80">Login</div>
+                      </div>
+                    )}
                   </Button>
                 </form>
               </Form>
@@ -217,10 +255,15 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("username")}</FormLabel>
+                        <FormLabel>
+                          <div className="space-y-1">
+                            <div>用户名</div>
+                            <div className="text-xs text-gray-500">Username</div>
+                          </div>
+                        </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={t("enterUsername")}
+                            placeholder="请输入用户名 / Enter username"
                             {...field}
                             className="h-12"
                           />
@@ -235,11 +278,16 @@ export default function LoginPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("email")} ({t("optional")})</FormLabel>
+                        <FormLabel>
+                          <div className="space-y-1">
+                            <div>邮箱 (可选)</div>
+                            <div className="text-xs text-gray-500">Email (Optional)</div>
+                          </div>
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder={t("enterEmail")}
+                            placeholder="请输入邮箱 / Enter email"
                             {...field}
                             className="h-12"
                           />
@@ -254,12 +302,17 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("password")}</FormLabel>
+                        <FormLabel>
+                          <div className="space-y-1">
+                            <div>密码</div>
+                            <div className="text-xs text-gray-500">Password</div>
+                          </div>
+                        </FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder={t("enterPassword")}
+                              placeholder="请输入密码 / Enter password"
                               {...field}
                               className="h-12 pr-10"
                             />
@@ -288,7 +341,17 @@ export default function LoginPage() {
                     className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium"
                     disabled={signupMutation.isPending}
                   >
-                    {signupMutation.isPending ? t("creatingAccount") : t("createAccount")}
+                    {signupMutation.isPending ? (
+                      <div className="space-y-1">
+                        <div>创建账户中...</div>
+                        <div className="text-xs opacity-80">Creating account...</div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <div>创建账户</div>
+                        <div className="text-xs opacity-80">Create Account</div>
+                      </div>
+                    )}
                   </Button>
                 </form>
               </Form>
