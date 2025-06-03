@@ -237,6 +237,13 @@ export const translations: Record<Language, Record<string, string>> = {
     appInformation: 'App Information',
     version: 'Version',
     buildDate: 'Build Date',
+    audioSettings: 'Audio Settings',
+    successStories: 'Success Stories',
+    recoveryGoals: 'Recovery Goals',
+    accountStatistics: 'Account Statistics',
+    primaryGoal: 'Primary Goal',
+    memberSince: 'Member Since',
+    unknown: 'Unknown',
     
     // Journal page
     reasonsCount: 'reasons',
@@ -489,6 +496,13 @@ export const translations: Record<Language, Record<string, string>> = {
     appInformation: '应用信息',
     version: '版本',
     buildDate: '构建日期',
+    audioSettings: '音效设置',
+    successStories: '成功故事',
+    recoveryGoals: '恢复目标',
+    accountStatistics: '账户统计',
+    primaryGoal: '主要目标',
+    memberSince: '注册时间',
+    unknown: '未知',
     
     // Journal page
     reasonsCount: '个理由',
