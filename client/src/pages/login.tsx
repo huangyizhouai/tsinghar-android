@@ -109,12 +109,13 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Beautiful Purple Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
-        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-transparent to-purple-800/30" />
-        {/* Subtle animated background elements */}
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-purple-400/10 rounded-full blur-xl animate-pulse" />
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400/10 rounded-full blur-2xl animate-pulse delay-1000" />
+      {/* Exact Purple Gradient Background matching the reference image */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-600 via-purple-700 to-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-purple-800/40 to-slate-800/60" />
+        {/* Subtle texture overlay to match the reference */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-400/10 via-transparent to-purple-900/20" />
+        </div>
       </div>
 
       {/* Login Card */}
