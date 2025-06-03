@@ -123,7 +123,7 @@ export default function LoginPage() {
       </div>
 
       {/* Login Card */}
-      <Card className="w-full max-w-md bg-white/95 backdrop-blur-sm shadow-2xl relative z-10">
+      <Card className="w-full max-w-md bg-transparent border-none shadow-none relative z-10">
         <CardHeader className="text-center pb-2">
           <div className="flex justify-between items-start mb-4">
             <div className="flex-1"></div>
@@ -144,10 +144,10 @@ export default function LoginPage() {
               </Button>
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">
+          <CardTitle className="text-2xl font-bold text-white">
             {t("welcome")}
           </CardTitle>
-          <CardDescription className="text-gray-600">
+          <CardDescription className="text-white/80">
             {t("loginDescription")}
           </CardDescription>
         </CardHeader>
@@ -168,12 +168,12 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("username")}</FormLabel>
+                        <FormLabel className="text-white">{t("username")}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t("enterUsername")}
                             {...field}
-                            className="h-12"
+                            className="h-12 bg-black/20 border-white/30 text-white placeholder:text-white/60"
                           />
                         </FormControl>
                         <FormMessage />
@@ -186,14 +186,14 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("password")}</FormLabel>
+                        <FormLabel className="text-white">{t("password")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
                               placeholder={t("enterPassword")}
                               {...field}
-                              className="h-12 pr-10"
+                              className="h-12 pr-10 bg-black/20 border-white/30 text-white placeholder:text-white/60"
                             />
                             <Button
                               type="button"
@@ -203,9 +203,9 @@ export default function LoginPage() {
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-gray-500" />
+                                <EyeOff className="h-4 w-4 text-white/70" />
                               ) : (
-                                <Eye className="h-4 w-4 text-gray-500" />
+                                <Eye className="h-4 w-4 text-white/70" />
                               )}
                             </Button>
                           </div>
@@ -235,12 +235,12 @@ export default function LoginPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("username")}</FormLabel>
+                        <FormLabel className="text-white">{t("username")}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t("enterUsername")}
                             {...field}
-                            className="h-12"
+                            className="h-12 bg-black/20 border-white/30 text-white placeholder:text-white/60"
                           />
                         </FormControl>
                         <FormMessage />
@@ -253,13 +253,13 @@ export default function LoginPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("email")} ({t("optional")})</FormLabel>
+                        <FormLabel className="text-white">{t("email")} ({t("optional")})</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder={t("enterEmail")}
                             {...field}
-                            className="h-12"
+                            className="h-12 bg-black/20 border-white/30 text-white placeholder:text-white/60"
                           />
                         </FormControl>
                         <FormMessage />
@@ -272,14 +272,14 @@ export default function LoginPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("password")}</FormLabel>
+                        <FormLabel className="text-white">{t("password")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
                               placeholder={t("enterPassword")}
                               {...field}
-                              className="h-12 pr-10"
+                              className="h-12 pr-10 bg-black/20 border-white/30 text-white placeholder:text-white/60"
                             />
                             <Button
                               type="button"
@@ -289,9 +289,9 @@ export default function LoginPage() {
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-gray-500" />
+                                <EyeOff className="h-4 w-4 text-white/70" />
                               ) : (
-                                <Eye className="h-4 w-4 text-gray-500" />
+                                <Eye className="h-4 w-4 text-white/70" />
                               )}
                             </Button>
                           </div>
@@ -316,10 +316,10 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-gray-300" />
+              <span className="w-full border-t border-white/30" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-gray-500">{t("orContinueWith")}</span>
+              <span className="bg-transparent px-2 text-white/70">{t("orContinueWith")}</span>
             </div>
           </div>
 
@@ -327,7 +327,7 @@ export default function LoginPage() {
           <Button
             onClick={handleAppleLogin}
             variant="outline"
-            className="w-full h-12 border-gray-300 hover:bg-gray-50"
+            className="w-full h-12 border-white/30 hover:bg-white/10 text-white bg-black/20"
           >
             <Apple className="w-5 h-5 mr-2" />
             {t("continueWithApple")}
