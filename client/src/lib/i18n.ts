@@ -210,7 +210,7 @@ export const translations: Record<Language, Record<string, string>> = {
     personalInformation: 'Personal Information',
     basicInformation: 'Basic Information',
     journeyStats: 'Journey Statistics',
-    username: 'Username',
+    usernameLabel: 'Username',
     age: 'Age',
     gender: 'Gender',
     location: 'Location',

@@ -3,7 +3,9 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
+import LoginPage from "@/pages/login";
 
 import Dashboard from "@/pages/dashboard";
 import Progress from "@/pages/progress";
@@ -19,7 +21,7 @@ import AnalyticsPage from "@/pages/analytics";
 import HelpPage from "@/pages/help";
 import Navigation from "@/components/navigation";
 
-function Router() {
+function AuthenticatedApp() {
   const [location] = useLocation();
   
   return (
@@ -45,6 +47,27 @@ function Router() {
       <Navigation currentPath={location} />
     </div>
   );
+}
+
+function Router() {
+  const { isAuthenticated, isLoading } = useAuth();
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background-primary dark text-white">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
+  
+  return <AuthenticatedApp />;
 }
 
 function App() {
