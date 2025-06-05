@@ -86,7 +86,7 @@ export default function PrivacyPolicyModal({ trigger }: PrivacyPolicyModalProps)
             • We reserve the right to suspend accounts for violations
 
             Contact Information:
-            For questions about this policy, contact us at: support@tsinghar.app
+            For questions about this policy, contact us at: contact@huangyizhouai.cn
           `
         }
       ]
@@ -155,7 +155,7 @@ export default function PrivacyPolicyModal({ trigger }: PrivacyPolicyModalProps)
             • 我们保留因违规而暂停账户的权利
 
             联系信息：
-            有关此政策的问题，请联系我们：support@tsinghar.app
+            有关此政策的问题，请联系我们：contact@huangyizhouai.cn
           `
         }
       ]

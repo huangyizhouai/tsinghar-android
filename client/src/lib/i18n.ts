@@ -666,7 +666,6 @@ export const translations: Record<Language, Record<string, string>> = {
     undo: '撤销',
     add: '添加',
     confirm: '确认',
-    close: '关闭',
     start: '开始',
     stop: '停止',
     pause: '暂停',
