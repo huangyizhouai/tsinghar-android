@@ -271,10 +271,14 @@ export const translations: Record<Language, Record<string, string>> = {
     successStories: 'Success Stories',
     recoveryGoals: 'Recovery Goals',
     accountStatistics: 'Account Statistics',
+    accountActions: 'Account Actions',
     primaryGoal: 'Primary Goal',
     memberSince: 'Member Since',
     unknown: 'Unknown',
     milestonesTitle: 'Milestones',
+    confirmLogout: 'Confirm Logout',
+    logoutConfirmationDesc: 'Are you sure you want to log out? You will need to sign in again to access your account.',
+    loggingOut: 'Logging out...',
     
     // Journal page
     reasonsCount: 'reasons',
@@ -561,9 +565,13 @@ export const translations: Record<Language, Record<string, string>> = {
     successStories: '成功故事',
     recoveryGoals: '恢复目标',
     accountStatistics: '账户统计',
+    accountActions: '账户操作',
     primaryGoal: '主要目标',
     memberSince: '注册时间',
     unknown: '未知',
+    confirmLogout: '确认登出',
+    logoutConfirmationDesc: '您确定要登出吗？您需要重新登录才能访问您的账户。',
+    loggingOut: '正在登出...',
     
     // Journal page
     reasonsCount: '个理由',

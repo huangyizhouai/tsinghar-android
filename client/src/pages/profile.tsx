@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { User, Edit, Save, Calendar, MapPin, Target } from "lucide-react";
+import { User, Edit, Save, Calendar, MapPin, Target, LogOut } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { queryClient } from "@/lib/queryClient";
 import Navigation from "@/components/navigation";
@@ -8,6 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface UserProfile {
   id: number;
@@ -65,6 +76,32 @@ export default function ProfilePage() {
       });
     },
   });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error('Failed to logout');
+      return response.json();
+    },
+    onSuccess: () => {
+      // Clear all queries and cached data
+      queryClient.clear();
+      // Redirect to login page
+      window.location.href = '/login';
+    },
+    onError: () => {
+      // Even if logout fails on server, clear local data and redirect
+      queryClient.clear();
+      window.location.href = '/login';
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   const handleEdit = () => {
     if (profile) {
@@ -270,6 +307,45 @@ export default function ProfilePage() {
               <span className="text-text-secondary">{t('bestStreak')}</span>
               <span className="text-text-primary">{profile?.streakRecord || 0} {t('days')}</span>
             </div>
+          </div>
+        </div>
+
+        {/* Account Actions */}
+        <div className="bg-background-card p-6 rounded-xl shadow-lg">
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('accountActions')}</h2>
+          
+          <div className="space-y-4">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="w-full flex items-center justify-center border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                  disabled={logoutMutation.isPending}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  {logoutMutation.isPending ? t('loggingOut') : t('logout')}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-background-card border-background-primary">
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-text-primary">{t('confirmLogout')}</AlertDialogTitle>
+                  <AlertDialogDescription className="text-text-secondary">
+                    {t('logoutConfirmationDesc')}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel className="border-background-primary text-text-secondary">
+                    {t('cancel')}
+                  </AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-600 text-white"
+                  >
+                    {t('logout')}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </div>
