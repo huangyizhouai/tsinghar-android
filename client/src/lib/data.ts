@@ -454,7 +454,7 @@ export const leaderboardUsers: LeaderboardUser[] = [
     id: 1,
     name: "J.",
     initials: "J",
-    streak: 739350,
+    streak: 456,
     rank: 1,
     isCurrentUser: false
   },
@@ -462,7 +462,7 @@ export const leaderboardUsers: LeaderboardUser[] = [
     id: 2,
     name: "No Nut Final Boss",
     initials: "NN",
-    streak: 739349, 
+    streak: 387, 
     rank: 2,
     isCurrentUser: false
   },
@@ -470,7 +470,7 @@ export const leaderboardUsers: LeaderboardUser[] = [
     id: 3,
     name: "NoFapKing123",
     initials: "NK",
-    streak: 739348,
+    streak: 312,
     rank: 3,
     isCurrentUser: false
   },
