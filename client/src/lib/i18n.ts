@@ -279,6 +279,11 @@ export const translations: Record<Language, Record<string, string>> = {
     confirmLogout: 'Confirm Logout',
     logoutConfirmationDesc: 'Are you sure you want to log out? You will need to sign in again to access your account.',
     loggingOut: 'Logging out...',
+    loginRequired: 'Login Required',
+    loginRequiredDesc: 'Please log in to access {feature}.',
+    privacyPolicy: 'Privacy Policy & Terms',
+    privacyPolicyAndTerms: 'Privacy Policy & Terms of Service',
+    lastUpdated: 'Last Updated',
     
     // Journal page
     reasonsCount: 'reasons',
