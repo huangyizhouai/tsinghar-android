@@ -50,8 +50,30 @@ function AuthenticatedApp() {
   );
 }
 
+function PublicApp() {
+  const [location] = useLocation();
+  
+  return (
+    <div className="flex flex-col min-h-screen bg-background-primary dark text-white">
+      <main className="flex-grow overflow-y-auto pb-16">
+        <Switch>
+          <Route path="/" component={() => <Library />} />
+          <Route path="/library" component={Library} />
+          <Route path="/community" component={Community} />
+          <Route path="/help" component={HelpPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      
+      <Navigation currentPath={location} />
+    </div>
+  );
+}
+
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
+  const [location] = useLocation();
   
   if (isLoading) {
     return (
@@ -64,11 +86,19 @@ function Router() {
     );
   }
   
-  if (!isAuthenticated) {
+  // Protected routes that require authentication
+  const protectedRoutes = ['/TsingHar', '/progress', '/menu', '/achievements', '/reasons', '/profile', '/settings', '/journal', '/analytics'];
+  const isProtectedRoute = protectedRoutes.includes(location);
+  
+  if (!isAuthenticated && isProtectedRoute) {
     return <LoginPage />;
   }
   
-  return <AuthenticatedApp />;
+  if (isAuthenticated) {
+    return <AuthenticatedApp />;
+  }
+  
+  return <PublicApp />;
 }
 
 function App() {

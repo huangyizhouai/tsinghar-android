@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
-import { ArrowLeft, Info, Search, Shield } from "lucide-react";
+import { ArrowLeft, Info, Search, Shield, LogIn } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import SectionHeader from "@/components/ui/section-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Leaderboard from "@/components/library/leaderboard";
 import CategoryButtons from "@/components/library/category-buttons";
 import MeditationTrackList from "@/components/library/meditation-track-list";
@@ -16,11 +17,24 @@ import { libraryCategories, meditationTracks } from "@/lib/data";
 import { apiRequest } from "@/lib/queryClient";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/useAuth";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Library() {
   const { t, language } = useLanguage();
+  const { isAuthenticated } = useAuth();
   
   // State
   const [currentView, setCurrentView] = useState("main"); // main, articles, meditate, learn, podcast

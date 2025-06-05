@@ -1,7 +1,8 @@
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
-import { Home, BarChart2, BookOpen, Users, Menu } from "lucide-react";
+import { Home, BarChart2, BookOpen, Users, Menu, LogIn } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/useAuth";
 
 type NavigationProps = {
   currentPath: string;
@@ -9,8 +10,34 @@ type NavigationProps = {
 
 export default function Navigation({ currentPath }: NavigationProps) {
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
   
-  const tabs = [
+  // Public tabs for unauthenticated users
+  const publicTabs = [
+    {
+      path: "/library",
+      label: t('library'),
+      icon: <BookOpen className="h-6 w-6" />,
+    },
+    {
+      path: "/community",
+      label: t('community'),
+      icon: <Users className="h-6 w-6" />,
+    },
+    {
+      path: "/help",
+      label: t('help'),
+      icon: <Menu className="h-6 w-6" />,
+    },
+    {
+      path: "/login",
+      label: t('login'),
+      icon: <LogIn className="h-6 w-6" />,
+    },
+  ];
+
+  // Full tabs for authenticated users
+  const authenticatedTabs = [
     {
       path: "/TsingHar",
       label: t('dashboard'),
@@ -37,6 +64,8 @@ export default function Navigation({ currentPath }: NavigationProps) {
       icon: <Menu className="h-6 w-6" />,
     },
   ];
+  
+  const tabs = isAuthenticated ? authenticatedTabs : publicTabs;
 
   return (
     <>
