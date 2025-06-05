@@ -476,9 +476,9 @@ export const leaderboardUsers: LeaderboardUser[] = [
   },
   {
     id: 4,
-    name: "John Doe",
-    initials: "JD",
-    streak: 2,
+    name: "TsingHar",
+    initials: "TH",
+    streak: 5,
     rank: 356,
     isCurrentUser: true
   }
