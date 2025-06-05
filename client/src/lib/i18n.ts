@@ -284,6 +284,7 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Privacy Policy & Terms',
     privacyPolicyAndTerms: 'Privacy Policy & Terms of Service',
     lastUpdated: 'Last Updated',
+    close: 'Close',
     
     // Journal page
     reasonsCount: 'reasons',
@@ -577,6 +578,12 @@ export const translations: Record<Language, Record<string, string>> = {
     confirmLogout: '确认登出',
     logoutConfirmationDesc: '您确定要登出吗？您需要重新登录才能访问您的账户。',
     loggingOut: '正在登出...',
+    loginRequired: '需要登录',
+    loginRequiredDesc: '请登录以访问{feature}。',
+    privacyPolicy: '隐私政策与条款',
+    privacyPolicyAndTerms: '隐私政策与服务条款',
+    lastUpdated: '最后更新',
+    close: '关闭',
     
     // Journal page
     reasonsCount: '个理由',

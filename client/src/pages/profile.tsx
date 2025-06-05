@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { User, Edit, Save, Calendar, MapPin, Target, LogOut } from "lucide-react";
+import { User, Edit, Save, Calendar, MapPin, Target, LogOut, ScrollText } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { queryClient } from "@/lib/queryClient";
 import Navigation from "@/components/navigation";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import PrivacyPolicyModal from "@/components/privacy-policy-modal";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -315,6 +316,18 @@ export default function ProfilePage() {
           <h2 className="text-lg font-semibold text-text-primary mb-4">{t('accountActions')}</h2>
           
           <div className="space-y-4">
+            <PrivacyPolicyModal
+              trigger={
+                <Button 
+                  variant="outline" 
+                  className="w-full flex items-center justify-center border-background-primary text-text-primary hover:bg-background-primary"
+                >
+                  <ScrollText className="h-4 w-4 mr-2" />
+                  {t('privacyPolicy')}
+                </Button>
+              }
+            />
+            
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button 
