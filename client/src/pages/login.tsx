@@ -107,6 +107,28 @@ export default function LoginPage() {
   };
 
   const onLoginSubmit = (data: LoginData) => {
+    // Direct test account bypass for mobile testing
+    if (data.username === "test" && data.password === "test123") {
+      // Bypass validation and directly call the API
+      apiRequest("POST", "/api/auth/login", data)
+        .then(response => response.json())
+        .then(() => {
+          toast({
+            title: t("success"),
+            description: t("loginSuccessful"),
+          });
+          window.location.href = "/TsingHar";
+        })
+        .catch(error => {
+          toast({
+            title: t("error"),
+            description: error.message || t("loginFailed"),
+            variant: "destructive",
+          });
+        });
+      return;
+    }
+    
     loginMutation.mutate(data);
   };
 
@@ -175,12 +197,39 @@ export default function LoginPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => {
+                    // Direct login for test account without form validation
+                    apiRequest("POST", "/api/auth/login", { username: "test", password: "test123" })
+                      .then(response => response.json())
+                      .then(() => {
+                        toast({
+                          title: t("success"),
+                          description: t("loginSuccessful"),
+                        });
+                        window.location.href = "/TsingHar";
+                      })
+                      .catch(error => {
+                        toast({
+                          title: t("error"),
+                          description: error.message || t("loginFailed"),
+                          variant: "destructive",
+                        });
+                      });
+                  }}
+                  className="w-full bg-green-600/20 border-green-400/50 text-green-200 hover:bg-green-600/30"
+                >
+                  {language === 'zh' ? '直接登录测试账户' : 'Direct Test Login'}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
                     loginForm.setValue("username", "test");
                     loginForm.setValue("password", "test123");
                   }}
-                  className="w-full bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
+                  className="w-full mt-2 bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
                 >
-                  {language === 'zh' ? '使用测试账户' : 'Use Test Account'}
+                  {language === 'zh' ? '填充测试凭据' : 'Fill Test Credentials'}
                 </Button>
                 <p className="text-xs text-white/60 mt-1 text-center">
                   {language === 'zh' ? '测试凭据: test / test123' : 'Test credentials: test / test123'}
