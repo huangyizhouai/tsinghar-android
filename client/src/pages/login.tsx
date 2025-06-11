@@ -219,18 +219,7 @@ export default function LoginPage() {
                 >
                   {language === 'zh' ? '直接登录测试账户' : 'Direct Test Login'}
                 </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    loginForm.setValue("username", "test");
-                    loginForm.setValue("password", "test123");
-                  }}
-                  className="w-full mt-2 bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
-                >
-                  {language === 'zh' ? '填充测试凭据' : 'Fill Test Credentials'}
-                </Button>
+
                 <p className="text-xs text-white/60 mt-1 text-center">
                   {language === 'zh' ? '测试凭据: test / test123' : 'Test credentials: test / test123'}
                 </p>
