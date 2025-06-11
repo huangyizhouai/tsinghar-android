@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.company.quittr',
-  appName: 'QUITTR',
+  appId: 'ai.hzdc.tsinghar',
+  appName: 'TsingHar',
   webDir: 'dist/public',
   ios: {
     contentInset: 'automatic',
