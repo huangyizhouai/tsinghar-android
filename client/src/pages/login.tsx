@@ -168,6 +168,25 @@ export default function LoginPage() {
 
             {/* Login Tab */}
             <TabsContent value="login" className="space-y-4">
+              {/* Test Account Button */}
+              <div className="mb-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    loginForm.setValue("username", "test");
+                    loginForm.setValue("password", "test123");
+                  }}
+                  className="w-full bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
+                >
+                  {language === 'zh' ? '使用测试账户' : 'Use Test Account'}
+                </Button>
+                <p className="text-xs text-white/60 mt-1 text-center">
+                  {language === 'zh' ? '测试凭据: test / test123' : 'Test credentials: test / test123'}
+                </p>
+              </div>
+
               <Form {...loginForm}>
                 <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-4">
                   <FormField
