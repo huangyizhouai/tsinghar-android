@@ -129,6 +129,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Skip login endpoint for Xcode testing
+  app.post("/api/auth/skip-login", async (req, res) => {
+    try {
+      // Create test session without validation
+      (req.session as any).userId = 999;
+      
+      res.json({ 
+        success: true, 
+        user: { 
+          id: 999, 
+          username: "test", 
+          email: "test@example.com" 
+        } 
+      });
+    } catch (error) {
+      console.error("Skip login error:", error);
+      res.status(500).json({ success: false, message: "Skip login failed" });
+    }
+  });
+
   app.get("/api/auth/user", async (req, res) => {
     const userId = (req.session as any)?.userId;
     if (!userId) {

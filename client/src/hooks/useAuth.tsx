@@ -23,6 +23,12 @@ export function useAuth() {
   const { data: user, isLoading, error } = useQuery({
     queryKey: ["/api/auth/user"],
     queryFn: async () => {
+      // Check for local test user first
+      const testUser = localStorage.getItem('testUser');
+      if (testUser) {
+        return JSON.parse(testUser);
+      }
+      
       try {
         const response = await apiRequest("GET", "/api/auth/user");
         if (!response.ok) {
@@ -41,6 +47,9 @@ export function useAuth() {
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
+      // Clear local test user if exists
+      localStorage.removeItem('testUser');
+      
       const response = await apiRequest("POST", "/api/auth/logout");
       return await response.json();
     },

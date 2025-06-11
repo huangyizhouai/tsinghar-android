@@ -202,38 +202,59 @@ export default function LoginPage() {
 
             {/* Login Tab */}
             <TabsContent value="login" className="space-y-4">
-              {/* Test Account Button */}
-              <div className="mb-4">
+              {/* Skip Login for Testing */}
+              <div className="mb-4 space-y-2">
                 <Button
                   type="button"
                   variant="outline"
+                  size="lg"
+                  onClick={() => {
+                    // Use dedicated skip login endpoint
+                    fetch('/api/auth/skip-login', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      }
+                    })
+                    .then(response => response.json())
+                    .then(() => {
+                      window.location.href = "/TsingHar";
+                    })
+                    .catch(() => {
+                      // Fallback to local test mode
+                      localStorage.setItem('testUser', JSON.stringify({
+                        id: 999,
+                        username: 'test',
+                        email: 'test@example.com'
+                      }));
+                      window.location.href = "/TsingHar";
+                    });
+                  }}
+                  className="w-full h-14 bg-emerald-600/30 border-emerald-400/60 text-emerald-100 hover:bg-emerald-600/40 text-lg font-medium"
+                >
+                  {language === 'zh' ? '跳过登录 (测试)' : 'Skip Login (Test)'}
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant="outline" 
                   size="sm"
                   onClick={() => {
-                    // Direct mobile login endpoint without any validation
-                    apiRequest("POST", "/api/auth/mobile-login", { username: "test", password: "test123" })
-                      .then(response => response.json())
-                      .then(() => {
-                        toast({
-                          title: t("success"),
-                          description: t("loginSuccessful"),
-                        });
-                        window.location.href = "/TsingHar";
-                      })
-                      .catch(error => {
-                        toast({
-                          title: t("error"),
-                          description: error.message || t("loginFailed"),
-                          variant: "destructive",
-                        });
-                      });
+                    // Create test session directly in browser storage
+                    localStorage.setItem('testUser', JSON.stringify({
+                      id: 999,
+                      username: 'test',
+                      email: 'test@example.com'
+                    }));
+                    window.location.href = "/TsingHar";
                   }}
-                  className="w-full bg-green-600/20 border-green-400/50 text-green-200 hover:bg-green-600/30"
+                  className="w-full bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
                 >
-                  {language === 'zh' ? '直接登录测试账户' : 'Direct Test Login'}
+                  {language === 'zh' ? '本地测试模式' : 'Local Test Mode'}
                 </Button>
 
-                <p className="text-xs text-white/60 mt-1 text-center">
-                  {language === 'zh' ? '测试凭据: test / test123' : 'Test credentials: test / test123'}
+                <p className="text-xs text-white/60 text-center">
+                  {language === 'zh' ? 'Xcode 开发者测试专用' : 'For Xcode Developer Testing'}
                 </p>
               </div>
 
