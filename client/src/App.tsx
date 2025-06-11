@@ -57,11 +57,11 @@ function PublicApp() {
     <div className="flex flex-col min-h-screen bg-background-primary dark text-white">
       <main className="flex-grow overflow-y-auto pb-16">
         <Switch>
-          <Route path="/" component={() => <Library />} />
+          <Route path="/" component={() => <LoginPage />} />
+          <Route path="/login" component={LoginPage} />
           <Route path="/library" component={Library} />
           <Route path="/community" component={Community} />
           <Route path="/help" component={HelpPage} />
-          <Route path="/login" component={LoginPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

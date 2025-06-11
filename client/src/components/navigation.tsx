@@ -12,8 +12,13 @@ export default function Navigation({ currentPath }: NavigationProps) {
   const { t } = useLanguage();
   const { isAuthenticated } = useAuth();
   
-  // Public tabs for unauthenticated users
+  // Public tabs for unauthenticated users - Login moved to the left
   const publicTabs = [
+    {
+      path: "/login",
+      label: t('login'),
+      icon: <LogIn className="h-6 w-6" />,
+    },
     {
       path: "/library",
       label: t('library'),
@@ -28,11 +33,6 @@ export default function Navigation({ currentPath }: NavigationProps) {
       path: "/help",
       label: t('help'),
       icon: <Menu className="h-6 w-6" />,
-    },
-    {
-      path: "/login",
-      label: t('login'),
-      icon: <LogIn className="h-6 w-6" />,
     },
   ];
 
