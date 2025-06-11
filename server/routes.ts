@@ -38,6 +38,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { username, password } = loginSchema.parse(req.body);
       
+      // Hardcoded test account for development/testing
+      if (username === "test" && password === "test123") {
+        (req.session as any).userId = 999; // Special test user ID
+        return res.json({ 
+          success: true, 
+          user: { 
+            id: 999, 
+            username: "test",
+            email: "test@example.com" 
+          } 
+        });
+      }
+      
       const user = await storage.getUserByUsername(username);
       if (!user || user.password !== password) {
         return res.status(401).json({ message: "Invalid credentials" });
@@ -98,6 +111,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
+    // Handle test account
+    if (userId === 999) {
+      return res.json({ 
+        id: 999, 
+        username: "test",
+        email: "test@example.com" 
+      });
+    }
+
     try {
       const user = await storage.getUser(userId);
       if (!user) {
@@ -119,7 +141,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get current user streak
   app.get("/api/streak", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const sessionUserId = (req.session as any)?.userId;
+      
+      // Handle test account
+      if (sessionUserId === 999) {
+        return res.json({
+          id: 1,
+          userId: 999,
+          currentStreak: 5,
+          startDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+          updatedAt: new Date().toISOString()
+        });
+      }
+      
+      const userId = sessionUserId || 1; // Default user for backwards compatibility
       const streak = await storage.getStreak(userId);
       
       if (!streak) {
@@ -333,6 +368,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = (req.session as any)?.userId;
       if (!userId) {
         return res.status(401).json({ message: "Not authenticated" });
+      }
+      
+      // Handle test account
+      if (userId === 999) {
+        return res.json({
+          id: 999,
+          username: "test",
+          email: "test@example.com",
+          password: "test123",
+          age: 25,
+          gender: "Male",
+          location: "Test City",
+          recoveryGoal: "Testing the app",
+          joinDate: new Date().toISOString(),
+          streakRecord: 10
+        });
       }
       
       const user = await storage.getUser(userId);
