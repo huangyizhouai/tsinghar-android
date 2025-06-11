@@ -33,10 +33,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     },
   }));
 
+  // Mobile-specific login endpoint without validation
+  app.post("/api/auth/mobile-login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      // Direct test account check without any schema validation
+      if (username === "test" && password === "test123") {
+        (req.session as any).userId = 999;
+        return res.json({ 
+          success: true, 
+          user: { 
+            id: 999, 
+            username: "test",
+            email: "test@example.com" 
+          } 
+        });
+      }
+      
+      return res.status(401).json({ message: "Invalid credentials" });
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+
   // Authentication routes
   app.post("/api/auth/login", async (req, res) => {
     try {
-      const { username, password } = loginSchema.parse(req.body);
+      const { username, password } = req.body;
       
       // Hardcoded test account for development/testing
       if (username === "test" && password === "test123") {

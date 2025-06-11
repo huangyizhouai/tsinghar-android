@@ -101,9 +101,10 @@ export const insertUserSchema = createInsertSchema(users).pick({
   recoveryGoal: true,
 });
 
+// Basic login schema for mobile compatibility
 export const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  username: z.string(),
+  password: z.string(),
 });
 
 export const signupSchema = z.object({

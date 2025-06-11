@@ -197,8 +197,8 @@ export default function LoginPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    // Direct login for test account without form validation
-                    apiRequest("POST", "/api/auth/login", { username: "test", password: "test123" })
+                    // Direct mobile login endpoint without any validation
+                    apiRequest("POST", "/api/auth/mobile-login", { username: "test", password: "test123" })
                       .then(response => response.json())
                       .then(() => {
                         toast({
