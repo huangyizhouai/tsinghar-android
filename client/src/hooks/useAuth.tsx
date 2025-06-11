@@ -25,19 +25,18 @@ export function useAuth() {
     queryFn: async () => {
       try {
         const response = await apiRequest("GET", "/api/auth/user");
-        return await response.json();
-      } catch (error: any) {
-        if (error.message?.includes("401") || error.message?.includes("Unauthorized")) {
+        if (!response.ok) {
           return null;
         }
-        // For other errors, also return null to avoid infinite loading
-        console.warn("Auth check failed:", error);
+        return await response.json();
+      } catch (error: any) {
         return null;
       }
     },
     retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    staleTime: Infinity,
   });
 
   const logoutMutation = useMutation({

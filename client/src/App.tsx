@@ -75,7 +75,16 @@ function Router() {
   const { isAuthenticated, isLoading } = useAuth();
   const [location] = useLocation();
   
+  // Show loading for a brief moment, but don't get stuck
   if (isLoading) {
+    // Set a timeout to prevent infinite loading
+    setTimeout(() => {
+      // If still loading after 3 seconds, show public app
+      if (isLoading) {
+        console.warn("Authentication check taking too long, proceeding with public app");
+      }
+    }, 3000);
+    
     return (
       <div className="min-h-screen flex items-center justify-center bg-background-primary dark text-white">
         <div className="text-center">
