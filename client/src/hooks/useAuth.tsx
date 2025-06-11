@@ -27,13 +27,17 @@ export function useAuth() {
         const response = await apiRequest("GET", "/api/auth/user");
         return await response.json();
       } catch (error: any) {
-        if (error.message?.includes("401")) {
+        if (error.message?.includes("401") || error.message?.includes("Unauthorized")) {
           return null;
         }
-        throw error;
+        // For other errors, also return null to avoid infinite loading
+        console.warn("Auth check failed:", error);
+        return null;
       }
     },
     retry: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 
   const logoutMutation = useMutation({
