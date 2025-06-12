@@ -18,6 +18,7 @@ import { apiRequest } from "@/lib/queryClient";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
 import { useAuth } from "@/hooks/useAuth";
+import { articles, getArticlesByCategory, getAllCategories, getAllCategoriesZh } from "@/data/articles";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
@@ -234,76 +235,95 @@ export default function Library() {
     </>
   );
   
-  const renderArticlesView = () => (
-    <>
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center">
-          <button onClick={handleBackToMain} className="mr-3">
-            <ArrowLeft className="h-6 w-6 text-text-primary" />
+  const renderArticlesView = () => {
+    const categories = language === 'zh' ? getAllCategoriesZh() : getAllCategories();
+    
+    return (
+      <>
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center">
+            <button onClick={handleBackToMain} className="mr-3">
+              <ArrowLeft className="h-6 w-6 text-text-primary" />
+            </button>
+            <h1 className="font-bold text-2xl text-text-primary">{language === 'zh' ? '文章' : 'Articles'}</h1>
+          </div>
+          <button 
+            onClick={() => showInfoModal(
+              language === 'zh' ? '文章' : 'Articles', 
+              language === 'zh' ? '阅读专业康复文章，获得科学的指导和支持。' : 'Read professional recovery articles for scientific guidance and support.'
+            )}
+          >
+            <Info className="h-6 w-6 text-text-primary" />
           </button>
-          <h1 className="font-bold text-2xl text-text-primary">{t('articlesTitle')}</h1>
         </div>
-        <button 
-          onClick={() => showInfoModal(
-            t('articlesTitle'), 
-            t('articlesDescription')
-          )}
-        >
-          <Info className="h-6 w-6 text-text-primary" />
-        </button>
-      </div>
-      
-      {/* Articles Content */}
-      {getFilteredCategories().map((category) => (
-        <div key={category.id} className="mb-6">
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="font-medium text-text-primary">
-              {language === 'zh' && category.nameZh ? category.nameZh : category.name}
-            </h2>
-            <span className="text-xs text-text-secondary">
-              {getCategoryCompletionPercentage(category.id)}% {t('complete')}
-            </span>
-          </div>
+        
+        {/* Articles Content */}
+        {categories.map((categoryName) => {
+          const categoryArticles = getArticlesByCategory(categoryName);
+          const completedCount = categoryArticles.filter(article => 
+            completedArticles.includes(article.id)
+          ).length;
+          const completionPercentage = categoryArticles.length > 0 
+            ? Math.round((completedCount / categoryArticles.length) * 100) 
+            : 0;
           
-          <div className="overflow-x-auto pb-2">
-            <div className="flex space-x-4" style={{ minWidth: "min-content" }}>
-              {category.articles.map((article) => {
-                const completed = isArticleCompleted(article.id);
-                
-                return (
-                  <Card 
-                    key={article.id}
-                    className="bg-background-card rounded-xl min-w-[220px]"
-                  >
-                    {article.imageUrl && (
-                      <img src={article.imageUrl} alt={article.title} className="w-full h-28 object-cover" />
-                    )}
-                    <CardContent className="p-4">
-                      <div className="flex justify-between items-center mb-3">
-                        <button
-                          onClick={() => showArticleContent(article)}
-                          className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors"
-                        >
-                          {language === 'zh' ? '阅读文章' : 'Read Article'}
-                        </button>
-                        <span className="text-text-secondary text-xs">{article.readTime} min</span>
-                      </div>
-                      <h3 className="font-medium text-text-primary mb-2">
-                        {language === 'zh' && article.titleZh ? article.titleZh : article.title}
-                      </h3>
-                      <p className="text-xs text-text-secondary">
-                        {language === 'zh' && article.descriptionZh ? article.descriptionZh : article.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+          return (
+            <div key={categoryName} className="mb-6">
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="font-medium text-text-primary">
+                  {categoryName}
+                </h2>
+                <span className="text-xs text-text-secondary">
+                  {completionPercentage}% {language === 'zh' ? '完成' : 'complete'}
+                </span>
+              </div>
+              
+              <div className="overflow-x-auto pb-2">
+                <div className="flex space-x-4" style={{ minWidth: "min-content" }}>
+                  {categoryArticles.map((article) => {
+                    const completed = completedArticles.includes(article.id);
+                    
+                    return (
+                      <Card 
+                        key={article.id}
+                        className="bg-background-card rounded-xl min-w-[220px]"
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-center mb-3">
+                            <Link to={`/article/${article.id}`}>
+                              <button
+                                className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors"
+                              >
+                                {language === 'zh' ? '阅读文章' : 'Read Article'}
+                              </button>
+                            </Link>
+                            <span className="text-text-secondary text-xs">{article.duration} min</span>
+                          </div>
+                          <h3 className="font-medium text-text-primary mb-2">
+                            {language === 'zh' ? article.titleZh : article.title}
+                          </h3>
+                          <p className="text-xs text-text-secondary">
+                            {language === 'zh' ? article.descriptionZh : article.description}
+                          </p>
+                          {completed && (
+                            <div className="mt-2">
+                              <Badge variant="secondary" className="text-xs">
+                                {language === 'zh' ? '已完成' : 'Completed'}
+                              </Badge>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </>
-  );
+          );
+        })}
+      </>
+    );
+  };
   
   const renderMeditateView = () => (
     <>
