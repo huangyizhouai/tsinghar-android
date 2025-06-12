@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
+import { filterContent, checkForSelfHarm, getContentWarning } from "@/lib/content-filter";
 
 export default function Community() {
   const { t } = useLanguage();
@@ -66,6 +67,30 @@ export default function Community() {
       toast({
         title: t('error'),
         description: t('titleContentRequired'),
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Content filtering before posting
+    const titleFilter = filterContent(newPostTitle);
+    const contentFilter = filterContent(newPostContent);
+    
+    if (!titleFilter.isClean || !contentFilter.isClean) {
+      const violations = [...titleFilter.violations, ...contentFilter.violations];
+      toast({
+        title: t('contentBlocked') || 'Content Blocked',
+        description: getContentWarning(t('language') as 'en' | 'zh', violations),
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check for self-harm content
+    if (checkForSelfHarm(newPostContent)) {
+      toast({
+        title: t('supportAvailable') || 'Support Available',
+        description: t('selfHarmDetected') || 'We detected concerning content. Please reach out for support if you need help.',
         variant: "destructive"
       });
       return;

@@ -63,6 +63,85 @@ async function initDb() {
       console.log("TsingHar user already exists, skipping initialization.");
     }
 
+    // Create Apple Review Demo Account
+    const [demoUser] = await db.select().from(users).where(eq(users.username, "apple_reviewer"));
+    
+    if (!demoUser) {
+      console.log("Creating Apple Review demo account...");
+      const [user] = await db.insert(users).values({
+        username: "apple_reviewer",
+        password: "Demo2025!",
+        email: "demo@tsinghar.app"
+      }).returning();
+      
+      const userId = user.id;
+      
+      // Create streak for demo account - show active usage
+      await db.insert(streaks).values({
+        userId,
+        startDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+        currentStreak: 15,
+        bestStreak: 30,
+        lastUpdated: new Date()
+      });
+      
+      // Add sample reasons for demo
+      await db.insert(reasons).values([
+        { userId, title: "Mental Health", description: "I want to improve my mental health and focus", createdAt: new Date() },
+        { userId, title: "Family", description: "Building better relationships with family", createdAt: new Date() },
+        { userId, title: "Self-Control", description: "Developing self-discipline and control", createdAt: new Date() }
+      ]);
+      
+      // Add milestones for demo account
+      await db.insert(milestones).values([
+        { userId, days: 1, achieved: true, achievedDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000) },
+        { userId, days: 3, achieved: true, achievedDate: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000) },
+        { userId, days: 7, achieved: true, achievedDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000) },
+        { userId, days: 14, achieved: true, achievedDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) },
+        { userId, days: 21, achieved: false, achievedDate: null },
+        { userId, days: 30, achieved: false, achievedDate: null },
+        { userId, days: 60, achieved: false, achievedDate: null },
+        { userId, days: 90, achieved: false, achievedDate: null }
+      ]);
+
+      // Add sample forum posts to demonstrate UGC features
+      const [post1] = await db.insert(forumPosts).values({
+        userId,
+        title: "My journey to 15 days - sharing hope",
+        content: "I wanted to share my progress with everyone. The first week was tough, but having this community support makes all the difference. Keep going everyone!",
+        upvotes: 12,
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+      }).returning();
+
+      const [post2] = await db.insert(forumPosts).values({
+        userId,
+        title: "Tips that helped me get through difficult moments",
+        content: "1. Take deep breaths and count to 10\n2. Go for a walk outside\n3. Call a friend or family member\n4. Practice gratitude - write down 3 things you're thankful for\n\nThese simple techniques have been game-changers for me.",
+        upvotes: 8,
+        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+      }).returning();
+
+      // Add sample comments
+      await db.insert(forumComments).values([
+        {
+          postId: post1.id,
+          userId,
+          content: "Thank you all for the support! This community is amazing.",
+          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+        },
+        {
+          postId: post2.id,
+          userId,
+          content: "The breathing technique really works. I use it every day now.",
+          createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000)
+        }
+      ]);
+
+      console.log("Demo account created with sample content for Apple reviewers");
+    } else {
+      console.log("Apple Review demo account already exists.");
+    }
+
     // Check if default user exists
     const [defaultUser] = await db.select().from(users).where(eq(users.username, "default"));
     
