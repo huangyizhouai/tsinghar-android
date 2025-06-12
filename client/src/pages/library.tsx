@@ -286,31 +286,63 @@ export default function Library() {
                     return (
                       <Link key={article.id} to={`/article/${article.id}`}>
                         <Card 
-                          className="bg-background-card rounded-xl min-w-[220px] cursor-pointer hover:bg-background-card/80 transition-colors"
+                          className="bg-slate-800/80 rounded-xl min-w-[220px] cursor-pointer hover:bg-slate-700/80 transition-all duration-200 border border-slate-700/50 hover:border-slate-600/50 shadow-lg hover:shadow-xl"
                         >
-                          {/* Article Image Placeholder */}
-                          <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-primary/10 rounded-t-xl flex items-center justify-center">
-                            <div className="text-primary/60 text-4xl font-bold">
-                              {(language === 'zh' ? article.titleZh : article.title).charAt(0)}
+                          {/* Article Preview Image */}
+                          <div className={`w-full h-32 rounded-t-xl flex items-center justify-center relative overflow-hidden ${
+                            // Different gradients for different articles
+                            article.id === 'neuroscience' ? 'bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-700' :
+                            article.id === 'myths' ? 'bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700' :
+                            article.id === 'triggers' ? 'bg-gradient-to-br from-orange-600 via-red-600 to-pink-700' :
+                            article.id === 'physical' ? 'bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700' :
+                            article.id === 'emotional' ? 'bg-gradient-to-br from-rose-600 via-pink-600 to-purple-700' :
+                            article.id === 'mindfulness' ? 'bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700' :
+                            article.id === 'recovery-plan' ? 'bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700' :
+                            article.id === 'community' ? 'bg-gradient-to-br from-amber-600 via-orange-600 to-red-700' :
+                            'bg-gradient-to-br from-slate-600 via-gray-600 to-zinc-700'
+                          }`}>
+                            {/* Background Pattern */}
+                            <div className="absolute inset-0 opacity-10">
+                              <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-white/20"></div>
+                              <div className="absolute top-8 right-4 w-4 h-4 rounded-full bg-white/15"></div>
+                              <div className="absolute bottom-4 left-6 w-6 h-6 rounded-full bg-white/10"></div>
+                              <div className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-white/5"></div>
+                            </div>
+                            
+                            {/* Article Icon/Symbol */}
+                            <div className="text-white text-5xl font-bold z-10 drop-shadow-lg">
+                              {article.id === 'neuroscience' && '🧠'}
+                              {article.id === 'myths' && '💭'}
+                              {article.id === 'triggers' && '🎯'}
+                              {article.id === 'physical' && '💪'}
+                              {article.id === 'emotional' && '❤️'}
+                              {article.id === 'mindfulness' && '🧘'}
+                              {article.id === 'recovery-plan' && '📋'}
+                              {article.id === 'community' && '🤝'}
+                              {!['neuroscience', 'myths', 'triggers', 'physical', 'emotional', 'mindfulness', 'recovery-plan', 'community'].includes(article.id) && 
+                                <span className="text-white/90 text-3xl">
+                                  {(language === 'zh' ? article.titleZh : article.title).charAt(0)}
+                                </span>
+                              }
                             </div>
                           </div>
                           
-                          <CardContent className="p-4">
+                          <CardContent className="p-4 bg-slate-800/50">
                             <div className="flex justify-between items-center mb-3">
-                              <span className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary">
+                              <span className="text-xs rounded px-3 py-1 bg-blue-600/20 text-blue-300 border border-blue-500/30">
                                 {language === 'zh' ? '阅读文章' : 'Read Article'}
                               </span>
-                              <span className="text-text-secondary text-xs">{article.duration} min</span>
+                              <span className="text-slate-400 text-xs font-medium">{article.duration} min</span>
                             </div>
-                            <h3 className="font-medium text-text-primary mb-2">
+                            <h3 className="font-semibold text-white mb-2 text-base leading-tight">
                               {language === 'zh' ? article.titleZh : article.title}
                             </h3>
-                            <p className="text-xs text-text-secondary line-clamp-3">
+                            <p className="text-sm text-slate-300 line-clamp-3 leading-relaxed">
                               {language === 'zh' ? article.descriptionZh : article.description}
                             </p>
                             {completed && (
-                              <div className="mt-2">
-                                <Badge variant="secondary" className="text-xs">
+                              <div className="mt-3">
+                                <Badge className="text-xs bg-green-600/20 text-green-300 border border-green-500/30 hover:bg-green-600/30">
                                   {language === 'zh' ? '已完成' : 'Completed'}
                                 </Badge>
                               </div>
