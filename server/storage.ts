@@ -51,6 +51,9 @@ export interface IStorage {
   // Article progress methods
   getArticleProgress(userId: number): Promise<ArticleProgress[]>;
   markArticleCompleted(userId: number, articleId: string): Promise<ArticleProgress>;
+
+  // Account deletion method
+  deleteUserData(userId: number): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -324,6 +327,18 @@ export class DatabaseStorage implements IStorage {
       .returning();
     
     return newProgress;
+  }
+
+  async deleteUserData(userId: number): Promise<void> {
+    // Delete in correct order to avoid foreign key constraints
+    await db.delete(articleProgress).where(eq(articleProgress.userId, userId));
+    await db.delete(progress).where(eq(progress.userId, userId));
+    await db.delete(milestones).where(eq(milestones.userId, userId));
+    await db.delete(forumComments).where(eq(forumComments.userId, userId));
+    await db.delete(forumPosts).where(eq(forumPosts.userId, userId));
+    await db.delete(reasons).where(eq(reasons.userId, userId));
+    await db.delete(streaks).where(eq(streaks.userId, userId));
+    await db.delete(users).where(eq(users.id, userId));
   }
 }
 

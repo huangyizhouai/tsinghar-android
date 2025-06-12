@@ -594,6 +594,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete user account
+  app.delete("/api/user/delete", async (req, res) => {
+    try {
+      const sessionUserId = (req.session as any)?.userId;
+      
+      if (!sessionUserId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+      
+      // Prevent deletion of demo accounts
+      if (sessionUserId === 999 || sessionUserId === 4) {
+        return res.status(403).json({ message: "Demo accounts cannot be deleted" });
+      }
+      
+      // Delete user data in the correct order to avoid foreign key constraints
+      await storage.deleteUserData(sessionUserId);
+      
+      // Clear the session
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Error destroying session:", err);
+        }
+      });
+      
+      res.json({ message: "Account deleted successfully" });
+    } catch (error) {
+      console.error("Failed to delete account:", error);
+      res.status(500).json({ message: "Failed to delete account" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
