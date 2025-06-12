@@ -2,14 +2,19 @@
 
 ## Demo Account for Apple Reviewers
 
+### Option 1: Direct Login
 **Username:** `apple_reviewer`  
 **Password:** `Demo2025!`
+
+### Option 2: One-Click Demo Access (Recommended)
+Use the **"Apple Review Demo Account"** button on the login page for instant access without entering credentials.
 
 This demo account includes:
 - 15-day active streak with pre-populated data
 - Sample forum posts demonstrating UGC features
 - Completed milestones showing progress tracking
 - Personal recovery reasons and goals
+- Full access to all app features
 
 ## App Overview
 
@@ -64,10 +69,10 @@ Located in Help > Safety tab:
 
 ## Login & Navigation
 
-For testing without account creation:
-- "Skip Login (Test)" button creates temporary session
-- "Local Test Mode" for offline development testing
-- Regular login with demo credentials works fully
+Three testing options available:
+- **"Apple Review Demo Account"** button - One-click access to full demo account with 15-day progress
+- "Skip Login (Test)" button - Creates temporary 5-day progress session
+- Regular login with demo credentials (apple_reviewer / Demo2025!)
 
 ## Logout Bug Fix
 

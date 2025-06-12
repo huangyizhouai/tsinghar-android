@@ -211,7 +211,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const sessionUserId = (req.session as any)?.userId;
       
-      // Handle test account
+      // Handle test account (Skip Login button)
       if (sessionUserId === 999) {
         return res.json({
           id: 1,
@@ -219,6 +219,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           currentStreak: 5,
           startDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
           updatedAt: new Date().toISOString()
+        });
+      }
+      
+      // Handle Apple reviewer account (both server session and local test mode)
+      if (sessionUserId === 4) {
+        return res.json({
+          id: 3,
+          userId: 4,
+          currentStreak: 15,
+          startDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+          bestStreak: 30,
+          lastUpdated: new Date().toISOString()
         });
       }
       

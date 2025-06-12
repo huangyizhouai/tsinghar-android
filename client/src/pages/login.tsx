@@ -240,21 +240,21 @@ export default function LoginPage() {
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    // Create test session directly in browser storage
+                    // Create Apple reviewer session directly in browser storage
                     localStorage.setItem('testUser', JSON.stringify({
-                      id: 999,
-                      username: 'test',
-                      email: 'test@example.com'
+                      id: 4,
+                      username: 'apple_reviewer',
+                      email: 'demo@tsinghar.app'
                     }));
                     window.location.href = "/TsingHar";
                   }}
                   className="w-full bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
                 >
-                  {language === 'zh' ? '本地测试模式' : 'Local Test Mode'}
+                  {language === 'zh' ? 'Apple 审核演示账户' : 'Apple Review Demo Account'}
                 </Button>
 
                 <p className="text-xs text-white/60 text-center">
-                  {language === 'zh' ? 'Xcode 开发者测试专用' : 'For Xcode Developer Testing'}
+                  {language === 'zh' ? '15天进度 | 预填充内容' : '15-day progress | Pre-populated content'}
                 </p>
               </div>
 
