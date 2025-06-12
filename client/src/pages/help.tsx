@@ -7,7 +7,7 @@ import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function Help() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const successStories = [
     {
@@ -100,7 +100,7 @@ export default function Help() {
           <TabsTrigger value="success" className="text-xs">{t('helpSuccessStories')}</TabsTrigger>
           <TabsTrigger value="how" className="text-xs">{t('howItWorks')}</TabsTrigger>
           <TabsTrigger value="features" className="text-xs">{t('appFeatures')}</TabsTrigger>
-          <TabsTrigger value="safety" className="text-xs">{t('language') === 'zh' ? '安全政策' : 'Safety'}</TabsTrigger>
+          <TabsTrigger value="safety" className="text-xs">{language === 'zh' ? '安全政策' : 'Safety'}</TabsTrigger>
         </TabsList>
 
         {/* Success Stories Tab */}
@@ -288,10 +288,10 @@ export default function Help() {
         <TabsContent value="safety" className="space-y-4 mt-6">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold text-text-primary mb-2">
-              {t('language') === 'zh' ? '社区安全政策' : 'Community Safety Policy'}
+              {language === 'zh' ? '社区安全政策' : 'Community Safety Policy'}
             </h2>
             <p className="text-text-secondary">
-              {t('language') === 'zh' 
+              {language === 'zh' 
                 ? '我们致力于为所有用户创造安全的环境' 
                 : 'We are committed to creating a safe environment for all users'}
             </p>
@@ -300,10 +300,10 @@ export default function Help() {
           <Card className="bg-red-900/20 border-red-500/30 rounded-xl">
             <CardContent className="p-6">
               <h3 className="font-semibold text-red-200 mb-3">
-                {t('language') === 'zh' ? '内容审核承诺' : 'Content Moderation Commitment'}
+                {language === 'zh' ? '内容审核承诺' : 'Content Moderation Commitment'}
               </h3>
               <p className="text-red-100 text-sm leading-relaxed mb-4">
-                {t('language') === 'zh' 
+                {language === 'zh' 
                   ? '我们不容忍令人反感的内容。用户可以举报帖子，屏蔽滥用账户，我们将在24小时内删除违规内容。任何违反社区准则的行为将导致账户被暂停或永久禁止。'
                   : 'We do not tolerate objectionable content. Users can report posts, block abusive accounts, and we remove violating content within 24 hours. Any violation of community guidelines will result in account suspension or permanent ban.'
                 }
@@ -315,13 +315,13 @@ export default function Help() {
             <Card className="bg-background-card rounded-xl">
               <CardContent className="p-6">
                 <h3 className="font-semibold text-text-primary mb-3">
-                  {t('language') === 'zh' ? '用户安全工具' : 'User Safety Tools'}
+                  {language === 'zh' ? '用户安全工具' : 'User Safety Tools'}
                 </h3>
                 <div className="space-y-3 text-sm text-text-secondary">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <span>
-                      {t('language') === 'zh' 
+                      {language === 'zh' 
                         ? '举报滥用内容 - 长按任何帖子可举报不当内容'
                         : 'Report Abuse - Long press any post to report inappropriate content'}
                     </span>
@@ -329,7 +329,7 @@ export default function Help() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <span>
-                      {t('language') === 'zh' 
+                      {language === 'zh' 
                         ? '屏蔽用户 - 从用户资料页面屏蔽不当行为的用户'
                         : 'Block Users - Block users with inappropriate behavior from their profile page'}
                     </span>
@@ -337,7 +337,7 @@ export default function Help() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <span>
-                      {t('language') === 'zh' 
+                      {language === 'zh' 
                         ? '自动内容过滤 - 系统自动检测和过滤不当语言'
                         : 'Automatic Content Filtering - System automatically detects and filters inappropriate language'}
                     </span>
@@ -345,7 +345,7 @@ export default function Help() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <span>
-                      {t('language') === 'zh' 
+                      {language === 'zh' 
                         ? '24小时审核 - 我们在24小时内处理所有举报'
                         : '24-Hour Moderation - We review all reports within 24 hours'}
                     </span>
@@ -357,14 +357,14 @@ export default function Help() {
             <Card className="bg-background-card rounded-xl">
               <CardContent className="p-6">
                 <h3 className="font-semibold text-text-primary mb-3">
-                  {t('language') === 'zh' ? '社区准则' : 'Community Guidelines'}
+                  {language === 'zh' ? '社区准则' : 'Community Guidelines'}
                 </h3>
                 <div className="space-y-2 text-sm text-text-secondary">
-                  <p>• {t('language') === 'zh' ? '禁止骚扰、仇恨言论或威胁行为' : 'No harassment, hate speech, or threatening behavior'}</p>
-                  <p>• {t('language') === 'zh' ? '禁止垃圾信息或重复发布' : 'No spam or repetitive posting'}</p>
-                  <p>• {t('language') === 'zh' ? '禁止非法或有害内容' : 'No illegal or harmful content'}</p>
-                  <p>• {t('language') === 'zh' ? '尊重他人隐私和观点' : 'Respect others\' privacy and viewpoints'}</p>
-                  <p>• {t('language') === 'zh' ? '保持积极支持的环境' : 'Maintain a positive and supportive environment'}</p>
+                  <p>• {language === 'zh' ? '禁止骚扰、仇恨言论或威胁行为' : 'No harassment, hate speech, or threatening behavior'}</p>
+                  <p>• {language === 'zh' ? '禁止垃圾信息或重复发布' : 'No spam or repetitive posting'}</p>
+                  <p>• {language === 'zh' ? '禁止非法或有害内容' : 'No illegal or harmful content'}</p>
+                  <p>• {language === 'zh' ? '尊重他人隐私和观点' : 'Respect others\' privacy and viewpoints'}</p>
+                  <p>• {language === 'zh' ? '保持积极支持的环境' : 'Maintain a positive and supportive environment'}</p>
                 </div>
               </CardContent>
             </Card>
@@ -372,10 +372,10 @@ export default function Help() {
             <Card className="bg-background-card rounded-xl">
               <CardContent className="p-6">
                 <h3 className="font-semibold text-text-primary mb-3">
-                  {t('language') === 'zh' ? '联系支持' : 'Contact Support'}
+                  {language === 'zh' ? '联系支持' : 'Contact Support'}
                 </h3>
                 <p className="text-sm text-text-secondary">
-                  {t('language') === 'zh' 
+                  {language === 'zh' 
                     ? '如果您遇到任何安全问题或需要帮助，请联系我们的支持团队。我们承诺在24小时内回复所有支持请求。'
                     : 'If you encounter any safety issues or need assistance, please contact our support team. We commit to responding to all support requests within 24 hours.'
                   }
