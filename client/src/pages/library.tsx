@@ -284,36 +284,40 @@ export default function Library() {
                     const completed = isArticleCompleted(article.id);
                     
                     return (
-                      <Card 
-                        key={article.id}
-                        className="bg-background-card rounded-xl min-w-[220px]"
-                      >
-                        <CardContent className="p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <Link to={`/article/${article.id}`}>
-                              <button
-                                className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary hover:bg-background-primary/80 transition-colors"
-                              >
-                                {language === 'zh' ? '阅读文章' : 'Read Article'}
-                              </button>
-                            </Link>
-                            <span className="text-text-secondary text-xs">{article.duration} min</span>
-                          </div>
-                          <h3 className="font-medium text-text-primary mb-2">
-                            {language === 'zh' ? article.titleZh : article.title}
-                          </h3>
-                          <p className="text-xs text-text-secondary">
-                            {language === 'zh' ? article.descriptionZh : article.description}
-                          </p>
-                          {completed && (
-                            <div className="mt-2">
-                              <Badge variant="secondary" className="text-xs">
-                                {language === 'zh' ? '已完成' : 'Completed'}
-                              </Badge>
+                      <Link key={article.id} to={`/article/${article.id}`}>
+                        <Card 
+                          className="bg-background-card rounded-xl min-w-[220px] cursor-pointer hover:bg-background-card/80 transition-colors"
+                        >
+                          {/* Article Image Placeholder */}
+                          <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-primary/10 rounded-t-xl flex items-center justify-center">
+                            <div className="text-primary/60 text-4xl font-bold">
+                              {(language === 'zh' ? article.titleZh : article.title).charAt(0)}
                             </div>
-                          )}
-                        </CardContent>
-                      </Card>
+                          </div>
+                          
+                          <CardContent className="p-4">
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-xs rounded px-3 py-1 bg-background-primary text-text-secondary">
+                                {language === 'zh' ? '阅读文章' : 'Read Article'}
+                              </span>
+                              <span className="text-text-secondary text-xs">{article.duration} min</span>
+                            </div>
+                            <h3 className="font-medium text-text-primary mb-2">
+                              {language === 'zh' ? article.titleZh : article.title}
+                            </h3>
+                            <p className="text-xs text-text-secondary line-clamp-3">
+                              {language === 'zh' ? article.descriptionZh : article.description}
+                            </p>
+                            {completed && (
+                              <div className="mt-2">
+                                <Badge variant="secondary" className="text-xs">
+                                  {language === 'zh' ? '已完成' : 'Completed'}
+                                </Badge>
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </Link>
                     );
                   })}
                 </div>

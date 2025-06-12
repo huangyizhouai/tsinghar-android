@@ -102,92 +102,100 @@ export default function ArticleDetail() {
         </div>
 
         {/* Article Content */}
-        <ScrollArea className="max-h-none">
-          <div className="prose prose-lg max-w-none">
-            <div 
-              className="text-text-primary leading-relaxed space-y-6"
-              style={{
-                lineHeight: '1.8',
-                fontSize: '16px',
-              }}
-            >
-              {content.split('\n\n').map((paragraph, index) => {
-                if (paragraph.startsWith('# ')) {
-                  return (
-                    <h1 key={index} className="text-3xl font-bold text-text-primary mt-8 mb-6">
-                      {paragraph.replace('# ', '')}
-                    </h1>
-                  );
-                } else if (paragraph.startsWith('## ')) {
-                  return (
-                    <h2 key={index} className="text-2xl font-semibold text-text-primary mt-6 mb-4">
-                      {paragraph.replace('## ', '')}
-                    </h2>
-                  );
-                } else if (paragraph.startsWith('### ')) {
-                  return (
-                    <h3 key={index} className="text-xl font-medium text-text-primary mt-5 mb-3">
-                      {paragraph.replace('### ', '')}
-                    </h3>
-                  );
-                } else if (paragraph.startsWith('- ')) {
-                  const items = paragraph.split('\n').filter(line => line.startsWith('- '));
-                  return (
-                    <ul key={index} className="list-disc list-inside space-y-2 ml-4">
-                      {items.map((item, itemIndex) => (
+        <div className="prose prose-lg max-w-none">
+          <div 
+            className="text-text-primary leading-relaxed"
+            style={{
+              lineHeight: '1.7',
+              fontSize: '17px',
+            }}
+          >
+            {content.split('\n\n').map((section, index) => {
+              if (section.startsWith('# ')) {
+                return (
+                  <h1 key={index} className="text-3xl font-bold text-text-primary mt-8 mb-6 first:mt-0">
+                    {section.replace('# ', '')}
+                  </h1>
+                );
+              } else if (section.startsWith('## ')) {
+                return (
+                  <h2 key={index} className="text-2xl font-semibold text-text-primary mt-8 mb-4">
+                    {section.replace('## ', '')}
+                  </h2>
+                );
+              } else if (section.startsWith('### ')) {
+                return (
+                  <h3 key={index} className="text-xl font-medium text-text-primary mt-6 mb-3">
+                    {section.replace('### ', '')}
+                  </h3>
+                );
+              } else if (section.includes('\n- ') || section.startsWith('- ')) {
+                // Handle bullet lists
+                const lines = section.split('\n');
+                const listItems = lines.filter(line => line.startsWith('- '));
+                const beforeList = lines.find(line => !line.startsWith('- ') && line.trim());
+                
+                return (
+                  <div key={index} className="mb-6">
+                    {beforeList && (
+                      <p className="text-text-primary mb-3">{beforeList}</p>
+                    )}
+                    <ul className="list-disc list-inside space-y-2 ml-4">
+                      {listItems.map((item, itemIndex) => (
                         <li key={itemIndex} className="text-text-primary">
                           {item.replace('- ', '')}
                         </li>
                       ))}
                     </ul>
-                  );
-                } else if (paragraph.includes('**') && paragraph.includes(':**')) {
-                  // Handle bold headings with descriptions
-                  const parts = paragraph.split('\n');
-                  return (
-                    <div key={index} className="mb-4">
-                      {parts.map((part, partIndex) => {
-                        if (part.includes('**') && part.includes(':**')) {
-                          const [boldPart, ...rest] = part.split(':**');
-                          const boldText = boldPart.replace(/\*\*/g, '');
-                          return (
-                            <div key={partIndex} className="mb-2">
-                              <span className="font-semibold text-text-primary">
-                                {boldText}:
-                              </span>
-                              <span className="text-text-primary ml-2">
-                                {rest.join(':**')}
-                              </span>
-                            </div>
-                          );
-                        } else if (part.startsWith('- **')) {
-                          const cleanText = part.replace(/- \*\*(.*?)\*\*: ?/g, '• $1: ');
-                          return (
-                            <p key={partIndex} className="text-text-primary ml-4 mb-1">
-                              {cleanText}
-                            </p>
-                          );
-                        }
+                  </div>
+                );
+              } else if (section.includes('**') && section.includes(':**')) {
+                // Handle sections with bold titles and descriptions
+                const lines = section.split('\n').filter(line => line.trim());
+                return (
+                  <div key={index} className="mb-6">
+                    {lines.map((line, lineIndex) => {
+                      if (line.includes('**') && line.includes(':**')) {
+                        const [boldPart, ...rest] = line.split(':**');
+                        const boldText = boldPart.replace(/\*\*/g, '');
                         return (
-                          <p key={partIndex} className="text-text-primary">
-                            {part}
+                          <div key={lineIndex} className="mb-3">
+                            <h4 className="font-semibold text-text-primary inline">
+                              {boldText}:
+                            </h4>
+                            <span className="text-text-primary ml-2">
+                              {rest.join(':**')}
+                            </span>
+                          </div>
+                        );
+                      } else if (line.startsWith('- **')) {
+                        const cleanText = line.replace(/- \*\*(.*?)\*\*: ?/g, '• $1: ');
+                        return (
+                          <p key={lineIndex} className="text-text-primary ml-4 mb-2">
+                            {cleanText}
                           </p>
                         );
-                      })}
-                    </div>
-                  );
-                } else if (paragraph.trim()) {
-                  return (
-                    <p key={index} className="text-text-primary mb-4">
-                      {paragraph}
-                    </p>
-                  );
-                }
-                return null;
-              })}
-            </div>
+                      }
+                      return (
+                        <p key={lineIndex} className="text-text-primary mb-2">
+                          {line}
+                        </p>
+                      );
+                    })}
+                  </div>
+                );
+              } else if (section.trim()) {
+                // Regular paragraphs
+                return (
+                  <p key={index} className="text-text-primary mb-6 leading-relaxed">
+                    {section.trim()}
+                  </p>
+                );
+              }
+              return null;
+            })}
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Complete Article Button */}
         <div className="mt-12 text-center">
