@@ -25,6 +25,7 @@ export interface AchievementBadgeProps {
   color: string;
   glowColor?: string;
   isLocked?: boolean;
+  achieved?: boolean;
   iconKey?: AchievementKey;
   onClick?: () => void;
 }
@@ -39,11 +40,12 @@ export default function AchievementBadge({
   color,
   glowColor = "#7d4dff",
   isLocked = false,
+  achieved = false,
   iconKey,
   onClick
 }: AchievementBadgeProps) {
   const { t } = useLanguage();
-  const isUnlocked = currentDays >= days;
+  const isUnlocked = achieved || currentDays >= days;
   const progress = Math.min(currentDays / days, 1);
   
   return (

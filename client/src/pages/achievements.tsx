@@ -91,7 +91,7 @@ const achievementsList = [
 ];
 
 export default function AchievementsPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [collected, setCollected] = useState(0);
   
@@ -101,17 +101,65 @@ export default function AchievementsPage() {
     staleTime: 1000 * 60 * 5 // 5 minutes
   });
   
+  // Fetch milestones data from API
+  const { data: milestones, isLoading: milestonesLoading } = useQuery<Array<{
+    id: number;
+    userId: number;
+    days: number;
+    achieved: boolean;
+    achievedDate?: string;
+  }>>({
+    queryKey: ['/api/milestones'],
+    staleTime: 1000 * 60 * 5 // 5 minutes
+  });
+  
   const currentDays = streak && 'currentStreak' in streak 
     ? streak.currentStreak 
     : 0;
+
+  // Achievement configs for display styling
+  const achievementConfigs = {
+    1: { name: '种子', enName: 'Seed', color: 'bg-pink-400', glowColor: '#f472b6', iconKey: 'seed' as const },
+    3: { name: '幼芽', enName: 'Sprout', color: 'bg-blue-300', glowColor: '#7dd3fc', iconKey: 'sprout' as const },
+    7: { name: '势头', enName: 'Momentum', color: 'bg-purple-400', glowColor: '#c084fc', iconKey: 'momentum' as const },
+    10: { name: '蚕蛹', enName: 'Silk', color: 'bg-purple-500', glowColor: '#a855f7', iconKey: 'silk' as const },
+    14: { name: '守护者', enName: 'Guardian', color: 'bg-blue-400', glowColor: '#60a5fa', iconKey: 'guardian' as const },
+    21: { name: '和谐', enName: 'Harmony', color: 'bg-indigo-400', glowColor: '#818cf8', iconKey: 'harmony' as const },
+    30: { name: '巅峰', enName: 'Zenith', color: 'bg-amber-400', glowColor: '#fbbf24', iconKey: 'zenith' as const },
+    60: { name: '坚持', enName: 'Persistence', color: 'bg-orange-400', glowColor: '#fb923c', iconKey: 'guardian' as const },
+    90: { name: '完美', enName: 'Perfect', color: 'bg-emerald-400', glowColor: '#34d399', iconKey: 'zenith' as const }
+  };
+
+  // Process API milestones data for display
+  const achievementsList = milestones ? milestones.map(milestone => {
+    const config = achievementConfigs[milestone.days] || {
+      name: `${milestone.days}天`, 
+      enName: `${milestone.days} Days`, 
+      color: 'bg-gray-400', 
+      glowColor: '#9ca3af', 
+      iconKey: 'seed' as const
+    };
+    
+    return {
+      id: milestone.id.toString(),
+      name: config.name,
+      enName: config.enName,
+      description: `${milestone.days}/${milestone.days} ${language === 'zh' ? '天' : 'days'}`,
+      days: milestone.days,
+      color: config.color,
+      glowColor: config.glowColor,
+      iconKey: config.iconKey,
+      achieved: milestone.achieved
+    };
+  }) : [];
   
   // Calculate number of collected achievements
   useEffect(() => {
-    if (currentDays) {
-      const unlocked = achievementsList.filter(a => currentDays >= a.days);
+    if (milestones) {
+      const unlocked = milestones.filter(m => m.achieved);
       setCollected(unlocked.length);
     }
-  }, [currentDays]);
+  }, [milestones]);
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0b0e3f] to-[#020225] p-4 pb-20">
