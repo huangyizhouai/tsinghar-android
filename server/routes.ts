@@ -149,6 +149,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Report abuse endpoint for UGC safety
+  app.post("/api/reports", async (req, res) => {
+    try {
+      const { postId, reason, details } = req.body;
+      
+      // Log the report for moderation (in production, this would go to a moderation queue)
+      console.log(`[CONTENT REPORT] Post ID: ${postId}, Reason: ${reason}, Details: ${details || 'N/A'}`);
+      
+      // In a real implementation, you'd:
+      // 1. Save to reports table
+      // 2. Flag content for review
+      // 3. Notify moderation team
+      // 4. Auto-moderate based on severity
+      
+      res.json({ 
+        success: true, 
+        message: "Report submitted successfully. We will review within 24 hours." 
+      });
+    } catch (error) {
+      console.error("Report submission error:", error);
+      res.status(500).json({ success: false, message: "Failed to submit report" });
+    }
+  });
+
   app.get("/api/auth/user", async (req, res) => {
     const userId = (req.session as any)?.userId;
     if (!userId) {

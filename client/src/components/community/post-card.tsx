@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, MoreVertical, Flag, UserX } from "lucide-react";
 import { formatDistanceToNow } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import ReportAbuseModal from "@/components/report-abuse-modal";
+import BlockUserModal from "@/components/block-user-modal";
+import { useLanguage } from "@/hooks/use-language";
 
 type PostAuthor = {
   name: string;
@@ -34,6 +39,10 @@ type PostCardProps = {
 };
 
 export default function PostCard({ post, onUpvote }: PostCardProps) {
+  const { language } = useLanguage();
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
+  
   // Select a random author if we don't have a matching one
   const postAuthor = authors[post.id] || authors[1];
   
@@ -44,6 +53,14 @@ export default function PostCard({ post, onUpvote }: PostCardProps) {
   const truncatedContent = post.content.length > 120 
     ? post.content.substring(0, 120) + '...' 
     : post.content;
+
+  // Check if user is blocked
+  const blockedUsers = JSON.parse(localStorage.getItem('blockedUsers') || '[]');
+  const isBlocked = blockedUsers.includes(post.userId);
+  
+  if (isBlocked) {
+    return null; // Don't render blocked user's posts
+  }
   
   return (
     <Card className="bg-background-card rounded-xl overflow-hidden">
@@ -65,15 +82,58 @@ export default function PostCard({ post, onUpvote }: PostCardProps) {
               <p className="text-xs text-text-secondary">{postAuthor.streak} Day Streak · {timeAgo}</p>
             </div>
           </div>
-          <button 
-            onClick={onUpvote}
-            className="flex items-center text-text-secondary hover:text-primary transition-colors"
-          >
-            <ArrowUp className="h-5 w-5 mr-1" />
-            <span className="text-xs">{post.upvotes}</span>
-          </button>
+          
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={onUpvote}
+              className="flex items-center text-text-secondary hover:text-primary transition-colors"
+            >
+              <ArrowUp className="h-5 w-5 mr-1" />
+              <span className="text-xs">{post.upvotes}</span>
+            </button>
+            
+            {/* UGC Safety Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-text-secondary hover:text-text-primary">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-background-card border-white/20">
+                <DropdownMenuItem 
+                  onClick={() => setIsReportModalOpen(true)}
+                  className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
+                >
+                  <Flag className="h-4 w-4 mr-2" />
+                  {language === 'zh' ? '举报内容' : 'Report Content'}
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => setIsBlockModalOpen(true)}
+                  className="text-orange-400 hover:text-orange-300 hover:bg-orange-900/20"
+                >
+                  <UserX className="h-4 w-4 mr-2" />
+                  {language === 'zh' ? '屏蔽用户' : 'Block User'}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </CardContent>
+      
+      {/* UGC Safety Modals */}
+      <ReportAbuseModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        postId={post.id}
+        postTitle={post.title}
+      />
+      
+      <BlockUserModal
+        isOpen={isBlockModalOpen}
+        onClose={() => setIsBlockModalOpen(false)}
+        username={postAuthor.name}
+        userId={post.userId}
+      />
     </Card>
   );
 }
