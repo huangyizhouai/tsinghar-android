@@ -47,15 +47,44 @@ export function useAuth() {
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      // Clear local test user if exists
-      localStorage.removeItem('testUser');
-      
-      const response = await apiRequest("POST", "/api/auth/logout");
-      return await response.json();
+      try {
+        // Clear local test user if exists
+        localStorage.removeItem('testUser');
+        
+        // Try to call logout endpoint
+        const response = await apiRequest("POST", "/api/auth/logout");
+        if (response.ok) {
+          return await response.json();
+        } else {
+          // If server logout fails, still proceed with local cleanup
+          console.warn("Server logout failed, proceeding with local cleanup");
+          return { success: true };
+        }
+      } catch (error) {
+        // If network request fails, still proceed with local cleanup
+        console.warn("Network error during logout, proceeding with local cleanup:", error);
+        return { success: true };
+      }
     },
     onSuccess: () => {
+      // Clear all cached data
       queryClient.clear();
-      setLocation("/login");
+      
+      // Clear any other local storage items
+      localStorage.removeItem('testUser');
+      
+      // Force navigation to login page
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 100);
+    },
+    onError: () => {
+      // Even if logout fails, clear local data and redirect
+      queryClient.clear();
+      localStorage.removeItem('testUser');
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 100);
     },
   });
 

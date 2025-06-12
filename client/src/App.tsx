@@ -113,11 +113,29 @@ function Router() {
 }
 
 function App() {
+  const [showTermsModal, setShowTermsModal] = useState(false);
+
+  useEffect(() => {
+    // Check if user has already accepted terms
+    const termsAccepted = localStorage.getItem('termsAccepted');
+    if (!termsAccepted) {
+      setShowTermsModal(true);
+    }
+  }, []);
+
+  const handleTermsAccepted = () => {
+    setShowTermsModal(false);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Router />
+        <TermsAgreementModal 
+          isOpen={showTermsModal} 
+          onAccept={handleTermsAccepted} 
+        />
       </TooltipProvider>
     </QueryClientProvider>
   );
