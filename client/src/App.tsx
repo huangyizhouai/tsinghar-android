@@ -22,6 +22,7 @@ import SettingsPage from "@/pages/settings";
 import JournalPage from "@/pages/journal";
 import AnalyticsPage from "@/pages/analytics";
 import HelpPage from "@/pages/help";
+import ArticleDetail from "@/pages/article-detail";
 import Navigation from "@/components/navigation";
 
 function AuthenticatedApp() {
@@ -67,6 +68,7 @@ function AuthenticatedApp() {
           <Route path="/journal" component={JournalPage} />
           <Route path="/analytics" component={AnalyticsPage} />
           <Route path="/help" component={HelpPage} />
+          <Route path="/article/:id" component={ArticleDetail} />
           <Route component={NotFound} />
         </Switch>
       </main>

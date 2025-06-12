@@ -261,7 +261,7 @@ export default function Library() {
         {categories.map((categoryName) => {
           const categoryArticles = getArticlesByCategory(categoryName);
           const completedCount = categoryArticles.filter(article => 
-            completedArticles.includes(article.id)
+            isArticleCompleted(article.id)
           ).length;
           const completionPercentage = categoryArticles.length > 0 
             ? Math.round((completedCount / categoryArticles.length) * 100) 
@@ -281,7 +281,7 @@ export default function Library() {
               <div className="overflow-x-auto pb-2">
                 <div className="flex space-x-4" style={{ minWidth: "min-content" }}>
                   {categoryArticles.map((article) => {
-                    const completed = completedArticles.includes(article.id);
+                    const completed = isArticleCompleted(article.id);
                     
                     return (
                       <Card 
