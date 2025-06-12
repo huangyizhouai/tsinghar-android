@@ -261,7 +261,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get reasons
   app.get("/api/reasons", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const sessionUserId = (req.session as any)?.userId;
+      
+      // Handle Apple reviewer account with pre-populated reasons
+      if (sessionUserId === 4) {
+        return res.json([
+          { id: 1, userId: 4, title: "Mental Health", description: "I want to improve my mental health and focus", createdAt: new Date() },
+          { id: 2, userId: 4, title: "Family", description: "Building better relationships with family", createdAt: new Date() },
+          { id: 3, userId: 4, title: "Self-Control", description: "Developing self-discipline and control", createdAt: new Date() }
+        ]);
+      }
+      
+      // Handle test account
+      if (sessionUserId === 999) {
+        return res.json([
+          { id: 1, userId: 999, title: "Focus", description: "Improve concentration and mental clarity", createdAt: new Date() },
+          { id: 2, userId: 999, title: "Health", description: "Better overall health and energy", createdAt: new Date() }
+        ]);
+      }
+      
+      const userId = sessionUserId || 1; // Default user for backwards compatibility
       const reasons = await storage.getReasons(userId);
       res.json(reasons);
     } catch (error) {
@@ -384,7 +403,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get milestones
   app.get("/api/milestones", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const sessionUserId = (req.session as any)?.userId;
+      
+      // Handle Apple reviewer account with pre-populated milestones
+      if (sessionUserId === 4) {
+        return res.json([
+          { id: 1, userId: 4, days: 1, achieved: true, achievedDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000) },
+          { id: 2, userId: 4, days: 3, achieved: true, achievedDate: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000) },
+          { id: 3, userId: 4, days: 7, achieved: true, achievedDate: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000) },
+          { id: 4, userId: 4, days: 14, achieved: true, achievedDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) },
+          { id: 5, userId: 4, days: 21, achieved: false, achievedDate: null },
+          { id: 6, userId: 4, days: 30, achieved: false, achievedDate: null },
+          { id: 7, userId: 4, days: 60, achieved: false, achievedDate: null },
+          { id: 8, userId: 4, days: 90, achieved: false, achievedDate: null }
+        ]);
+      }
+      
+      // Handle test account
+      if (sessionUserId === 999) {
+        return res.json([
+          { id: 1, userId: 999, days: 1, achieved: true, achievedDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000) },
+          { id: 2, userId: 999, days: 3, achieved: true, achievedDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+          { id: 3, userId: 999, days: 7, achieved: false, achievedDate: null },
+          { id: 4, userId: 999, days: 14, achieved: false, achievedDate: null },
+          { id: 5, userId: 999, days: 21, achieved: false, achievedDate: null },
+          { id: 6, userId: 999, days: 30, achieved: false, achievedDate: null },
+          { id: 7, userId: 999, days: 60, achieved: false, achievedDate: null },
+          { id: 8, userId: 999, days: 90, achieved: false, achievedDate: null }
+        ]);
+      }
+      
+      const userId = sessionUserId || 1; // Default user for backwards compatibility
       
       // Get current streak to update milestone progress
       const streak = await storage.getStreak(userId);
@@ -411,7 +460,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get progress
   app.get("/api/progress", async (req, res) => {
     try {
-      const userId = 1; // Default user
+      const sessionUserId = (req.session as any)?.userId;
+      
+      // Handle Apple reviewer account with pre-populated progress
+      if (sessionUserId === 4) {
+        return res.json([
+          { id: 1, userId: 4, benefit: "Improved Confidence", percentage: 85, lastUpdated: new Date() },
+          { id: 2, userId: 4, benefit: "Better Sleep Quality", percentage: 78, lastUpdated: new Date() },
+          { id: 3, userId: 4, benefit: "Enhanced Focus", percentage: 92, lastUpdated: new Date() },
+          { id: 4, userId: 4, benefit: "Reduced Anxiety", percentage: 70, lastUpdated: new Date() },
+          { id: 5, userId: 4, benefit: "Increased Productivity", percentage: 88, lastUpdated: new Date() }
+        ]);
+      }
+      
+      // Handle test account
+      if (sessionUserId === 999) {
+        return res.json([
+          { id: 1, userId: 999, benefit: "Improved Confidence", percentage: 45, lastUpdated: new Date() },
+          { id: 2, userId: 999, benefit: "Better Sleep Quality", percentage: 38, lastUpdated: new Date() },
+          { id: 3, userId: 999, benefit: "Enhanced Focus", percentage: 52, lastUpdated: new Date() },
+          { id: 4, userId: 999, benefit: "Reduced Anxiety", percentage: 30, lastUpdated: new Date() },
+          { id: 5, userId: 999, benefit: "Increased Productivity", percentage: 42, lastUpdated: new Date() }
+        ]);
+      }
+      
+      const userId = sessionUserId || 1; // Default user for backwards compatibility
       const progress = await storage.getProgress(userId);
       res.json(progress);
     } catch (error) {
