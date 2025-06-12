@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Settings, Globe, Bell, Moon, Sun, Volume2, VolumeX } from "lucide-react";
+import { Settings, Globe, Bell, Moon, Sun, Volume2, VolumeX, ChevronLeft } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
 
 export default function SettingsPage() {
   const { t, language, setLanguage } = useLanguage();
@@ -40,9 +41,17 @@ export default function SettingsPage() {
   return (
     <div className="p-4 pt-6">
       {/* Header */}
-      <div className="flex items-center mb-6">
-        <Settings className="h-8 w-8 text-primary mr-3" />
-        <h1 className="text-2xl font-bold text-text-primary">{t('settings')}</h1>
+      <div className="flex items-center justify-between mb-6">
+        <Link to="/menu">
+          <button className="text-white p-2">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+        </Link>
+        <div className="flex items-center">
+          <Settings className="h-8 w-8 text-primary mr-3" />
+          <h1 className="text-2xl font-bold text-text-primary">{t('settings')}</h1>
+        </div>
+        <div className="w-8"></div> {/* Placeholder for balance */}
       </div>
 
       <div className="space-y-6">
