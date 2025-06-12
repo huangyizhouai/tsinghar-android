@@ -104,7 +104,7 @@ export default function ArticleDetail() {
         {/* Article Content */}
         <div className="prose prose-lg max-w-none">
           <div 
-            className="text-text-primary leading-relaxed"
+            className="text-white leading-relaxed"
             style={{
               lineHeight: '1.7',
               fontSize: '17px',
@@ -113,19 +113,19 @@ export default function ArticleDetail() {
             {content.split('\n\n').map((section, index) => {
               if (section.startsWith('# ')) {
                 return (
-                  <h1 key={index} className="text-3xl font-bold text-text-primary mt-8 mb-6 first:mt-0">
+                  <h1 key={index} className="text-3xl font-bold text-white mt-8 mb-6 first:mt-0">
                     {section.replace('# ', '')}
                   </h1>
                 );
               } else if (section.startsWith('## ')) {
                 return (
-                  <h2 key={index} className="text-2xl font-semibold text-text-primary mt-8 mb-4">
+                  <h2 key={index} className="text-2xl font-semibold text-white mt-8 mb-4">
                     {section.replace('## ', '')}
                   </h2>
                 );
               } else if (section.startsWith('### ')) {
                 return (
-                  <h3 key={index} className="text-xl font-medium text-text-primary mt-6 mb-3">
+                  <h3 key={index} className="text-xl font-medium text-white mt-6 mb-3">
                     {section.replace('### ', '')}
                   </h3>
                 );
@@ -138,11 +138,11 @@ export default function ArticleDetail() {
                 return (
                   <div key={index} className="mb-6">
                     {beforeList && (
-                      <p className="text-text-primary mb-3">{beforeList}</p>
+                      <p className="text-white mb-3">{beforeList}</p>
                     )}
                     <ul className="list-disc list-inside space-y-2 ml-4">
                       {listItems.map((item, itemIndex) => (
-                        <li key={itemIndex} className="text-text-primary">
+                        <li key={itemIndex} className="text-white">
                           {item.replace('- ', '')}
                         </li>
                       ))}
@@ -160,10 +160,10 @@ export default function ArticleDetail() {
                         const boldText = boldPart.replace(/\*\*/g, '');
                         return (
                           <div key={lineIndex} className="mb-3">
-                            <h4 className="font-semibold text-text-primary inline">
+                            <h4 className="font-semibold text-white inline">
                               {boldText}:
                             </h4>
-                            <span className="text-text-primary ml-2">
+                            <span className="text-white ml-2">
                               {rest.join(':**')}
                             </span>
                           </div>
@@ -171,13 +171,13 @@ export default function ArticleDetail() {
                       } else if (line.startsWith('- **')) {
                         const cleanText = line.replace(/- \*\*(.*?)\*\*: ?/g, '• $1: ');
                         return (
-                          <p key={lineIndex} className="text-text-primary ml-4 mb-2">
+                          <p key={lineIndex} className="text-white ml-4 mb-2">
                             {cleanText}
                           </p>
                         );
                       }
                       return (
-                        <p key={lineIndex} className="text-text-primary mb-2">
+                        <p key={lineIndex} className="text-white mb-2">
                           {line}
                         </p>
                       );
@@ -187,7 +187,7 @@ export default function ArticleDetail() {
               } else if (section.trim()) {
                 // Regular paragraphs
                 return (
-                  <p key={index} className="text-text-primary mb-6 leading-relaxed">
+                  <p key={index} className="text-white mb-6 leading-relaxed">
                     {section.trim()}
                   </p>
                 );
