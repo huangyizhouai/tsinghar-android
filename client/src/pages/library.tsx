@@ -449,7 +449,7 @@ export default function Library() {
                               )}
                               
                               {/* Default scenic images for other articles */}
-                              {!['neuroscience', 'myths', 'triggers', 'physical', 'emotional', 'mindfulness', 'recovery-plan', 'community'].includes(article.id) && (
+                              {!['neuroscience-addiction', 'common-myths', 'triggers-patterns', 'physical-consequences', 'emotional-brain-impact', 'embracing-mindfulness', 'recovery-plan', 'community-support'].includes(article.id) && (
                                 // Mountain valley with river for general articles
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
