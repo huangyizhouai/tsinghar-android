@@ -45,12 +45,12 @@ export default function EulaModal({ isOpen, onAccept, onDecline, trigger }: Eula
     moderationText: "我们承诺在24小时内审核所有用户生成的内容。违规内容和账户将被立即删除。我们使用实时过滤系统和人工审核来确保社区安全。",
     safety: "安全功能：",
     safetyFeatures: [
-      "• 每个帖子都有"举报滥用"和"屏蔽用户"按钮",
+      "• 每个帖子都有举报滥用和屏蔽用户按钮",
       "• 实时脏话过滤系统",
       "• 24小时审核队列",
       "• 社区安全准则"
     ],
-    agreement: "通过点击"我同意"，您确认已阅读、理解并同意遵守上述所有条款。",
+    agreement: "通过点击我同意，您确认已阅读、理解并同意遵守上述所有条款。",
     checkbox: "我已阅读并同意上述条款",
     accept: "我同意",
     decline: "拒绝"
@@ -164,7 +164,11 @@ export default function EulaModal({ isOpen, onAccept, onDecline, trigger }: Eula
             <Checkbox 
               id="eula-accept" 
               checked={hasAccepted}
-              onCheckedChange={setHasAccepted}
+              onCheckedChange={(checked) => {
+                if (typeof checked === 'boolean') {
+                  setHasAccepted(checked);
+                }
+              }}
             />
             <label 
               htmlFor="eula-accept" 

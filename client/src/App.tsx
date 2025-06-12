@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 import TermsAgreementModal from "@/components/terms-agreement-modal";
+import EulaModal from "@/components/eula-modal";
 import NotFound from "@/pages/not-found";
 import LoginPage from "@/pages/login";
 
@@ -25,6 +26,29 @@ import Navigation from "@/components/navigation";
 
 function AuthenticatedApp() {
   const [location] = useLocation();
+  const [showEulaModal, setShowEulaModal] = useState(false);
+  const [eulaAccepted, setEulaAccepted] = useState(false);
+  
+  // Check if EULA has been accepted on first launch
+  useEffect(() => {
+    const hasAcceptedEula = localStorage.getItem('eula_accepted');
+    if (!hasAcceptedEula) {
+      setShowEulaModal(true);
+    } else {
+      setEulaAccepted(true);
+    }
+  }, []);
+
+  const handleEulaAccept = () => {
+    localStorage.setItem('eula_accepted', 'true');
+    setEulaAccepted(true);
+    setShowEulaModal(false);
+  };
+
+  const handleEulaDecline = () => {
+    // Redirect to landing page if EULA is declined
+    window.location.href = '/';
+  };
   
   return (
     <div className="flex flex-col min-h-screen bg-background-primary dark text-white">
