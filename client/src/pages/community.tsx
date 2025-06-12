@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Filter, Plus } from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import AppLogo from "@/components/app-logo";
 import { useLanguage } from "@/hooks/use-language";
 import { filterContent, checkForSelfHarm, getContentWarning } from "@/lib/content-filter";
+import EulaModal from "@/components/eula-modal";
 
 export default function Community() {
   const { t } = useLanguage();
@@ -23,8 +24,16 @@ export default function Community() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterKeyword, setFilterKeyword] = useState("");
   const [sortBy, setSortBy] = useState("newest"); // newest, oldest, popular, unpopular
+  const [showFirstPostEula, setShowFirstPostEula] = useState(false);
+  const [hasAcceptedPostingEula, setHasAcceptedPostingEula] = useState(false);
   
   const { toast } = useToast();
+  
+  // Check if user has accepted posting EULA
+  useEffect(() => {
+    const hasAcceptedPosting = localStorage.getItem('posting_eula_accepted');
+    setHasAcceptedPostingEula(!!hasAcceptedPosting);
+  }, []);
   
   const { data: posts, isLoading } = useQuery<any[]>({
     queryKey: ['/api/posts'],
@@ -100,6 +109,12 @@ export default function Community() {
   const handleCreatePost = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Check if user has accepted posting EULA on first post
+    if (!hasAcceptedPostingEula) {
+      setShowFirstPostEula(true);
+      return;
+    }
+    
     if (!newPostTitle.trim() || !newPostContent.trim()) {
       toast({
         title: t('error'),
@@ -134,6 +149,25 @@ export default function Community() {
     }
     
     createPostMutation.mutate();
+  };
+
+  const handlePostEulaAccept = () => {
+    localStorage.setItem('posting_eula_accepted', 'true');
+    setHasAcceptedPostingEula(true);
+    setShowFirstPostEula(false);
+    // Retry post creation after EULA acceptance
+    if (newPostTitle.trim() && newPostContent.trim()) {
+      createPostMutation.mutate();
+    }
+  };
+
+  const handlePostEulaDecline = () => {
+    setShowFirstPostEula(false);
+    toast({
+      title: t('postingCancelled') || 'Posting Cancelled',
+      description: t('eulaRequired') || 'You must accept the posting agreement to create posts.',
+      variant: "destructive"
+    });
   };
 
   // Filter and sort posts - combine API posts with demo posts for Apple reviewers
@@ -382,6 +416,14 @@ export default function Community() {
             </div>
           </DialogContent>
         </Dialog>
+
+        {/* EULA Modal for First Post */}
+        <EulaModal
+          isOpen={showFirstPostEula}
+          onAccept={handlePostEulaAccept}
+          onDecline={handlePostEulaDecline}
+          trigger="first_post"
+        />
       </div>
     </div>
   );

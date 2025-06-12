@@ -72,6 +72,14 @@ function AuthenticatedApp() {
       </main>
       
       <Navigation currentPath={location} />
+      
+      {/* EULA Modal for First Launch */}
+      <EulaModal
+        isOpen={showEulaModal}
+        onAccept={handleEulaAccept}
+        onDecline={handleEulaDecline}
+        trigger="first_launch"
+      />
     </div>
   );
 }
