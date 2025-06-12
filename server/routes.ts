@@ -404,9 +404,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/milestones", async (req, res) => {
     try {
       const sessionUserId = (req.session as any)?.userId;
+      const testUserId = req.headers['x-test-user-id'] ? parseInt(req.headers['x-test-user-id'] as string) : null;
+      const effectiveUserId = testUserId || sessionUserId;
       
-      // Handle Apple reviewer account with pre-populated milestones
-      if (sessionUserId === 4) {
+      // Handle Apple reviewer account (both server session and local test mode)
+      if (effectiveUserId === 4) {
         return res.json([
           { id: 1, userId: 4, days: 1, achieved: true, achievedDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000) },
           { id: 2, userId: 4, days: 3, achieved: true, achievedDate: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000) },

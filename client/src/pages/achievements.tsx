@@ -38,13 +38,12 @@ export default function AchievementsPage() {
   // Achievement configs for display styling
   const achievementConfigs: Record<number, { name: string; enName: string; color: string; glowColor: string; iconKey: 'seed' | 'sprout' | 'vanguard' | 'momentum' | 'silk' | 'guardian' | 'harmony' | 'zenith' }> = {
     1: { name: '种子', enName: 'Seed', color: 'bg-pink-400', glowColor: '#f472b6', iconKey: 'seed' },
-    3: { name: '幼芽', enName: 'Sprout', color: 'bg-blue-300', glowColor: '#7dd3fc', iconKey: 'sprout' },
+    3: { name: '幼芽', enName: 'Sprout', color: 'bg-green-400', glowColor: '#4ade80', iconKey: 'sprout' },
     7: { name: '势头', enName: 'Momentum', color: 'bg-purple-400', glowColor: '#c084fc', iconKey: 'momentum' },
-    10: { name: '蚕蛹', enName: 'Silk', color: 'bg-purple-500', glowColor: '#a855f7', iconKey: 'silk' },
     14: { name: '守护者', enName: 'Guardian', color: 'bg-blue-400', glowColor: '#60a5fa', iconKey: 'guardian' },
     21: { name: '和谐', enName: 'Harmony', color: 'bg-indigo-400', glowColor: '#818cf8', iconKey: 'harmony' },
     30: { name: '巅峰', enName: 'Zenith', color: 'bg-amber-400', glowColor: '#fbbf24', iconKey: 'zenith' },
-    60: { name: '坚持', enName: 'Persistence', color: 'bg-orange-400', glowColor: '#fb923c', iconKey: 'guardian' },
+    60: { name: '坚持', enName: 'Persistence', color: 'bg-orange-400', glowColor: '#fb923c', iconKey: 'silk' },
     90: { name: '完美', enName: 'Perfect', color: 'bg-emerald-400', glowColor: '#34d399', iconKey: 'zenith' }
   };
 
