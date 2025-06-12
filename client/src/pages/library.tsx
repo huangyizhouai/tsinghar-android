@@ -292,7 +292,7 @@ export default function Library() {
                           <div className="w-full h-32 rounded-t-xl relative overflow-hidden">
                             {/* Scenic Recovery-Themed Images */}
                             <div className="absolute inset-0">
-                              {article.id === 'neuroscience' && (
+                              {article.id === 'neuroscience-addiction' && (
                                 // Mountain sunrise representing mental clarity
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -310,7 +310,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'myths' && (
+                              {article.id === 'common-myths' && (
                                 // Clear lake reflection representing truth
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -328,7 +328,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'triggers' && (
+                              {article.id === 'triggers-patterns' && (
                                 // Forest path representing choice and direction
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -347,7 +347,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'physical' && (
+                              {article.id === 'physical-consequences' && (
                                 // Person running at sunrise representing health
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -368,7 +368,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'emotional' && (
+                              {article.id === 'emotional-brain-impact' && (
                                 // Peaceful sunset representing emotional healing
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -386,7 +386,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'mindfulness' && (
+                              {article.id === 'embracing-mindfulness' && (
                                 // Meditation by lake representing mindfulness
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -425,7 +425,7 @@ export default function Library() {
                                 </svg>
                               )}
                               
-                              {article.id === 'community' && (
+                              {article.id === 'community-support' && (
                                 // Group of trees representing community support
                                 <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
                                   <defs>
@@ -445,6 +445,27 @@ export default function Library() {
                                   <circle cx="75" cy="75" r="8" fill="#047857"/>
                                   <circle cx="135" cy="70" r="10" fill="#047857"/>
                                   <circle cx="145" cy="75" r="7" fill="#047857"/>
+                                </svg>
+                              )}
+                              
+                              {/* Default scenic images for other articles */}
+                              {!['neuroscience', 'myths', 'triggers', 'physical', 'emotional', 'mindfulness', 'recovery-plan', 'community'].includes(article.id) && (
+                                // Mountain valley with river for general articles
+                                <svg width="100%" height="100%" viewBox="0 0 220 128" className="w-full h-full">
+                                  <defs>
+                                    <linearGradient id="defaultGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                      <stop offset="0%" style={{stopColor:'#6366f1', stopOpacity:1}} />
+                                      <stop offset="50%" style={{stopColor:'#8b5cf6', stopOpacity:1}} />
+                                      <stop offset="100%" style={{stopColor:'#a855f7', stopOpacity:1}} />
+                                    </linearGradient>
+                                  </defs>
+                                  <rect width="220" height="128" fill="url(#defaultGrad)"/>
+                                  <path d="M0 85 L40 55 L80 65 L120 45 L160 60 L200 50 L220 55 L220 128 L0 128 Z" fill="#374151"/>
+                                  <path d="M30 75 L70 50 L110 55 L150 40 L190 50 L220 45 L220 128 L30 128 Z" fill="#4b5563"/>
+                                  <path d="M80 128 Q110 115, 140 128" fill="#0ea5e9" opacity="0.7"/>
+                                  <path d="M90 128 Q110 120, 130 128" fill="#0284c7" opacity="0.8"/>
+                                  <circle cx="60" cy="25" r="10" fill="#fbbf24" opacity="0.9"/>
+                                  <path d="M170 70 L175 65 L180 70 L185 60 L190 70" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.6"/>
                                 </svg>
                               )}
                             </div>
