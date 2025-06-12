@@ -301,29 +301,102 @@ export default function Library() {
                             article.id === 'community' ? 'bg-gradient-to-br from-amber-600 via-orange-600 to-red-700' :
                             'bg-gradient-to-br from-slate-600 via-gray-600 to-zinc-700'
                           }`}>
-                            {/* Background Pattern */}
-                            <div className="absolute inset-0 opacity-10">
-                              <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-white/20"></div>
-                              <div className="absolute top-8 right-4 w-4 h-4 rounded-full bg-white/15"></div>
-                              <div className="absolute bottom-4 left-6 w-6 h-6 rounded-full bg-white/10"></div>
-                              <div className="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-white/5"></div>
-                            </div>
-                            
-                            {/* Article Icon/Symbol */}
-                            <div className="text-white text-5xl font-bold z-10 drop-shadow-lg">
-                              {article.id === 'neuroscience' && '🧠'}
-                              {article.id === 'myths' && '💭'}
-                              {article.id === 'triggers' && '🎯'}
-                              {article.id === 'physical' && '💪'}
-                              {article.id === 'emotional' && '❤️'}
-                              {article.id === 'mindfulness' && '🧘'}
-                              {article.id === 'recovery-plan' && '📋'}
-                              {article.id === 'community' && '🤝'}
-                              {!['neuroscience', 'myths', 'triggers', 'physical', 'emotional', 'mindfulness', 'recovery-plan', 'community'].includes(article.id) && 
-                                <span className="text-white/90 text-3xl">
-                                  {(language === 'zh' ? article.titleZh : article.title).charAt(0)}
-                                </span>
-                              }
+                            {/* Health & Self-Discipline SVG Graphics */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              {article.id === 'neuroscience' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <path d="M20 20 C30 15, 50 15, 60 20 C65 22, 68 30, 65 35 C68 40, 65 45, 60 47 C50 52, 30 52, 20 47 C15 45, 12 40, 15 35 C12 30, 15 22, 20 20 Z" 
+                                        fill="white" opacity="0.9"/>
+                                  <circle cx="30" cy="30" r="2" fill="currentColor" opacity="0.8"/>
+                                  <circle cx="40" cy="27" r="2" fill="currentColor" opacity="0.8"/>
+                                  <circle cx="35" cy="35" r="2" fill="currentColor" opacity="0.8"/>
+                                  <circle cx="45" cy="32" r="2" fill="currentColor" opacity="0.8"/>
+                                  <line x1="30" y1="30" x2="40" y2="27" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                                  <line x1="35" y1="35" x2="45" y2="32" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'myths' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <circle cx="40" cy="30" r="20" fill="white" opacity="0.9"/>
+                                  <path d="M30 25 Q35 20, 40 25 Q45 20, 50 25" fill="none" stroke="currentColor" strokeWidth="2"/>
+                                  <circle cx="35" cy="32" r="2" fill="currentColor"/>
+                                  <circle cx="45" cy="32" r="2" fill="currentColor"/>
+                                  <path d="M32 38 Q40 42, 48 38" fill="none" stroke="currentColor" strokeWidth="2"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'triggers' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <circle cx="40" cy="30" r="15" fill="white" opacity="0.9"/>
+                                  <circle cx="40" cy="30" r="8" fill="currentColor" opacity="0.8"/>
+                                  <circle cx="40" cy="30" r="3" fill="white"/>
+                                  <path d="M40 15 L42 20 L40 25 L38 20 Z" fill="currentColor"/>
+                                  <path d="M55 30 L50 32 L45 30 L50 28 Z" fill="currentColor"/>
+                                  <path d="M40 45 L38 40 L40 35 L42 40 Z" fill="currentColor"/>
+                                  <path d="M25 30 L30 28 L35 30 L30 32 Z" fill="currentColor"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'physical' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <path d="M35 20 L45 20 L48 25 L45 45 L42 48 L38 48 L35 45 L32 25 Z" fill="white" opacity="0.9"/>
+                                  <circle cx="40" cy="15" r="5" fill="white" opacity="0.9"/>
+                                  <path d="M32 28 L28 32 L30 35 L35 30" fill="white" opacity="0.8"/>
+                                  <path d="M48 28 L52 32 L50 35 L45 30" fill="white" opacity="0.8"/>
+                                  <path d="M35 48 L32 52 L30 50 L33 45" fill="white" opacity="0.8"/>
+                                  <path d="M45 48 L48 52 L50 50 L47 45" fill="white" opacity="0.8"/>
+                                  <circle cx="37" cy="25" r="1.5" fill="currentColor"/>
+                                  <circle cx="43" cy="25" r="1.5" fill="currentColor"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'emotional' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <path d="M40 45 C48 38, 55 30, 48 22 C45 19, 42 20, 40 23 C38 20, 35 19, 32 22 C25 30, 32 38, 40 45 Z" 
+                                        fill="white" opacity="0.9"/>
+                                  <circle cx="40" cy="28" r="3" fill="currentColor" opacity="0.6"/>
+                                  <path d="M35 25 Q40 20, 45 25" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.7"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'mindfulness' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <circle cx="40" cy="35" r="15" fill="white" opacity="0.2"/>
+                                  <circle cx="40" cy="35" r="10" fill="white" opacity="0.4"/>
+                                  <circle cx="40" cy="35" r="5" fill="white" opacity="0.6"/>
+                                  <path d="M35 25 L40 15 L45 25 L50 30 L45 35 L40 45 L35 35 L30 30 Z" fill="white" opacity="0.9"/>
+                                  <circle cx="40" cy="30" r="2" fill="currentColor"/>
+                                  <path d="M38 32 Q40 34, 42 32" fill="none" stroke="currentColor" strokeWidth="1"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'recovery-plan' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <rect x="25" y="15" width="30" height="35" rx="2" fill="white" opacity="0.9"/>
+                                  <line x1="30" y1="22" x2="45" y2="22" stroke="currentColor" strokeWidth="1.5"/>
+                                  <line x1="30" y1="28" x2="45" y2="28" stroke="currentColor" strokeWidth="1.5"/>
+                                  <line x1="30" y1="34" x2="45" y2="34" stroke="currentColor" strokeWidth="1.5"/>
+                                  <line x1="30" y1="40" x2="40" y2="40" stroke="currentColor" strokeWidth="1.5"/>
+                                  <circle cx="32" cy="22" r="1" fill="currentColor"/>
+                                  <circle cx="32" cy="28" r="1" fill="currentColor"/>
+                                  <path d="M30 34 L32 36 L36 32" fill="none" stroke="green" strokeWidth="2"/>
+                                </svg>
+                              )}
+                              
+                              {article.id === 'community' && (
+                                <svg width="80" height="60" viewBox="0 0 80 60" className="text-white">
+                                  <circle cx="30" cy="25" r="6" fill="white" opacity="0.9"/>
+                                  <circle cx="50" cy="25" r="6" fill="white" opacity="0.9"/>
+                                  <circle cx="40" cy="35" r="6" fill="white" opacity="0.9"/>
+                                  <path d="M25 35 Q30 40, 35 35" fill="white" opacity="0.7"/>
+                                  <path d="M45 35 Q50 40, 55 35" fill="white" opacity="0.7"/>
+                                  <path d="M35 45 Q40 50, 45 45" fill="white" opacity="0.7"/>
+                                  <line x1="35" y1="28" x2="45" y2="28" stroke="white" strokeWidth="2" opacity="0.6"/>
+                                  <line x1="32" y1="30" x2="38" y2="32" stroke="white" strokeWidth="2" opacity="0.6"/>
+                                  <line x1="48" y1="30" x2="42" y2="32" stroke="white" strokeWidth="2" opacity="0.6"/>
+                                </svg>
+                              )}
                             </div>
                           </div>
                           
