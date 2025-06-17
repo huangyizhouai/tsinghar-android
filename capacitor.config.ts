@@ -4,10 +4,11 @@ const config: CapacitorConfig = {
   appId: 'ai.hzdc.tsinghar',
   appName: 'TsingHar',
   webDir: 'dist/public',
-  ios: {
-    contentInset: 'automatic',
-    backgroundColor: '#0b0e3f',
-    preferredContentMode: 'mobile'
+  android: {
+    backgroundColor: '#6B46C1',
+    allowMixedContent: true,
+    captureInput: true,
+    webContentsDebuggingEnabled: true
   },
   server: {
     androidScheme: 'https',

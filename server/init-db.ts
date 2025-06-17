@@ -63,13 +63,13 @@ async function initDb() {
       console.log("TsingHar user already exists, skipping initialization.");
     }
 
-    // Create Apple Review Demo Account
-    const [demoUser] = await db.select().from(users).where(eq(users.username, "apple_reviewer"));
+    // Create Android Demo Account
+    const [demoUser] = await db.select().from(users).where(eq(users.username, "android_demo"));
     
     if (!demoUser) {
-      console.log("Creating Apple Review demo account...");
+      console.log("Creating Android demo account...");
       const [user] = await db.insert(users).values({
-        username: "apple_reviewer",
+        username: "android_demo",
         password: "Demo2025!",
         email: "demo@tsinghar.app"
       }).returning();
@@ -137,9 +137,9 @@ async function initDb() {
         }
       ]);
 
-      console.log("Demo account created with sample content for Apple reviewers");
+      console.log("Demo account created with sample content for Android users");
     } else {
-      console.log("Apple Review demo account already exists.");
+      console.log("Android demo account already exists.");
     }
 
     // Check if default user exists
