@@ -71,7 +71,7 @@ async function initDb() {
       const [user] = await db.insert(users).values({
         username: "android_demo",
         password: "Demo2025!",
-        email: "demo@tsinghar.app"
+        email: "android@tsinghar.app"
       }).returning();
       
       const userId = user.id;
