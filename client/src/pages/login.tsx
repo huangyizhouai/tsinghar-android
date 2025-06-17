@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { Apple, Eye, EyeOff, Languages } from "lucide-react";
+import { Eye, EyeOff, Languages } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import iconNewPath from "/icon_new.png";
 
@@ -99,12 +99,7 @@ export default function LoginPage() {
     },
   });
 
-  const handleAppleLogin = () => {
-    toast({
-      title: t("comingSoon"),
-      description: t("appleLoginComingSoon"),
-    });
-  };
+
 
   const onLoginSubmit = (data: LoginData) => {
     // Use mobile endpoint for all login attempts to avoid validation issues
@@ -240,17 +235,17 @@ export default function LoginPage() {
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    // Create Apple reviewer session directly in browser storage
+                    // Create Android demo session directly in browser storage
                     localStorage.setItem('testUser', JSON.stringify({
                       id: 4,
-                      username: 'apple_reviewer',
+                      username: 'android_demo',
                       email: 'demo@tsinghar.app'
                     }));
                     window.location.href = "/TsingHar";
                   }}
-                  className="w-full bg-blue-600/20 border-blue-400/50 text-blue-200 hover:bg-blue-600/30"
+                  className="w-full bg-green-600/20 border-green-400/50 text-green-200 hover:bg-green-600/30"
                 >
-                  {language === 'zh' ? 'Apple 审核演示账户' : 'Apple Review Demo Account'}
+                  {language === 'zh' ? 'Android 演示账户' : 'Android Demo Account'}
                 </Button>
 
                 <p className="text-xs text-white/60 text-center">
@@ -410,25 +405,34 @@ export default function LoginPage() {
             </TabsContent>
           </Tabs>
 
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-white/30" />
+          {/* Quick Demo Access */}
+          <div className="mt-6 space-y-3">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-white/30" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-transparent px-2 text-white/70">{t("orTryDemo")}</span>
+              </div>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-transparent px-2 text-white/70">{t("orContinueWith")}</span>
-            </div>
-          </div>
 
-          {/* Apple Login Button */}
-          <Button
-            onClick={handleAppleLogin}
-            variant="outline"
-            className="w-full h-12 border-white/30 hover:bg-white/10 text-white bg-black/20"
-          >
-            <Apple className="w-5 h-5 mr-2" />
-            {t("continueWithApple")}
-          </Button>
+            <Button
+              onClick={() => {
+                // Create demo user session
+                localStorage.setItem('testUser', JSON.stringify({
+                  id: 4,
+                  username: 'android_demo',
+                  email: 'demo@tsinghar.app'
+                }));
+                window.location.href = "/TsingHar";
+              }}
+              variant="outline"
+              className="w-full h-12 border-green-400/50 hover:bg-green-600/20 text-green-200 bg-green-600/10"
+            >
+              <span className="w-5 h-5 mr-2">📱</span>
+              {language === 'zh' ? 'Android 演示账户' : 'Android Demo Account'}
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
