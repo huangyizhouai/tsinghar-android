@@ -1,76 +1,61 @@
-name: Build Android APK
+name: Build Android APK (release)
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}   # 手动点一下就触发
 
 env:
-  SDK_VERSION: '34'
-  JAVA_VERSION: '17'
+  SDK_VERSION: "34"
+  JAVA_VERSION: "17"
 
 jobs:
-  build-android:
+  release:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
-    # ① 拉仓库
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    # ② 安装 **Temurin-17** 并将其置于 PATH 最高
-    - name: Setup JDK 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: ${{ env.JAVA_VERSION }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
 
-    # ③ 安装 Android SDK（先用 Temurin-17，再装包）
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        packages: |
-          platform-tools
-          platforms;android-${{ env.SDK_VERSION }}
-          build-tools;34.0.0
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools platforms;android-${{ env.SDK_VERSION }} build-tools;34.0.0"
+          accept-android-sdk-licenses: "true"
 
-    # ④ 缓存
-    - uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
-        restore-keys: gradle-${{ runner.os }}-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
 
-    - run: npm ci --prefer-offline --no-audit
+      - run: npm ci --prefer-offline --no-audit
 
-    # ⑤ 解码 JKS & 产 key.properties
-    - name: Prepare signing
-      run: |
-        echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > android/app/tsinghar-release.jks
-        cat <<EOF > android/key.properties
-        storePassword=$ANDROID_KEYSTORE_PASSWORD
-        keyPassword=$ANDROID_KEY_PASSWORD
-        keyAlias=$ANDROID_KEY_ALIAS
-        storeFile=tsinghar-release.jks
-        EOF
-      env:
-        ANDROID_SIGNING_KEY_BASE64:  ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
-        ANDROID_KEYSTORE_PASSWORD:   ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        ANDROID_KEY_PASSWORD:        ${{ secrets.ANDROID_KEY_PASSWORD }}
-        ANDROID_KEY_ALIAS:           ${{ secrets.ANDROID_KEY_ALIAS }}
+      # keystore
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}" | base64 -d > android/app/tsinghar-release.jks
+          cat > android/keystore.properties <<EOF
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=tsinghar-release.jks
+          EOF
 
-    # ⑥ 打 release 包
-    - name: assembleRelease
-      run: |
-        cd android
-        ./gradlew assembleRelease --no-daemon --stacktrace
+      - name: assembleRelease
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
 
-    # ⑦ 验证 V2/V3 签名
-    - name: Verify signing
-      run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
+      - name: Verify signing
+        run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
-    # ⑧ 上传
-    - uses: actions/upload-artifact@v4
-      with:
-        name: android-release-apks
-        path: android/app/build/outputs/apk/release/*.apk
-        retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-release-apks
+          path: android/app/build/outputs/apk/release/*.apk
+          retention-days: 30
