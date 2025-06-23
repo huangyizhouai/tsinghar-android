@@ -1,82 +1,84 @@
-name: Build Android
+name: Build (debug or release)
+
 on:
   workflow_dispatch:
     inputs:
       build_type:
-        type: choice
+        description: debug / release
+        required: true
         default: release
+        type: choice
         options: [debug, release]
 
 env:
-  SDK_API: '34'            # target/compileSdk
-  BUILD_TOOLS: '34.0.0'
+  SDK_VERSION: '34'      # targetSdk / compileSdk
+  JAVA_VERSION: '17'     # 必须 ≥17
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
 
     steps:
+    # ① 拉取仓库
     - uses: actions/checkout@v4
 
-    # ① 安装 JDK 17
-    - id: setup-jdk
+    # ② 安装 JDK 17，并把 JAVA_HOME 写回环境
+    - id: setup-java
       uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: 17
+        java-version: ${{ env.JAVA_VERSION }}
+        cache: gradle
+    - name: Export JAVA_HOME
+      run: echo "JAVA_HOME=${{ steps.setup-java.outputs.path }}" >> $GITHUB_ENV
 
-    # ② 把 JDK 17 写进 PATH / JAVA_HOME（修复 11.0.27 问题）
-    - name: Use JDK 17 as default
-      run: |
-        echo "JAVA_HOME=${{ steps.setup-jdk.outputs.path }}" >> $GITHUB_ENV
-        echo "${{ steps.setup-jdk.outputs.path }}/bin" >> $GITHUB_PATH
-
-    # ③ 安装 Android SDK
+    # ③ 安装 Android SDK & 所需组件
     - uses: android-actions/setup-android@v3
       with:
+        # 每行一个组件！一定要引号
         packages: |
-          platform-tools
-          platforms;android-${{ env.SDK_API }}
-          build-tools;${{ env.BUILD_TOOLS }}
+          "platform-tools"
+          "platforms;android-${{ env.SDK_VERSION }}"
+          "build-tools;34.0.0"
 
-    # ④ JS 依赖
+    # ④ 安装 Node/依赖（如有用到 npm 或 react-native）
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
     - run: npm ci --prefer-offline --no-audit
 
-    # ⑤ 解码 .jks + key.properties
+    # ⑤ 写入 release 签名（keystore + gradle properties）
     - name: Prepare signing
+      if: ${{ github.event.inputs.build_type == 'release' }}
       run: |
         echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > android/app/tsinghar-release.jks
-        cat <<EOF > android/key.properties
+        cat <<EOF > android/keystore.properties
         storePassword=$ANDROID_KEYSTORE_PASSWORD
         keyPassword=$ANDROID_KEY_PASSWORD
         keyAlias=$ANDROID_KEY_ALIAS
         storeFile=tsinghar-release.jks
         EOF
       env:
-        ANDROID_SIGNING_KEY_BASE64:  ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
-        ANDROID_KEYSTORE_PASSWORD:   ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        ANDROID_KEY_PASSWORD:        ${{ secrets.ANDROID_KEY_PASSWORD }}
-        ANDROID_KEY_ALIAS:           ${{ secrets.ANDROID_KEY_ALIAS }}
+        ANDROID_SIGNING_KEY_BASE64: ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
+        ANDROID_KEYSTORE_PASSWORD:  ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        ANDROID_KEY_PASSWORD:       ${{ secrets.ANDROID_KEY_PASSWORD }}
+        ANDROID_KEY_ALIAS:          ${{ secrets.ANDROID_KEY_ALIAS }}
 
-    # ⑥ 构建 debug/release
-    - name: Assemble
+    # ⑥ 编译 APK
+    - name: assemble${{ github.event.inputs.build_type }}
       run: |
         cd android
-        if [[ "${{ github.event.inputs.build_type }}" == "debug" ]]; then
-          ./gradlew assembleDebug  --no-daemon --stacktrace
-        else
-          ./gradlew assembleRelease --no-daemon --stacktrace
-        fi
+        ./gradlew assemble${{ github.event.inputs.build_type^ }} --no-daemon --stacktrace
 
-    # ⑦ release 再做一次签名校验
+    # ⑦ 通过 apksigner 验证 V2/V3 签名
     - name: Verify signing
-      if: github.event.inputs.build_type == 'release'
+      if: ${{ github.event.inputs.build_type == 'release' }}
       run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
-    # ⑧ 上传
+    # ⑧ 上传产物
     - uses: actions/upload-artifact@v4
       with:
         name: android-${{ github.event.inputs.build_type }}-apks
         path: android/app/build/outputs/apk/${{ github.event.inputs.build_type }}/*.apk
-        retention-days: 30
+        retention-days: ${{ github.event.inputs.build_type == 'release' && 30 || 7 }}
