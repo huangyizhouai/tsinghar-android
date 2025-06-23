@@ -1,3 +1,4 @@
+# .github/workflows/build-android.yml
 name: Build Capacitor Android (debug / release)
 
 on:
@@ -11,8 +12,8 @@ on:
         options: [debug, release]
 
 env:
-  SDK_VERSION: "34"   # compileSdk / targetSdk
-  JAVA_VERSION: "17"
+  SDK_VERSION: "34"
+  JAVA_VERSION: "21"   # Capacitor 7 必须使用 JDK 21
 
 jobs:
   build-android:
@@ -20,11 +21,9 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      # ① 拉代码
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ② Java 17
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -32,34 +31,29 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           cache: gradle
 
-      # ③ Node 20
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
-      # ④ Android SDK（单行 packages）
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
           packages: "platform-tools platforms;android-${{ env.SDK_VERSION }} build-tools;34.0.0"
           accept-android-sdk-licenses: true
 
-      # ⑤ 安装依赖 & 构建前端资源
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit
 
       - name: Build web assets
         run: npm run build
 
-      # ⑥ Capacitor 同步（关键）
       - name: Capacitor sync
         run: |
           npm install -g @capacitor/cli
           npx cap sync android
 
-      # ⑦ release 签名
       - name: Prepare signing
         if: ${{ inputs.build_type == 'release' }}
         env:
@@ -76,7 +70,6 @@ jobs:
           storeFile=tsinghar-release.jks
           EOF
 
-      # ⑧ 编译 APK
       - name: Build APK
         run: |
           cd android
@@ -87,12 +80,10 @@ jobs:
             ./gradlew assembleDebug --no-daemon --stacktrace
           fi
 
-      # ⑨ 校验签名（仅 release）
       - name: Verify signing
         if: ${{ inputs.build_type == 'release' }}
         run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
-      # ⑩ 上传产物
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
