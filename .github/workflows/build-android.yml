@@ -1,67 +1,56 @@
-name: Build Android APK
+name: Build (debug or release)
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: debug / release
+        required: true
+        default: debug
+        type: choice
+        options: [debug, release]
+
+env:
+  SDK_VERSION: '34'
+  JAVA_VERSION: '17'
 
 jobs:
-  build-android:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
       with:
-        node-version: '18'
-        cache: 'npm'
-
-    - name: Setup Java JDK
-      uses: actions/setup-java@v4
+        distribution: temurin
+        java-version: ${{ env.JAVA_VERSION }}
+    - uses: android-actions/setup-android@v3
       with:
-        distribution: 'temurin'
-        java-version: '11'
+        packages: |
+          platform-tools
+          platforms;android-${{ env.SDK_VERSION }}
+          build-tools;34.0.0
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+    - run: npm ci --prefer-offline --no-audit
 
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Build web application
-      run: npm run build
-
-    - name: Sync Capacitor
-      run: npx cap sync android
-
-    - name: Build Android APK
+    # debug 构建无需签名步骤
+    - name: Assemble
       run: |
         cd android
-        chmod +x ./gradlew
-        ./gradlew assembleDebug
+        if [[ "${{ github.event.inputs.build_type }}" == "debug" ]]; then
+          ./gradlew assembleDebug  --no-daemon
+        else
+          echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > app/tsinghar-release.jks
+          echo -e "storePassword=$ANDROID_KEYSTORE_PASSWORD\nkeyPassword=$ANDROID_KEY_PASSWORD\nkeyAlias=$ANDROID_KEY_ALIAS\nstoreFile=tsinghar-release.jks" > ../key.properties
+          ./gradlew assembleRelease --no-daemon
+        fi
+      env:
+        ANDROID_SIGNING_KEY_BASE64:  ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
+        ANDROID_KEYSTORE_PASSWORD:   ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        ANDROID_KEY_PASSWORD:        ${{ secrets.ANDROID_KEY_PASSWORD }}
+        ANDROID_KEY_ALIAS:           ${{ secrets.ANDROID_KEY_ALIAS }}
 
-    - name: Upload APK artifact
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
-        name: tsinghar-debug-apk
-        path: android/app/build/outputs/apk/debug/app-debug.apk
-        retention-days: 30
-
-    - name: Build Release APK (if main branch)
-      if: github.ref == 'refs/heads/main'
-      run: |
-        cd android
-        ./gradlew assembleRelease
-
-    - name: Upload Release APK
-      if: github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v4
-      with:
-        name: tsinghar-release-apk
-        path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-        retention-days: 90
+        name: android-${{ github.event.inputs.build_type }}-apks
+        path: android/app/build/outputs/apk/${{ github.event.inputs.build_type }}/*.apk
+        retention-days: 14
