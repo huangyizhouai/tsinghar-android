@@ -1,10 +1,9 @@
-# .github/workflows/build-android-apk.yml
 name: Build Capacitor Android APK (release)
 
 on:
   push:
-    branches: [main, master]    # 推送主分支自动触发
-  workflow_dispatch: {}         # 亦可手动触发
+    branches: [main, master]
+  workflow_dispatch: {}
 
 env:
   SDK_VERSION: "34"
@@ -70,8 +69,12 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace
 
+      # 修复：使用完整路径调用 apksigner
       - name: Verify signing
-        run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
+        run: |
+          export ANDROID_HOME="/usr/local/lib/android/sdk"
+          export PATH="$ANDROID_HOME/build-tools/34.0.0:$PATH"
+          apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
