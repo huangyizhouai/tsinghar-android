@@ -1,84 +1,82 @@
-name: Build (debug or release)
+name: Build (debug / release)
 
 on:
   workflow_dispatch:
     inputs:
       build_type:
-        description: debug / release
+        description: Select build type
         required: true
-        default: release
+        default: debug
         type: choice
         options: [debug, release]
 
 env:
-  SDK_VERSION: '34'      # targetSdk / compileSdk
-  JAVA_VERSION: '17'     # 必须 ≥17
+  SDK_VERSION: "34"     # compileSdk/targetSdk
+  JAVA_VERSION: "17"    # 必须 ≥17
 
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
-    # ① 拉取仓库
+    # ① checkout
     - uses: actions/checkout@v4
 
-    # ② 安装 JDK 17，并把 JAVA_HOME 写回环境
-    - id: setup-java
-      uses: actions/setup-java@v4
+    # ② JDK 17
+    - uses: actions/setup-java@v4
       with:
         distribution: temurin
         java-version: ${{ env.JAVA_VERSION }}
         cache: gradle
-    - name: Export JAVA_HOME
-      run: echo "JAVA_HOME=${{ steps.setup-java.outputs.path }}" >> $GITHUB_ENV
 
-    # ③ 安装 Android SDK & 所需组件
-    - uses: android-actions/setup-android@v3
+    # ③ Android SDK（单行 + 自动接受许可）
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
       with:
-        # 每行一个组件！一定要引号
-        packages: |
-          "platform-tools"
-          "platforms;android-${{ env.SDK_VERSION }}"
-          "build-tools;34.0.0"
+        packages: "platform-tools platforms;android-${{ env.SDK_VERSION }} build-tools;34.0.0"
+        accept-android-sdk-licenses: "true"   # ←关键:contentReference[oaicite:3]{index=3}
 
-    # ④ 安装 Node/依赖（如有用到 npm 或 react-native）
+    # ④ Node & 依赖（如有 RN）
     - uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: "20"
         cache: npm
     - run: npm ci --prefer-offline --no-audit
 
-    # ⑤ 写入 release 签名（keystore + gradle properties）
+    # ⑤ 仅 release 时注入签名
     - name: Prepare signing
-      if: ${{ github.event.inputs.build_type == 'release' }}
+      if: ${{ inputs.build_type == 'release' }}
       run: |
-        echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > android/app/tsinghar-release.jks
-        cat <<EOF > android/keystore.properties
-        storePassword=$ANDROID_KEYSTORE_PASSWORD
-        keyPassword=$ANDROID_KEY_PASSWORD
-        keyAlias=$ANDROID_KEY_ALIAS
+        echo "${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}" | base64 -d > android/app/tsinghar-release.jks
+        cat > android/keystore.properties <<EOF
+        storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+        keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
         storeFile=tsinghar-release.jks
         EOF
-      env:
-        ANDROID_SIGNING_KEY_BASE64: ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
-        ANDROID_KEYSTORE_PASSWORD:  ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        ANDROID_KEY_PASSWORD:       ${{ secrets.ANDROID_KEY_PASSWORD }}
-        ANDROID_KEY_ALIAS:          ${{ secrets.ANDROID_KEY_ALIAS }}
 
-    # ⑥ 编译 APK
-    - name: assemble${{ github.event.inputs.build_type }}
+    # ⑥ Build
+    - name: Build APK
       run: |
         cd android
-        ./gradlew assemble${{ github.event.inputs.build_type^ }} --no-daemon --stacktrace
+        chmod +x gradlew
+        if [[ "${{ inputs.build_type }}" == "release" ]]; then
+          ./gradlew assembleRelease --no-daemon --stacktrace
+        else
+          ./gradlew assembleDebug   --no-daemon --stacktrace
+        fi
 
-    # ⑦ 通过 apksigner 验证 V2/V3 签名
+    # ⑦ verify (release only)
     - name: Verify signing
-      if: ${{ github.event.inputs.build_type == 'release' }}
+      if: ${{ inputs.build_type == 'release' }}
       run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
-    # ⑧ 上传产物
-    - uses: actions/upload-artifact@v4
+    # ⑧ upload artifact
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
       with:
-        name: android-${{ github.event.inputs.build_type }}-apks
-        path: android/app/build/outputs/apk/${{ github.event.inputs.build_type }}/*.apk
-        retention-days: ${{ github.event.inputs.build_type == 'release' && 30 || 7 }}
+        name: android-${{ inputs.build_type }}-apks
+        path: |
+          android/app/build/outputs/apk/${{ inputs.build_type }}/*.apk
+        retention-days: 14   # 固定数字，表达式不支持 :contentReference[oaicite:4]{index=4}
