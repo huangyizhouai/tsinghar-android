@@ -1,13 +1,14 @@
+# .github/workflows/build-android-apk.yml
 name: Build Capacitor Android APK (release)
 
 on:
   push:
-    branches: [main, master]      # 推送主分支自动触发
-  workflow_dispatch: {}           # 也支持手动触发
+    branches: [main, master]    # 推送主分支自动触发
+  workflow_dispatch: {}         # 亦可手动触发
 
 env:
   SDK_VERSION: "34"
-  JAVA_VERSION: "17"
+  JAVA_VERSION: "21"
 
 jobs:
   release:
@@ -48,7 +49,6 @@ jobs:
       - name: Capacitor sync
         run: npx cap sync android
 
-      # 签名
       - name: Decode keystore
         env:
           ANDROID_SIGNING_KEY_BASE64: ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
