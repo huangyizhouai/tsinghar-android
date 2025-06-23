@@ -1,96 +1,54 @@
-
 apply plugin: 'com.android.application'
 
 android {
     namespace "ai.hzdc.tsinghar"
-    compileSdk rootProject.ext.compileSdkVersion   // 34
-
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ai.hzdc.tsinghar"
-        minSdkVersion    rootProject.ext.minSdkVersion     // 建议 ≥ 23
-        targetSdkVersion rootProject.ext.targetSdkVersion  // 34
-        versionCode  1
-        versionName  "1.0"
-
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // web 资源忽略无关文件
         aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
-
-    /** ----------  签名统一配置  ---------- **/
-    def keystorePropsFile = rootProject.file("android/keystore.properties")
-    def keystoreProps = new Properties()
-    if (keystorePropsFile.exists()) {
-        keystoreProps.load(new FileInputStream(keystorePropsFile))
-    }
-
-    signingConfigs {
-        release {
-            // 若 CI 未写入 keystore.properties，则保持空，Gradle 会给出明确错误提示
-            if (keystoreProps['storeFile']) {
-                storeFile     file(keystoreProps['storeFile'])
-                storePassword keystoreProps['storePassword']
-                keyAlias      keystoreProps['keyAlias']
-                keyPassword   keystoreProps['keyPassword']
-            }
-
-            /** *关键* 同时启用三种签名方案 **/
-            v1SigningEnabled true   // Jar Signature - Android 4.1+
-            v2SigningEnabled true   // Full APK Signature - Android 7+
-            v3SigningEnabled true   // APKS签名 - Android 9+
-        }
-    }
-
     buildTypes {
         release {
-            minifyEnabled false          // 如需压缩可切换 true 并自定义 proguard
-            shrinkResources false
-            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            signingConfig signingConfigs.release   // 方便调试直接用同一把 keystore
-        }
-    }
-
-    /** 排除重复 META-INF，防止渠道二审报冲突 **/
-    packagingOptions {
-        resources.excludes += ['META-INF/LICENSE*', 'META-INF/AL2.0', 'META-INF/LGPL2.1']
     }
 }
 
-/** Capacitor & Cordova 插件的本地 jar/aar 路径 */
 repositories {
-    flatDir {
+    flatDir{
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
-
     implementation project(':capacitor-android')
-    implementation project(':capacitor-cordova-android-plugins')
-
-    testImplementation       "junit:junit:$junitVersion"
+    testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
 }
 
-/** Capacitor 自动生成的额外脚本（保持不变） */
 apply from: 'capacitor.build.gradle'
 
-/** 仅当 google-services.json 存在时启用 FCM 等服务 **/
 try {
-    if (file('google-services.json').text) {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
         apply plugin: 'com.google.gms.google-services'
     }
-} catch (Exception ignored) {
-    logger.lifecycle("google-services.json not found，已跳过 google-services 插件")
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
