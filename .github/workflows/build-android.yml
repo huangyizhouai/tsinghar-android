@@ -1,4 +1,3 @@
-# .github/workflows/build-android.yml
 name: Build Capacitor Android (debug / release)
 
 on:
@@ -80,9 +79,13 @@ jobs:
             ./gradlew assembleDebug --no-daemon --stacktrace
           fi
 
+      # 修复：使用完整路径调用 apksigner
       - name: Verify signing
         if: ${{ inputs.build_type == 'release' }}
-        run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
+        run: |
+          export ANDROID_HOME="/usr/local/lib/android/sdk"
+          export PATH="$ANDROID_HOME/build-tools/34.0.0:$PATH"
+          apksigner verify -v android/app/build/outputs/apk/release/*.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
