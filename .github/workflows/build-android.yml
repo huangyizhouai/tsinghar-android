@@ -1,56 +1,82 @@
-name: Build (debug or release)
-
+name: Build Android
 on:
   workflow_dispatch:
     inputs:
       build_type:
-        description: debug / release
-        required: true
-        default: debug
         type: choice
+        default: release
         options: [debug, release]
 
 env:
-  SDK_VERSION: '34'
-  JAVA_VERSION: '17'
+  SDK_API: '34'            # target/compileSdk
+  BUILD_TOOLS: '34.0.0'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
+
+    # ① 安装 JDK 17
+    - id: setup-jdk
+      uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: ${{ env.JAVA_VERSION }}
+        java-version: 17
+
+    # ② 把 JDK 17 写进 PATH / JAVA_HOME（修复 11.0.27 问题）
+    - name: Use JDK 17 as default
+      run: |
+        echo "JAVA_HOME=${{ steps.setup-jdk.outputs.path }}" >> $GITHUB_ENV
+        echo "${{ steps.setup-jdk.outputs.path }}/bin" >> $GITHUB_PATH
+
+    # ③ 安装 Android SDK
     - uses: android-actions/setup-android@v3
       with:
         packages: |
           platform-tools
-          platforms;android-${{ env.SDK_VERSION }}
-          build-tools;34.0.0
+          platforms;android-${{ env.SDK_API }}
+          build-tools;${{ env.BUILD_TOOLS }}
 
+    # ④ JS 依赖
     - run: npm ci --prefer-offline --no-audit
 
-    # debug 构建无需签名步骤
-    - name: Assemble
+    # ⑤ 解码 .jks + key.properties
+    - name: Prepare signing
       run: |
-        cd android
-        if [[ "${{ github.event.inputs.build_type }}" == "debug" ]]; then
-          ./gradlew assembleDebug  --no-daemon
-        else
-          echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > app/tsinghar-release.jks
-          echo -e "storePassword=$ANDROID_KEYSTORE_PASSWORD\nkeyPassword=$ANDROID_KEY_PASSWORD\nkeyAlias=$ANDROID_KEY_ALIAS\nstoreFile=tsinghar-release.jks" > ../key.properties
-          ./gradlew assembleRelease --no-daemon
-        fi
+        echo "$ANDROID_SIGNING_KEY_BASE64" | base64 -d > android/app/tsinghar-release.jks
+        cat <<EOF > android/key.properties
+        storePassword=$ANDROID_KEYSTORE_PASSWORD
+        keyPassword=$ANDROID_KEY_PASSWORD
+        keyAlias=$ANDROID_KEY_ALIAS
+        storeFile=tsinghar-release.jks
+        EOF
       env:
         ANDROID_SIGNING_KEY_BASE64:  ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
         ANDROID_KEYSTORE_PASSWORD:   ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         ANDROID_KEY_PASSWORD:        ${{ secrets.ANDROID_KEY_PASSWORD }}
         ANDROID_KEY_ALIAS:           ${{ secrets.ANDROID_KEY_ALIAS }}
 
+    # ⑥ 构建 debug/release
+    - name: Assemble
+      run: |
+        cd android
+        if [[ "${{ github.event.inputs.build_type }}" == "debug" ]]; then
+          ./gradlew assembleDebug  --no-daemon --stacktrace
+        else
+          ./gradlew assembleRelease --no-daemon --stacktrace
+        fi
+
+    # ⑦ release 再做一次签名校验
+    - name: Verify signing
+      if: github.event.inputs.build_type == 'release'
+      run: apksigner verify -v android/app/build/outputs/apk/release/*.apk
+
+    # ⑧ 上传
     - uses: actions/upload-artifact@v4
       with:
         name: android-${{ github.event.inputs.build_type }}-apks
         path: android/app/build/outputs/apk/${{ github.event.inputs.build_type }}/*.apk
-        retention-days: 14
+        retention-days: 30
